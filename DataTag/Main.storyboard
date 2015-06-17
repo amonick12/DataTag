@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nzl-zE-Xpf">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="jGH-Pa-czZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsOnSwipe="YES" id="nzl-zE-Xpf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9XT-jx-G23">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="sHQ-Bn-6Va">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="9GA-e1-Jc9" kind="relationship" relationship="rootViewController" id="0mG-Cq-KLA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fLl-7e-sD8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="1061"/>
+        </scene>
+        <!--Scan Nav Controller-->
+        <scene sceneID="y5N-hq-7Id">
+            <objects>
+                <navigationController storyboardIdentifier="ScanNav" id="Coe-ni-Yfh" customClass="ScanNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8d7-I1-NSC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rqv-zs-jAs" kind="relationship" relationship="rootViewController" id="9P4-iH-XeD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jaE-5F-ZNk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="386"/>
+        </scene>
+        <!--Scan-->
+        <scene sceneID="LVx-q3-BBi">
+            <objects>
+                <viewController id="rqv-zs-jAs" customClass="ScanViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gwZ-0u-BNN"/>
+                        <viewControllerLayoutGuide type="bottom" id="7oS-xe-egh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QZE-5D-nM2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0Z-G5-Dos">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="X0Z-G5-Dos" firstAttribute="top" secondItem="QZE-5D-nM2" secondAttribute="top" id="8RU-Nb-bIj"/>
+                            <constraint firstItem="7oS-xe-egh" firstAttribute="top" secondItem="X0Z-G5-Dos" secondAttribute="bottom" id="fZR-oh-BkX"/>
+                            <constraint firstAttribute="trailing" secondItem="X0Z-G5-Dos" secondAttribute="trailing" id="mn7-Fw-VMB"/>
+                            <constraint firstItem="X0Z-G5-Dos" firstAttribute="leading" secondItem="QZE-5D-nM2" secondAttribute="leading" id="sO1-Vf-asd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan" id="EGb-6g-xf8">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="ghV-nF-ehg">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="rqv-zs-jAs" id="jDd-nv-udW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <connections>
+                        <outlet property="qrCodeFrameView" destination="X0Z-G5-Dos" id="dyx-cU-pmK"/>
+                        <segue destination="nZd-rS-8Oa" kind="show" identifier="showDocumentSegue" id="fiP-if-77G"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SRP-Mj-VCw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="386"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="FPv-NU-siy">
+            <objects>
+                <tableViewController id="9GA-e1-Jc9" customClass="MainViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="188" sectionHeaderHeight="22" sectionFooterHeight="22" id="ABa-6Z-fp1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="188" id="wid-Or-0Pe">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wid-Or-0Pe" id="daj-2q-abc">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9GA-e1-Jc9" id="DvP-d6-jIh"/>
+                            <outlet property="delegate" destination="9GA-e1-Jc9" id="xSb-LB-7Mz"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="sgd-fb-vMI"/>
+                        <barButtonItem title="Share Data" id="0Nf-AZ-vmX">
+                            <connections>
+                                <action selector="shareDataButtonPressed:" destination="9GA-e1-Jc9" id="waP-Nv-TXo"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="s1f-Ve-goM"/>
+                        <barButtonItem title="Tag Data" id="Sws-gz-4pd">
+                            <connections>
+                                <action selector="unlockDataButtonPressed:" destination="9GA-e1-Jc9" id="jmW-DS-E46"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="RCO-8X-k08"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="HKf-6R-WLJ">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hNO-tV-dEY">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Shared"/>
+                                <segment title="Tagged"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j5z-Hm-tJY"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="1063"/>
+        </scene>
+        <!--Share-->
+        <scene sceneID="MOu-Mv-iSt">
+            <objects>
+                <viewController id="K0C-bw-dWA" customClass="QRGeneratorViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wcn-AR-qIH"/>
+                        <viewControllerLayoutGuide type="bottom" id="iJX-rk-DXb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Mn0-Or-jfq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gDY-LA-x0V">
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Jgx-s3-q40"/>
+                                    <constraint firstAttribute="width" constant="200" id="ccz-AD-2DB"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="gDY-LA-x0V" secondAttribute="centerX" id="JM7-Rw-cX7"/>
+                            <constraint firstAttribute="centerY" secondItem="gDY-LA-x0V" secondAttribute="centerY" id="OuD-1y-KhC"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zKm-04-pJ8"/>
+                        <barButtonItem title="Email" id="2N8-fg-Gmu">
+                            <connections>
+                                <action selector="emailButtonPressed:" destination="K0C-bw-dWA" id="Xo8-Fs-2GE"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="FW0-5H-0QU"/>
+                        <barButtonItem title="Print" id="K2m-E4-3mz">
+                            <connections>
+                                <action selector="printButtonPressed:" destination="K0C-bw-dWA" id="TXW-SQ-3Xj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WTk-V9-McU"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Share" id="bDi-A7-zZO">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="mCR-5x-ydr">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="K0C-bw-dWA" id="yEb-v1-ECX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imgQRCode" destination="gDY-LA-x0V" id="8ir-dI-llR"/>
+                        <outlet property="navTitle" destination="bDi-A7-zZO" id="RUT-DD-LVB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yac-zQ-osv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1639" y="1063"/>
+        </scene>
+        <!--Add Document Nav Controller-->
+        <scene sceneID="7zN-T7-3n6">
+            <objects>
+                <navigationController storyboardIdentifier="AddDocumentNav" toolbarHidden="NO" id="Vzk-ng-hJQ" customClass="AddDocumentNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEr-ue-aZ0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="kLh-l0-cgc">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="3nt-JK-Bum" kind="relationship" relationship="rootViewController" id="oaW-Sy-nTA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qVO-6u-zIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="1774"/>
+        </scene>
+        <!--Add Document-->
+        <scene sceneID="Ffp-HA-YGB">
+            <objects>
+                <tableViewController storyboardIdentifier="AddDocument" title="Add Document" id="3nt-JK-Bum" customClass="AddDocumentViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LvH-ME-TRW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <progressView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" id="gAJ-u1-u2V">
+                            <rect key="frame" x="0.0" y="-2" width="600" height="2"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </progressView>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddDocumentCell" textLabel="Yp9-Ll-UXb" rowHeight="60" style="IBUITableViewCellStyleDefault" id="llb-Rc-pqg">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="llb-Rc-pqg" id="Xjx-rn-ybB">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yp9-Ll-UXb">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3nt-JK-Bum" id="Lgk-kA-FhO"/>
+                            <outlet property="delegate" destination="3nt-JK-Bum" id="vIN-kG-ffg"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="zcf-NV-aaW"/>
+                        <barButtonItem title="Connect to Dropbox" id="5Ir-ZJ-EEV">
+                            <connections>
+                                <action selector="connectButtonPressed:" destination="3nt-JK-Bum" id="l1k-EZ-Yw8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WaY-EL-at7"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Select Document" id="zF8-bO-Vhn">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="lA3-7b-Yfi">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="3nt-JK-Bum" id="efq-A1-kay"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="connectButton" destination="5Ir-ZJ-EEV" id="ZPA-wQ-Foa"/>
+                        <outlet property="progressBar" destination="gAJ-u1-u2V" id="1Oz-ae-xSc"/>
+                        <segue destination="qyQ-PZ-oRv" kind="show" identifier="confirmDocumentSegue" id="Iba-Dh-wBi"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Yy-jH-m8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="1774"/>
+        </scene>
+        <!--Confirm Document View Controller-->
+        <scene sceneID="EvS-Pm-l2Q">
+            <objects>
+                <viewController id="qyQ-PZ-oRv" customClass="ConfirmDocumentViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QlO-jp-JvU"/>
+                        <viewControllerLayoutGuide type="bottom" id="tiS-gh-cx4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LA2-Tx-zpz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbB-lB-yUo">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hMt-nR-bIX">
+                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="sO5-Dx-Ea7"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hMt-nR-bIX" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="2eq-KE-u1Y"/>
+                            <constraint firstAttribute="trailing" secondItem="jbB-lB-yUo" secondAttribute="trailing" id="H6z-YQ-9Tj"/>
+                            <constraint firstItem="jbB-lB-yUo" firstAttribute="top" secondItem="LA2-Tx-zpz" secondAttribute="top" id="PBA-ja-wwn"/>
+                            <constraint firstAttribute="trailing" secondItem="hMt-nR-bIX" secondAttribute="trailing" id="lig-Ql-aE0"/>
+                            <constraint firstAttribute="bottom" secondItem="jbB-lB-yUo" secondAttribute="bottom" id="w1L-5z-Xqm"/>
+                            <constraint firstItem="jbB-lB-yUo" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="xCp-XM-3Kq"/>
+                            <constraint firstItem="hMt-nR-bIX" firstAttribute="top" secondItem="QlO-jp-JvU" secondAttribute="bottom" id="yt8-40-UyG"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JHp-bv-Goc"/>
+                        <barButtonItem title="Share" id="3qa-Gz-QTM">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="qyQ-PZ-oRv" id="IWQ-mO-9Bs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="syQ-Vt-EYd"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="J5l-je-N7R">
+                        <nil key="title"/>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="navTitle" destination="J5l-je-N7R" id="EXl-Xc-IZU"/>
+                        <outlet property="progressBar" destination="hMt-nR-bIX" id="mEy-is-hyg"/>
+                        <outlet property="shareButton" destination="3qa-Gz-QTM" id="wqy-te-8y0"/>
+                        <outlet property="webView" destination="jbB-lB-yUo" id="26n-Am-j8z"/>
+                        <segue destination="K0C-bw-dWA" kind="show" identifier="qrGeneratorSegue" id="QDP-VT-egh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uOK-zo-Cnu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1626" y="1774"/>
+        </scene>
+        <!--Document-->
+        <scene sceneID="zIk-lW-KeF">
+            <objects>
+                <viewController title="Document" id="nZd-rS-8Oa" customClass="DocumentViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FMk-zw-Qnq"/>
+                        <viewControllerLayoutGuide type="bottom" id="KXZ-xG-3FN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2PT-Dh-DP0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptY-1D-raY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j1E-X0-xin">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="Uv9-cc-2km"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="top" secondItem="2PT-Dh-DP0" secondAttribute="top" id="174-Uf-oU6"/>
+                            <constraint firstItem="j1E-X0-xin" firstAttribute="top" secondItem="FMk-zw-Qnq" secondAttribute="bottom" id="8f8-S2-UOm"/>
+                            <constraint firstAttribute="trailing" secondItem="j1E-X0-xin" secondAttribute="trailing" id="Myz-Se-7dg"/>
+                            <constraint firstAttribute="trailing" secondItem="ptY-1D-raY" secondAttribute="trailing" id="ayR-or-V9Y"/>
+                            <constraint firstItem="j1E-X0-xin" firstAttribute="leading" secondItem="2PT-Dh-DP0" secondAttribute="leading" id="bgx-wA-BUi"/>
+                            <constraint firstAttribute="bottom" secondItem="ptY-1D-raY" secondAttribute="bottom" id="lzc-KZ-X10"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="leading" secondItem="2PT-Dh-DP0" secondAttribute="leading" id="y4r-Jw-who"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Document Title" id="wK7-Dz-8fE">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="QJG-F4-Ibc">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="nZd-rS-8Oa" id="dk3-I7-8Mj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="navTitle" destination="wK7-Dz-8fE" id="sxo-kK-OUb"/>
+                        <outlet property="progressBar" destination="j1E-X0-xin" id="ofb-yx-pVr"/>
+                        <outlet property="webView" destination="ptY-1D-raY" id="Vaj-S5-Ary"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E4N-av-uCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1639" y="386"/>
+        </scene>
+    </scenes>
+</document>
