@@ -11,6 +11,15 @@ import Parse
 
 class MainViewController: UITableViewController {
 
+    var sharedData: [AnyObject]?
+    var taggedData: [AnyObject]?
+    
+    var sharedDocuments: [AnyObject] = []
+    var sharedImages: [AnyObject] = []
+    
+    var taggedDocuments: [AnyObject] = []
+    var taggedImages: [AnyObject] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,7 +29,89 @@ class MainViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        
+        
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if PFUser.currentUser() != nil {
+            loadTaggedData()
+            loadSharedData()
+        }
+    }
+    
+    func loadTaggedData() {
+        var query = PFUser.currentUser()!.relationForKey("unlockedData").query()!
+        query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if objects != nil {
+                self.taggedData = objects
+                println("Found \(self.taggedData!.count) tagged data")
+                self.taggedDocuments.removeAll(keepCapacity: false)
+                self.taggedImages.removeAll(keepCapacity: false)
+                
+                if let taggedData = objects as? [PFObject] {
+                    for data in taggedData {
+                        let type = data["type"] as! String
+                        //println(type)
+                        if type == "document" {
+                            self.taggedDocuments.append(data as AnyObject)
+                        } else if type == "image" {
+                            self.taggedImages.append(data as AnyObject)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadSharedData() {
+        var query = PFUser.currentUser()!.relationForKey("sharedData").query()!
+        query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if objects != nil {
+                self.sharedData = objects
+                println("Found \(self.sharedData!.count) shared data")
+                self.sharedDocuments.removeAll(keepCapacity: false)
+                self.sharedImages.removeAll(keepCapacity: false)
+                
+                if let sharedData = objects as? [PFObject] {
+                    for data in sharedData {
+                        let type = data["type"] as! String
+                        println(type)
+                        if type == "document" {
+                            self.sharedDocuments.append(data as AnyObject)
+                        } else if type == "image" {
+                            self.sharedImages.append(data as AnyObject)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Potentially incomplete method implementation.
+        // Return the number of sections.
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+        return 0
+    }
+    
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+    
+    // Configure the cell...
+    
+    return cell
+    }
+
 
     @IBAction func shareDataButtonPressed(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Share Data", message: "What type of data do you want to share?", preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -91,30 +182,7 @@ class MainViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
-    }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -36,6 +36,8 @@
 		003FE3C61B3106C100012D09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BB1B3106C100012D09 /* Security.framework */; };
 		003FE3C71B3106C100012D09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BC1B3106C100012D09 /* StoreKit.framework */; };
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
+		009676131B345513005C087A /* Getting Started.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 009676121B345513005C087A /* Getting Started.rtf */; };
+		009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009676151B34557A005C087A /* DocumentsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,8 @@
 		003FE3BB1B3106C100012D09 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		003FE3BC1B3106C100012D09 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		009676121B345513005C087A /* Getting Started.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Getting Started.rtf"; sourceTree = "<group>"; };
+		009676151B34557A005C087A /* DocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 		003FE3701B3103D800012D09 /* DataTag */ = {
 			isa = PBXGroup;
 			children = (
+				009676141B345558005C087A /* Cells */,
 				003FE3A51B31050A00012D09 /* Main.storyboard */,
 				003FE3951B31049C00012D09 /* AppDelegate.swift */,
 				003FE3981B31049C00012D09 /* MainViewController.swift */,
@@ -156,6 +161,7 @@
 		003FE3711B3103D800012D09 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				009676121B345513005C087A /* Getting Started.rtf */,
 				003FE37A1B3103D800012D09 /* Images.xcassets */,
 				003FE37C1B3103D800012D09 /* LaunchScreen.xib */,
 				003FE3A81B31059300012D09 /* temp.m */,
@@ -220,6 +226,14 @@
 				003FE3961B31049C00012D09 /* ConfirmDocumentViewController.swift */,
 			);
 			name = AddData;
+			sourceTree = "<group>";
+		};
+		009676141B345558005C087A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				009676151B34557A005C087A /* DocumentsTableViewCell.swift */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,6 +319,7 @@
 			files = (
 				003FE3A61B31050A00012D09 /* Main.storyboard in Resources */,
 				003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */,
+				009676131B345513005C087A /* Getting Started.rtf in Resources */,
 				003FE37B1B3103D800012D09 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +341,7 @@
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,
 				003FE3A21B31049C00012D09 /* QRGeneratorViewController.swift in Sources */,
+				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
 				003FE3A91B31059300012D09 /* temp.m in Sources */,
@@ -539,6 +555,7 @@
 				003FE38F1B3103D800012D09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		003FE3901B3103D800012D09 /* Build configuration list for PBXNativeTarget "DataTagTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +564,7 @@
 				003FE3921B3103D800012D09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
