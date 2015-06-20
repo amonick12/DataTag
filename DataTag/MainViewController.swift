@@ -11,6 +11,8 @@ import Parse
 
 class MainViewController: UITableViewController {
 
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
     var sharedData: [AnyObject]?
     var taggedData: [AnyObject]?
     
@@ -33,6 +35,10 @@ class MainViewController: UITableViewController {
         
     }
 
+    @IBAction func controlChanged(sender: UISegmentedControl) {
+        self.tableView.reloadData()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if PFUser.currentUser() != nil {
@@ -53,7 +59,6 @@ class MainViewController: UITableViewController {
                 if let taggedData = objects as? [PFObject] {
                     for data in taggedData {
                         let type = data["type"] as! String
-                        //println(type)
                         if type == "document" {
                             self.taggedDocuments.append(data as AnyObject)
                         } else if type == "image" {
@@ -61,6 +66,7 @@ class MainViewController: UITableViewController {
                         }
                     }
                 }
+                self.tableView.reloadData()
             }
         }
     }
@@ -77,7 +83,6 @@ class MainViewController: UITableViewController {
                 if let sharedData = objects as? [PFObject] {
                     for data in sharedData {
                         let type = data["type"] as! String
-                        println(type)
                         if type == "document" {
                             self.sharedDocuments.append(data as AnyObject)
                         } else if type == "image" {
@@ -85,6 +90,7 @@ class MainViewController: UITableViewController {
                         }
                     }
                 }
+                self.tableView.reloadData()
             }
         }
     }
@@ -92,24 +98,28 @@ class MainViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
+        return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+        return 1
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("DocumentCell", forIndexPath: indexPath) as! DocumentsTableViewCell
+        if segmentedControl.selectedSegmentIndex == 0 {
+            cell.documents = self.sharedDocuments
+        } else if segmentedControl.selectedSegmentIndex == 1 {
+            cell.documents = self.taggedDocuments
+        }
+        if cell.documents != nil {
+            cell.configureWithData()
+        }
+        
     
-    // Configure the cell...
-    
-    return cell
+        return cell
     }
 
 

@@ -28,16 +28,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        PFAnonymousUtils.logInWithBlock {
-            (user: PFUser?, error: NSError?) -> Void in
-            if error != nil || user == nil {
-                println("Anonymous login failed.")
-            } else {
-                println("Anonymous user logged in.")
-                user!.incrementKey("RunCount")
-                user!.saveInBackground()
+        if PFUser.currentUser() == nil {
+            PFAnonymousUtils.logInWithBlock {
+                (user: PFUser?, error: NSError?) -> Void in
+                if error != nil || user == nil {
+                    println("Anonymous login failed.")
+                } else {
+                    println("Anonymous user logged in.")
+                    user!.incrementKey("RunCount")
+                    user!.saveInBackground()
+                }
             }
+        } else {
+            PFUser.currentUser()?.incrementKey("RunCount")
+            PFUser.currentUser()?.saveInBackground()
         }
+        
         
         let appKey = "cqs8bc801ha7lc0"
         let appSecret = "8ic9ew13gps6pvg"

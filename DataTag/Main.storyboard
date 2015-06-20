@@ -87,35 +87,35 @@
         <scene sceneID="FPv-NU-siy">
             <objects>
                 <tableViewController id="9GA-e1-Jc9" customClass="MainViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="188" sectionHeaderHeight="22" sectionFooterHeight="22" id="ABa-6Z-fp1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="250" sectionHeaderHeight="22" sectionFooterHeight="22" id="ABa-6Z-fp1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="wid-Or-0Pe" customClass="DocumentsTableViewCell" customModule="DataTag" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocumentCell" rowHeight="250" id="wid-Or-0Pe" customClass="DocumentsTableViewCell" customModule="DataTag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wid-Or-0Pe" id="daj-2q-abc">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YzQ-ud-g34">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="RGz-3q-Zuc">
-                                                <size key="itemSize" width="150" height="150"/>
+                                                <size key="itemSize" width="150" height="199"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                 <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Document Cell" id="xUd-th-3Kp">
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DocumentCollectionCell" id="xUd-th-3Kp" customClass="DocumentCollectionViewCell" customModule="DataTag" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qm5-CL-QIy">
-                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <webView userInteractionEnabled="NO" contentMode="center" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qm5-CL-QIy">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </webView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -126,6 +126,9 @@
                                                         <constraint firstItem="qm5-CL-QIy" firstAttribute="leading" secondItem="xUd-th-3Kp" secondAttribute="leading" id="boj-vT-eI0"/>
                                                         <constraint firstItem="qm5-CL-QIy" firstAttribute="top" secondItem="xUd-th-3Kp" secondAttribute="top" id="r8v-dz-8RP"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outlet property="webview" destination="qm5-CL-QIy" id="cZz-ZE-CAL"/>
+                                                    </connections>
                                                 </collectionViewCell>
                                             </cells>
                                         </collectionView>
@@ -171,9 +174,13 @@
                                 <segment title="Shared"/>
                                 <segment title="Tagged"/>
                             </segments>
+                            <connections>
+                                <action selector="controlChanged:" destination="9GA-e1-Jc9" eventType="valueChanged" id="PUj-QJ-J3A"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>
+                        <outlet property="segmentedControl" destination="hNO-tV-dEY" id="d3t-EV-SLr"/>
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j5z-Hm-tJY"/>
                     </connections>
                 </tableViewController>
@@ -278,7 +285,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yp9-Ll-UXb">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

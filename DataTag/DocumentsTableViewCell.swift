@@ -17,9 +17,15 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        collectionView.delegate = self
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
     }
 
+    func configureWithData() {
+        println("Documents Data Configure")
+        self.collectionView.reloadData()
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -40,8 +46,21 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DocumentCell", forIndexPath: indexPath) as! UICollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DocumentCollectionCell", forIndexPath: indexPath) as! DocumentCollectionViewCell
+        let document = self.documents![indexPath.row] as! PFObject
+        let mimeType = document["mimeType"] as! String
+        let file = document["fileData"] as! PFFile
+        file.getDataInBackgroundWithBlock ({
+            (data: NSData?, error: NSError?) -> Void in
+            //self.progressBar.hidden = true
+            if error == nil {
+                cell.webview.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+                
+            } else { println("Error loading document data") }
+            }, progressBlock: {
+                (percentDone: Int32) -> Void in
+                //self.progressBar.progress = Float(percentDone)/100
+        })
         
         return cell
     }

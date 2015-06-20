@@ -38,6 +38,7 @@
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
 		009676131B345513005C087A /* Getting Started.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 009676121B345513005C087A /* Getting Started.rtf */; };
 		009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009676151B34557A005C087A /* DocumentsTableViewCell.swift */; };
+		00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		009676121B345513005C087A /* Getting Started.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Getting Started.rtf"; sourceTree = "<group>"; };
 		009676151B34557A005C087A /* DocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewCell.swift; sourceTree = "<group>"; };
+		00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				009676151B34557A005C087A /* DocumentsTableViewCell.swift */,
+				00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				003FE3A11B31049C00012D09 /* MainViewController.swift in Sources */,
 				003FE39F1B31049C00012D09 /* ConfirmDocumentViewController.swift in Sources */,
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
+				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
 				003FE3A41B31049C00012D09 /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
