@@ -41,13 +41,21 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate {
 
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.preferredContentSize = CGSizeMake(350.0, 450.0)
+
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "confirmDocumentSegue" {
             if let destination = segue.destinationViewController as? ConfirmDocumentViewController {
                 destination.filename = selectedFileName!
                 destination.mimeType = selectedMimeType!
                 //destination.delegate = self
-                UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
+                //UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
             }
         }
     }

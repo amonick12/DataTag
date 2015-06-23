@@ -131,9 +131,9 @@ class MainViewController: UITableViewController {
         }
         if cell.documents != nil {
             cell.delegate = self
+            cell.viewController = self
             cell.configureWithData()
         }
-        
     
         return cell
     }
@@ -281,7 +281,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("AddDocumentNav") as!AddDocumentNavController
         let root = vc.visibleViewController as! AddDocumentViewController
-        
+
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
         popover.barButtonItem = sender
@@ -290,6 +290,6 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     }
 
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.FullScreen
+        return UIModalPresentationStyle.None
     }
 }

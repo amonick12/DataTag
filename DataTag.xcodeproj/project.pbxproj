@@ -148,14 +148,12 @@
 		003FE3701B3103D800012D09 /* DataTag */ = {
 			isa = PBXGroup;
 			children = (
-				00A50F9D1B38F6DE00539987 /* DetailVC */,
-				009676141B345558005C087A /* Cells */,
 				003FE3A51B31050A00012D09 /* Main.storyboard */,
 				003FE3951B31049C00012D09 /* AppDelegate.swift */,
 				003FE3981B31049C00012D09 /* MainViewController.swift */,
-				003FE3971B31049C00012D09 /* DocumentViewController.swift */,
-				003FE3991B31049C00012D09 /* QRGeneratorViewController.swift */,
-				003FE39B1B31049C00012D09 /* ScanViewController.swift */,
+				00A50F9D1B38F6DE00539987 /* DetailVC */,
+				009676141B345558005C087A /* Cells */,
+				00A50FA01B39E6B200539987 /* TagData */,
 				003FE3CA1B3106F800012D09 /* AddData */,
 				003FE3C91B3106CD00012D09 /* NavControllers */,
 				003FE3711B3103D800012D09 /* Supporting Files */,
@@ -229,6 +227,7 @@
 			children = (
 				003FE3941B31049C00012D09 /* AddDocumentViewController.swift */,
 				003FE3961B31049C00012D09 /* ConfirmDocumentViewController.swift */,
+				003FE3991B31049C00012D09 /* QRGeneratorViewController.swift */,
 			);
 			name = AddData;
 			sourceTree = "<group>";
@@ -248,6 +247,15 @@
 				00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */,
 			);
 			name = DetailVC;
+			sourceTree = "<group>";
+		};
+		00A50FA01B39E6B200539987 /* TagData */ = {
+			isa = PBXGroup;
+			children = (
+				003FE39B1B31049C00012D09 /* ScanViewController.swift */,
+				003FE3971B31049C00012D09 /* DocumentViewController.swift */,
+			);
+			name = TagData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

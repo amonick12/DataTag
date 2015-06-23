@@ -13,9 +13,10 @@ protocol DocumentsDelegate {
     func documentObjectSelected(documentObject: AnyObject)
 }
 
-class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
+class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
 
     var delegate: DocumentsDelegate?
+    var viewController: UIViewController?
     
     var documents: [AnyObject]?
     @IBOutlet weak var collectionView:UICollectionView!
@@ -25,6 +26,63 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
         // Initialization code
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        
+        let longPressRec = UILongPressGestureRecognizer()
+        longPressRec.addTarget(self, action: "handleLongPress:")
+        longPressRec.minimumPressDuration = 0.5
+        longPressRec.delegate = self
+        longPressRec.delaysTouchesBegan = true
+        self.collectionView.addGestureRecognizer(longPressRec)
+
+    }
+    
+    func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state != UIGestureRecognizerState.Ended {
+            return
+        }
+        println("long press")
+        let point: CGPoint = sender.locationInView(self.collectionView)
+        let indexPath = self.collectionView.indexPathForItemAtPoint(point)
+        if indexPath == nil {
+            println("could not find index path")
+        } else {
+            let documentToDelete = self.documents![indexPath!.row] as! PFObject
+            let filename = documentToDelete["filename"] as! String
+            println(filename)
+            
+            let alertController = UIAlertController(title: filename, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
+                println("remove button tapped")
+                
+                var relation = documentToDelete.relationForKey("unlockedBy")
+                relation.removeObject(PFUser.currentUser()!)
+                documentToDelete.saveInBackground()
+                relation = PFUser.currentUser()!.relationForKey("sharedData")
+                relation.removeObject(documentToDelete)
+                relation = PFUser.currentUser()!.relationForKey("unlockedData")
+                relation.removeObject(documentToDelete)
+                PFUser.currentUser()!.saveInBackground()
+                self.documents?.removeAtIndex(indexPath!.row)
+                self.collectionView.reloadData()
+
+            })
+            alertController.addAction(removeAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert :UIAlertAction!) in
+                println("cancel button tapped")
+                
+            })
+            alertController.addAction(cancelAction)
+            
+            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
+
+            alertController.popoverPresentationController?.sourceView = cell
+            alertController.popoverPresentationController?.sourceRect = cell!.bounds
+            self.viewController!.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
+        
     }
 
     func configureWithData() {

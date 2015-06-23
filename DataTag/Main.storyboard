@@ -73,7 +73,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="qrCodeFrameView" destination="X0Z-G5-Dos" id="dyx-cU-pmK"/>
                         <segue destination="nZd-rS-8Oa" kind="show" identifier="showDocumentSegue" id="fiP-if-77G"/>
@@ -116,6 +115,7 @@
                                                             <webView userInteractionEnabled="NO" contentMode="center" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qm5-CL-QIy">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <gestureRecognizers/>
                                                             </webView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -181,8 +181,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="hNO-tV-dEY" id="d3t-EV-SLr"/>
-                        <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j5z-Hm-tJY"/>
                         <segue destination="rEa-mh-a8O" kind="presentation" identifier="documentSegue" id="Ku2-Fb-goS"/>
+                        <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j6C-JJ-03u"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -250,6 +250,7 @@
         <scene sceneID="7zN-T7-3n6">
             <objects>
                 <navigationController storyboardIdentifier="AddDocumentNav" toolbarHidden="NO" id="Vzk-ng-hJQ" customClass="AddDocumentNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MEr-ue-aZ0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -335,31 +336,32 @@
                         <viewControllerLayoutGuide type="bottom" id="tiS-gh-cx4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LA2-Tx-zpz">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbB-lB-yUo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="557"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hMt-nR-bIX">
-                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="sO5-Dx-Ea7"/>
+                                    <constraint firstAttribute="height" constant="2" id="pzv-Qq-Zme"/>
                                 </constraints>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hMt-nR-bIX" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="2eq-KE-u1Y"/>
-                            <constraint firstAttribute="trailing" secondItem="jbB-lB-yUo" secondAttribute="trailing" id="H6z-YQ-9Tj"/>
-                            <constraint firstItem="jbB-lB-yUo" firstAttribute="top" secondItem="LA2-Tx-zpz" secondAttribute="top" id="PBA-ja-wwn"/>
-                            <constraint firstAttribute="trailing" secondItem="hMt-nR-bIX" secondAttribute="trailing" id="lig-Ql-aE0"/>
-                            <constraint firstAttribute="bottom" secondItem="jbB-lB-yUo" secondAttribute="bottom" id="w1L-5z-Xqm"/>
-                            <constraint firstItem="jbB-lB-yUo" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="xCp-XM-3Kq"/>
-                            <constraint firstItem="hMt-nR-bIX" firstAttribute="top" secondItem="QlO-jp-JvU" secondAttribute="bottom" id="yt8-40-UyG"/>
+                            <constraint firstItem="hMt-nR-bIX" firstAttribute="top" secondItem="QlO-jp-JvU" secondAttribute="bottom" id="Chu-vZ-ONj"/>
+                            <constraint firstAttribute="trailing" secondItem="jbB-lB-yUo" secondAttribute="trailing" id="OwX-Bb-Sfl"/>
+                            <constraint firstItem="hMt-nR-bIX" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="eEZ-x0-1X0"/>
+                            <constraint firstAttribute="trailing" secondItem="hMt-nR-bIX" secondAttribute="trailing" id="fJb-0p-ztK"/>
+                            <constraint firstItem="jbB-lB-yUo" firstAttribute="leading" secondItem="LA2-Tx-zpz" secondAttribute="leading" id="hVy-SM-guX"/>
+                            <constraint firstAttribute="bottom" secondItem="jbB-lB-yUo" secondAttribute="bottom" constant="-1" id="nbp-YL-qKx"/>
+                            <constraint firstItem="jbB-lB-yUo" firstAttribute="top" secondItem="QlO-jp-JvU" secondAttribute="bottom" id="okg-Rs-T33"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="JHp-bv-Goc"/>
                         <barButtonItem title="Share" id="3qa-Gz-QTM">

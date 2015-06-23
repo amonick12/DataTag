@@ -28,7 +28,8 @@ class ConfirmDocumentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.None)
+        view.bringSubviewToFront(progressBar)
         navTitle.title = filename
         progressBar.hidden = true
         let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
@@ -42,6 +43,13 @@ class ConfirmDocumentViewController: UIViewController {
             println("Error loading file")
         }
         
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+            self.preferredContentSize = CGSizeMake(self.view.bounds.width * 2, self.view.bounds.height * 2)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -11,4 +11,5 @@ import UIKit
 class DocumentCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var webview: UIWebView!
+    
 }
