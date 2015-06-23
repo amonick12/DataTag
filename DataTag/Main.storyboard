@@ -182,6 +182,7 @@
                     <connections>
                         <outlet property="segmentedControl" destination="hNO-tV-dEY" id="d3t-EV-SLr"/>
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j5z-Hm-tJY"/>
+                        <segue destination="rEa-mh-a8O" kind="presentation" identifier="documentSegue" id="Ku2-Fb-goS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yac-zQ-osv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1639" y="1063"/>
+            <point key="canvasLocation" x="2303" y="1774"/>
         </scene>
         <!--Add Document Nav Controller-->
         <scene sceneID="7zN-T7-3n6">
@@ -435,6 +436,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E4N-av-uCI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1639" y="386"/>
+        </scene>
+        <!--Document-->
+        <scene sceneID="fcR-Ub-tzY">
+            <objects>
+                <viewController title="Document" id="rEa-mh-a8O" customClass="DocumentDetailViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zXF-PO-ZGS"/>
+                        <viewControllerLayoutGuide type="bottom" id="PKu-yv-TUD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fbv-pd-YZ2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="stZ-Zi-6Ql">
+                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="iWs-Jq-iK1"/>
+                                </constraints>
+                            </progressView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ut-Af-sEY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Document Title" id="bd2-hP-mno">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="gbP-tF-S8F">
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="rEa-mh-a8O" id="EcE-gY-Vw4"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXc-z6-sAe">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="stZ-Zi-6Ql" secondAttribute="trailing" id="3Ku-4q-Tqf"/>
+                            <constraint firstItem="MXc-z6-sAe" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="3ey-NE-1gF"/>
+                            <constraint firstItem="1ut-Af-sEY" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="GMH-Rg-azl"/>
+                            <constraint firstAttribute="trailing" secondItem="1ut-Af-sEY" secondAttribute="trailing" id="HoT-mu-gSf"/>
+                            <constraint firstItem="MXc-z6-sAe" firstAttribute="top" secondItem="Fbv-pd-YZ2" secondAttribute="top" constant="44" id="ZZh-wq-g2f"/>
+                            <constraint firstAttribute="bottom" secondItem="MXc-z6-sAe" secondAttribute="bottom" id="cr7-vH-UB6"/>
+                            <constraint firstAttribute="trailing" secondItem="MXc-z6-sAe" secondAttribute="trailing" id="dP6-QX-bPh"/>
+                            <constraint firstItem="1ut-Af-sEY" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" id="fHp-z7-T5s"/>
+                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" constant="44" id="kmz-np-Xdd"/>
+                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="utV-9K-ClT"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Document Title" id="xKp-hz-exC">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="WfG-tR-TEN">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="rEa-mh-a8O" id="quY-9Z-pL6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="navTitle" destination="bd2-hP-mno" id="9D4-jQ-S0f"/>
+                        <outlet property="progressBar" destination="stZ-Zi-6Ql" id="fhy-sN-xLg"/>
+                        <outlet property="webView" destination="MXc-z6-sAe" id="FWw-hX-4El"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LXH-jT-JaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2325" y="1061"/>
         </scene>
     </scenes>
 </document>

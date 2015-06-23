@@ -22,6 +22,8 @@ class MainViewController: UITableViewController {
     var taggedDocuments: [AnyObject] = []
     var taggedImages: [AnyObject] = []
     
+    var selectedObject: AnyObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,9 +36,22 @@ class MainViewController: UITableViewController {
         
         
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "documentSegue" {
+            var destination = segue.destinationViewController as! DocumentDetailViewController
+            destination.dataObject = self.selectedObject
+            
+
+        }
+    }
 
     @IBAction func controlChanged(sender: UISegmentedControl) {
-        self.tableView.reloadData()
+        if sender.selectedSegmentIndex == 0 {
+            loadSharedData()
+        } else if sender.selectedSegmentIndex == 1 {
+            loadTaggedData()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -115,6 +130,7 @@ class MainViewController: UITableViewController {
             cell.documents = self.taggedDocuments
         }
         if cell.documents != nil {
+            cell.delegate = self
             cell.configureWithData()
         }
         
@@ -238,6 +254,13 @@ class MainViewController: UITableViewController {
     }
     */
 
+}
+
+extension MainViewController: DocumentsDelegate {
+    func documentObjectSelected(documentObject: AnyObject) {
+        self.selectedObject = documentObject
+        performSegueWithIdentifier("documentSegue", sender: nil)
+    }
 }
 
 extension MainViewController: UIPopoverPresentationControllerDelegate {

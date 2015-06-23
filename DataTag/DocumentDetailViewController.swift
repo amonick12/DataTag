@@ -1,26 +1,26 @@
 //
-//  DocumentViewController.swift
-//  MysteryData
+//  DocumentDetailViewController.swift
+//  DataTag
 //
-//  Created by Aaron Monick on 6/16/15.
-//  Copyright (c) 2015 CourseBuddy. All rights reserved.
+//  Created by Aaron Monick on 6/22/15.
+//  Copyright (c) 2015 DataTag. All rights reserved.
 //
 
 import UIKit
-import WebKit
 import Parse
 
-class DocumentViewController: UIViewController {
+class DocumentDetailViewController: UIViewController {
 
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var webView: UIWebView!
     
     var dataObject: AnyObject?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
+        
         if let document = dataObject as? PFObject {
             let filename = document["filename"] as! String
             navTitle.title = filename
@@ -31,15 +31,14 @@ class DocumentViewController: UIViewController {
                 self.progressBar.hidden = true
                 if error == nil {
                     self.webView.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
-
+                    
                 } else { println("Error loading document data") }
-            }, progressBlock: {
-                (percentDone: Int32) -> Void in
-                self.progressBar.progress = Float(percentDone)/100
+                }, progressBlock: {
+                    (percentDone: Int32) -> Void in
+                    self.progressBar.progress = Float(percentDone)/100
             })
             
         }
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,6 +47,7 @@ class DocumentViewController: UIViewController {
     }
     
     @IBAction func closeButtonPressed(sender: AnyObject) {
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
         dismissViewControllerAnimated(true, completion: nil)
     }
 

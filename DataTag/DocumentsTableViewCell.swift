@@ -9,8 +9,14 @@
 import UIKit
 import Parse
 
+protocol DocumentsDelegate {
+    func documentObjectSelected(documentObject: AnyObject)
+}
+
 class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    var delegate: DocumentsDelegate?
+    
     var documents: [AnyObject]?
     @IBOutlet weak var collectionView:UICollectionView!
 
@@ -65,5 +71,8 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
         return cell
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.delegate?.documentObjectSelected(documents![indexPath.row])
+    }
 
 }
