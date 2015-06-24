@@ -104,6 +104,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 if self.dataType == "document" {
                     self.performSegueWithIdentifier("showDocumentSegue", sender: nil)
                 }
+                if self.dataType == "image" {
+                    self.performSegueWithIdentifier("showImageSegue", sender: nil)
+                }
             } else {
                 println(error)
             }
@@ -113,6 +116,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDocumentSegue" {
             let vc = segue.destinationViewController as! DocumentViewController
+            vc.dataObject = foundObject
+        } else if segue.identifier == "showImageSegue" {
+            let vc = segue.destinationViewController as! ImageViewController
             vc.dataObject = foundObject
         }
     }

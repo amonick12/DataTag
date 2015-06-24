@@ -76,6 +76,7 @@
                     <connections>
                         <outlet property="qrCodeFrameView" destination="X0Z-G5-Dos" id="dyx-cU-pmK"/>
                         <segue destination="nZd-rS-8Oa" kind="show" identifier="showDocumentSegue" id="fiP-if-77G"/>
+                        <segue destination="voe-dt-2QX" kind="show" identifier="showImageSegue" id="Yqk-di-gl7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRP-Mj-VCw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -142,6 +143,59 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="collectionView" destination="YzQ-ud-g34" id="qOH-28-IAV"/>
+                                    <segue destination="C2q-9z-LdB" kind="presentation" identifier="imageSegue" id="NM3-OG-Yrv"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="250" id="BIV-kN-9fn" customClass="ImagesTableViewCell" customModule="DataTag" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BIV-kN-9fn" id="rD0-Qs-6su">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vN4-N6-dvu">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="tfc-Xb-bad">
+                                                <size key="itemSize" width="150" height="199"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionCell" id="jzK-xm-vWb" customClass="ImageCollectionViewCell" customModule="DataTag" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Drn-ry-Fgb">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstItem="Drn-ry-Fgb" firstAttribute="leading" secondItem="jzK-xm-vWb" secondAttribute="leading" id="8AU-6X-a8X"/>
+                                                        <constraint firstItem="Drn-ry-Fgb" firstAttribute="top" secondItem="jzK-xm-vWb" secondAttribute="top" id="L4J-Qr-kgy"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Drn-ry-Fgb" secondAttribute="trailing" id="eyZ-GS-8fG"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Drn-ry-Fgb" secondAttribute="bottom" id="yBd-9v-pGx"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="imageView" destination="Drn-ry-Fgb" id="TFY-B5-6aY"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="vN4-N6-dvu" secondAttribute="trailing" id="GH2-2S-7zz"/>
+                                        <constraint firstItem="vN4-N6-dvu" firstAttribute="leading" secondItem="rD0-Qs-6su" secondAttribute="leading" id="eGE-eh-tNw"/>
+                                        <constraint firstItem="vN4-N6-dvu" firstAttribute="top" secondItem="rD0-Qs-6su" secondAttribute="top" id="nbA-rp-y2B"/>
+                                        <constraint firstAttribute="bottom" secondItem="vN4-N6-dvu" secondAttribute="bottom" id="pwt-K4-rVx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="collectionView" destination="vN4-N6-dvu" id="gN4-hS-1Pt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -494,7 +548,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptY-1D-raY">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="j1E-X0-xin">
@@ -506,7 +560,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ptY-1D-raY" firstAttribute="top" secondItem="2PT-Dh-DP0" secondAttribute="top" id="174-Uf-oU6"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="top" secondItem="2PT-Dh-DP0" secondAttribute="top" constant="64" id="174-Uf-oU6"/>
                             <constraint firstItem="j1E-X0-xin" firstAttribute="top" secondItem="FMk-zw-Qnq" secondAttribute="bottom" id="8f8-S2-UOm"/>
                             <constraint firstAttribute="trailing" secondItem="j1E-X0-xin" secondAttribute="trailing" id="Myz-Se-7dg"/>
                             <constraint firstAttribute="trailing" secondItem="ptY-1D-raY" secondAttribute="trailing" id="ayR-or-V9Y"/>
@@ -600,6 +654,124 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LXH-jT-JaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2325" y="1061"/>
+        </scene>
+        <!--Document-->
+        <scene sceneID="H1u-kq-Zkv">
+            <objects>
+                <viewController title="Document" id="voe-dt-2QX" customClass="ImageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8xp-Ye-sKf"/>
+                        <viewControllerLayoutGuide type="bottom" id="W6T-zY-1mQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cFF-XQ-9ar">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I56-4K-AQV">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="1l4-EY-rbv"/>
+                                </constraints>
+                            </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v88-b5-tMQ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="v88-b5-tMQ" firstAttribute="trailing" secondItem="I56-4K-AQV" secondAttribute="trailing" id="47v-QO-jf9"/>
+                            <constraint firstItem="v88-b5-tMQ" firstAttribute="leading" secondItem="I56-4K-AQV" secondAttribute="leading" id="82r-zv-Daa"/>
+                            <constraint firstItem="I56-4K-AQV" firstAttribute="top" secondItem="8xp-Ye-sKf" secondAttribute="bottom" id="MH3-nt-SJD"/>
+                            <constraint firstItem="v88-b5-tMQ" firstAttribute="top" secondItem="cFF-XQ-9ar" secondAttribute="top" id="Q5S-qZ-hLG"/>
+                            <constraint firstItem="I56-4K-AQV" firstAttribute="leading" secondItem="cFF-XQ-9ar" secondAttribute="leading" id="b4h-4n-ecI"/>
+                            <constraint firstItem="v88-b5-tMQ" firstAttribute="bottom" secondItem="W6T-zY-1mQ" secondAttribute="top" id="dhb-kO-cM8"/>
+                            <constraint firstAttribute="trailing" secondItem="I56-4K-AQV" secondAttribute="trailing" id="vQX-C8-eaf"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Image Title" id="e5H-RQ-8fp">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="IIc-wR-IJ2">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="voe-dt-2QX" id="mu2-4A-ZyE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="v88-b5-tMQ" id="uEt-el-9KJ"/>
+                        <outlet property="navTitle" destination="e5H-RQ-8fp" id="o9g-mR-AaZ"/>
+                        <outlet property="progressBar" destination="I56-4K-AQV" id="86S-Yg-z5z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JmW-8x-zEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2315" y="386"/>
+        </scene>
+        <!--Image-->
+        <scene sceneID="xgf-Wa-Xvp">
+            <objects>
+                <viewController title="Image" id="C2q-9z-LdB" customClass="ImageDetailViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ifi-mo-BHF"/>
+                        <viewControllerLayoutGuide type="bottom" id="4QI-D3-XLp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="J3P-kN-O8a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qci-1t-Ps3">
+                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="a4q-W1-i7r"/>
+                                </constraints>
+                            </progressView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvd-j9-dgO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Image Title" id="coc-Sb-c4m">
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="YXR-R0-YHj">
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="LyX-M0-5Dt"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cK9-4k-O2a">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cK9-4k-O2a" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="0bO-Qm-Hso"/>
+                            <constraint firstItem="qci-1t-Ps3" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="3zI-jz-ewr"/>
+                            <constraint firstAttribute="trailing" secondItem="cK9-4k-O2a" secondAttribute="trailing" id="4fH-YK-5e7"/>
+                            <constraint firstItem="cK9-4k-O2a" firstAttribute="top" secondItem="mvd-j9-dgO" secondAttribute="bottom" id="LEq-bk-Awi"/>
+                            <constraint firstItem="4QI-D3-XLp" firstAttribute="top" secondItem="cK9-4k-O2a" secondAttribute="bottom" id="UCY-FW-RHH"/>
+                            <constraint firstItem="qci-1t-Ps3" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="iyv-Bl-AmK"/>
+                            <constraint firstItem="mvd-j9-dgO" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" id="jcU-Xo-q9R"/>
+                            <constraint firstItem="mvd-j9-dgO" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="mFb-HO-gBH"/>
+                            <constraint firstAttribute="trailing" secondItem="qci-1t-Ps3" secondAttribute="trailing" id="pH7-VZ-hWM"/>
+                            <constraint firstAttribute="trailing" secondItem="mvd-j9-dgO" secondAttribute="trailing" id="xco-9t-8vj"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Image Title" id="jJx-aR-djo">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="az3-63-kMu">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="cdk-sa-1DX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="cK9-4k-O2a" id="dFL-dX-OPU"/>
+                        <outlet property="navTitle" destination="coc-Sb-c4m" id="zCw-nH-9GK"/>
+                        <outlet property="progressBar" destination="qci-1t-Ps3" id="4p3-qj-IFc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEV-h4-m1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2971" y="1061"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

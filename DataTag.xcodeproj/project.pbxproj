@@ -43,6 +43,10 @@
 		00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */; };
 		00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA51B3A3DC300539987 /* Reachability.swift */; };
 		00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */; };
+		00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */; };
+		00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */; };
+		00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */; };
+		00F2ACC21B3B12A000C3B012 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +101,10 @@
 		00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmImageViewController.swift; sourceTree = "<group>"; };
 		00A50FA51B3A3DC300539987 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentCollectionViewCell.swift; sourceTree = "<group>"; };
+		00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesTableViewCell.swift; sourceTree = "<group>"; };
+		00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +254,8 @@
 			children = (
 				009676151B34557A005C087A /* DocumentsTableViewCell.swift */,
 				00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */,
+				00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */,
+				00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -254,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */,
+				00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */,
 			);
 			name = DetailVC;
 			sourceTree = "<group>";
@@ -263,6 +274,7 @@
 			children = (
 				003FE39B1B31049C00012D09 /* ScanViewController.swift */,
 				003FE3971B31049C00012D09 /* DocumentViewController.swift */,
+				00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */,
 			);
 			name = TagData;
 			sourceTree = "<group>";
@@ -375,6 +387,7 @@
 				003FE3A21B31049C00012D09 /* QRGeneratorViewController.swift in Sources */,
 				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,
 				00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */,
+				00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
 				00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */,
@@ -383,8 +396,11 @@
 				003FE39F1B31049C00012D09 /* ConfirmDocumentViewController.swift in Sources */,
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
 				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
+				00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */,
+				00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */,
 				00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */,
 				003FE3A41B31049C00012D09 /* ScanViewController.swift in Sources */,
+				00F2ACC21B3B12A000C3B012 /* ImageDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

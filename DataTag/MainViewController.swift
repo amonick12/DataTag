@@ -49,8 +49,9 @@ class MainViewController: UITableViewController {
         if segue.identifier == "documentSegue" {
             var destination = segue.destinationViewController as! DocumentDetailViewController
             destination.dataObject = self.selectedObject
-            
-
+        } else if segue.identifier == "imageSegue" {
+            var destination = segue.destinationViewController as! ImageDetailViewController
+            destination.dataObject = self.selectedObject
         }
     }
 
@@ -125,25 +126,43 @@ class MainViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("DocumentCell", forIndexPath: indexPath) as! DocumentsTableViewCell
-        if segmentedControl.selectedSegmentIndex == 0 {
-            cell.documents = self.sharedDocuments
-        } else if segmentedControl.selectedSegmentIndex == 1 {
-            cell.documents = self.taggedDocuments
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("DocumentCell", forIndexPath: indexPath) as! DocumentsTableViewCell
+            if segmentedControl.selectedSegmentIndex == 0 {
+                cell.documents = self.sharedDocuments
+            } else if segmentedControl.selectedSegmentIndex == 1 {
+                cell.documents = self.taggedDocuments
+            }
+            if cell.documents != nil {
+                cell.delegate = self
+                cell.viewController = self
+                cell.configureWithData()
+            }
+            
+            return cell
+            
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! ImagesTableViewCell
+            if segmentedControl.selectedSegmentIndex == 0 {
+                cell.images = self.sharedImages
+            } else if segmentedControl.selectedSegmentIndex == 1 {
+                cell.images = self.taggedImages
+            }
+            if cell.images != nil {
+                cell.delegate = self
+                cell.viewController = self
+                cell.configureWithData()
+            }
+            
+            return cell
         }
-        if cell.documents != nil {
-            cell.delegate = self
-            cell.viewController = self
-            cell.configureWithData()
-        }
-    
-        return cell
+        return UITableViewCell()
     }
 
     @IBAction func shareDataButtonPressed(sender: UIBarButtonItem) {
@@ -181,7 +200,7 @@ class MainViewController: UITableViewController {
         alertController.addAction(imageAction)
         
         let videoAction = UIAlertAction(title: "Video", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
-            println("Viedo button tapped")
+            println("Video button tapped")
             
         })
         alertController.addAction(videoAction)
@@ -282,10 +301,14 @@ class MainViewController: UITableViewController {
 
 }
 
-extension MainViewController: DocumentsDelegate {
+extension MainViewController: DocumentsDelegate, ImagesDelegate {
     func documentObjectSelected(documentObject: AnyObject) {
         self.selectedObject = documentObject
         performSegueWithIdentifier("documentSegue", sender: nil)
+    }
+    func imageObjectSelected(imageObject: AnyObject) {
+        self.selectedObject = imageObject
+        performSegueWithIdentifier("imageSegue", sender: nil)
     }
 }
 

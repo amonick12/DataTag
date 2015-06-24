@@ -76,7 +76,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
             let filename = "\(dataTitle).png"
             newImage["filename"] = filename
             uploadData(data, filename: filename, newImage: newImage)
-        }else{
+        } else {
             //file size exceeding, can't upload.
             let filename = "\(dataTitle).jpeg"
             newImage["filename"] = filename
@@ -90,11 +90,11 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
                 println("jpg file is \(toMB(jpgData.length)) MB and has \(toMB(10485760 - jpgData.length)) MB left")
             } else {
                 println("jpg file is \(toMB(jpgData.length - 10485760)) MB over the limit")
-                let ratio = Double((data.length - 10485760) / 10485760)
-                println("ratio: \(ratio)")
-                let compression = CGFloat(ratio)
-                println("compression: \(compression)")
-                let newData = UIImageJPEGRepresentation(image, compression)
+//                let ratio = Double((jpgData.length - 10485760) / 10485760)
+//                println("ratio: \(ratio)")
+//                let compression = CGFloat(ratio)
+//                println("compression: \(compression)")
+                let newData = UIImageJPEGRepresentation(image, 0.5)
                 println("new data length is \(toMB(newData.length)) MB")
                 uploadData(newData, filename: filename, newImage: newImage)
             }

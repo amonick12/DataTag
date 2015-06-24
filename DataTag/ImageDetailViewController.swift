@@ -1,40 +1,41 @@
 //
-//  DocumentDetailViewController.swift
+//  ImageDetailViewController.swift
 //  DataTag
 //
-//  Created by Aaron Monick on 6/22/15.
+//  Created by Aaron Monick on 6/24/15.
 //  Copyright (c) 2015 DataTag. All rights reserved.
 //
 
 import UIKit
 import Parse
 
-class DocumentDetailViewController: UIViewController {
+class ImageDetailViewController: UIViewController {
 
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var imageView: UIImageView!
     
     var dataObject: AnyObject?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
         view.bringSubviewToFront(progressBar)
-    
-        if let document = dataObject as? PFObject {
-            let filename = document["filename"] as! String
-            navTitle.title = filename
-            let mimeType = document["mimeType"] as! String
-            let documentData = document["fileData"] as! PFFile
-            documentData.getDataInBackgroundWithBlock ({
+
+        if let image = dataObject as? PFObject {
+            let title = image["title"] as! String
+            navTitle.title = title
+            //let mimeType = image["mimeType"] as! String
+            let imageData = image["fileData"] as! PFFile
+            imageData.getDataInBackgroundWithBlock ({
                 (data: NSData?, error: NSError?) -> Void in
                 self.progressBar.hidden = true
                 if error == nil {
-                    self.webView.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+                    self.imageView.image = UIImage(data: data!)
                     self.progressBar.hidden = true
                     
-                } else { println("Error loading document data") }
+                } else { println("Error loading image data") }
                 }, progressBlock: {
                     (percentDone: Int32) -> Void in
                     self.progressBar.progress = Float(percentDone)/100
@@ -43,15 +44,16 @@ class DocumentDetailViewController: UIViewController {
         }
     }
 
+    @IBAction func closeButtonPressed(sender: AnyObject) {
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func closeButtonPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
-        dismissViewControllerAnimated(true, completion: nil)
-    }
 
     /*
     // MARK: - Navigation
