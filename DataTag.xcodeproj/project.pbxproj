@@ -47,6 +47,7 @@
 		00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */; };
 		00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */; };
 		00F2ACC21B3B12A000C3B012 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */; };
+		00F2ACC41B3B669200C3B012 /* DTSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 				003FE3A71B31059200012D09 /* DataTag-Bridging-Header.h */,
 				003FE3721B3103D800012D09 /* Info.plist */,
 				00A50FA51B3A3DC300539987 /* Reachability.swift */,
+				00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,
 				00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */,
 				00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */,
+				00F2ACC41B3B669200C3B012 /* DTSegmentedControl.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
 				00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */,
