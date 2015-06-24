@@ -36,6 +36,22 @@ class MainViewController: UITableViewController {
         segmentControl.selectedIndex = 0
         segmentControl.addTarget(self, action: "segmentValueChanged:", forControlEvents: .ValueChanged)
         
+        tableView.separatorColor = UIColor.clearColor()
+        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
+        
+        backgroundImageView.addSubview(blurEffectView)
+        tableView.backgroundView = backgroundImageView
+        
+        //tableView.backgroundView?.setTranslatesAutoresizingMaskIntoConstraints(true)
+        
+//        self.tableView.backgroundView?.addSubview(backgroundImageView)
+        //setTranslatesAutoresizingMaskIntoConstraints(false)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -400,4 +416,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         return UIModalPresentationStyle.None
     }
 
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
 }

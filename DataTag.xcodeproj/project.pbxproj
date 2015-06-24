@@ -48,6 +48,7 @@
 		00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */; };
 		00F2ACC21B3B12A000C3B012 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */; };
 		00F2ACC41B3B669200C3B012 /* DTSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */; };
+		00F2ACC61B3B70D500C3B012 /* cloud.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00F2ACC51B3B70D500C3B012 /* cloud.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DTSegmentedControl.swift; sourceTree = "<group>"; };
+		00F2ACC51B3B70D500C3B012 /* cloud.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cloud.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		003FE3711B3103D800012D09 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				00F2ACC51B3B70D500C3B012 /* cloud.jpg */,
 				009676121B345513005C087A /* Getting Started.rtf */,
 				003FE37A1B3103D800012D09 /* Images.xcassets */,
 				003FE37C1B3103D800012D09 /* LaunchScreen.xib */,
@@ -363,6 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00F2ACC61B3B70D500C3B012 /* cloud.jpg in Resources */,
 				003FE3A61B31050A00012D09 /* Main.storyboard in Resources */,
 				003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */,
 				009676131B345513005C087A /* Getting Started.rtf in Resources */,

@@ -91,6 +91,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DocumentCell" rowHeight="250" id="wid-Or-0Pe" customClass="DocumentsTableViewCell" customModule="DataTag" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -99,6 +100,7 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YzQ-ud-g34">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="RGz-3q-Zuc">
                                                 <size key="itemSize" width="150" height="199"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -121,6 +123,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="qm5-CL-QIy" secondAttribute="bottom" id="8GJ-2a-f9O"/>
                                                         <constraint firstAttribute="trailing" secondItem="qm5-CL-QIy" secondAttribute="trailing" id="akx-Hf-yfu"/>
@@ -134,6 +137,7 @@
                                             </cells>
                                         </collectionView>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="YzQ-ud-g34" secondAttribute="trailing" id="06W-hn-4HZ"/>
                                         <constraint firstItem="YzQ-ud-g34" firstAttribute="top" secondItem="daj-2q-abc" secondAttribute="top" id="FPe-vO-8sb"/>
@@ -141,6 +145,7 @@
                                         <constraint firstAttribute="bottom" secondItem="YzQ-ud-g34" secondAttribute="bottom" id="mM6-bv-Z2k"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="collectionView" destination="YzQ-ud-g34" id="qOH-28-IAV"/>
                                     <segue destination="C2q-9z-LdB" kind="presentation" identifier="imageSegue" id="NM3-OG-Yrv"/>
@@ -153,6 +158,7 @@
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vN4-N6-dvu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="tfc-Xb-bad">
                                                 <size key="itemSize" width="150" height="199"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -174,6 +180,7 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="Drn-ry-Fgb" firstAttribute="leading" secondItem="jzK-xm-vWb" secondAttribute="leading" id="8AU-6X-a8X"/>
                                                         <constraint firstItem="Drn-ry-Fgb" firstAttribute="top" secondItem="jzK-xm-vWb" secondAttribute="top" id="L4J-Qr-kgy"/>
@@ -187,6 +194,7 @@
                                             </cells>
                                         </collectionView>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="vN4-N6-dvu" secondAttribute="trailing" id="GH2-2S-7zz"/>
                                         <constraint firstItem="vN4-N6-dvu" firstAttribute="leading" secondItem="rD0-Qs-6su" secondAttribute="leading" id="eGE-eh-tNw"/>
@@ -194,6 +202,7 @@
                                         <constraint firstAttribute="bottom" secondItem="vN4-N6-dvu" secondAttribute="bottom" id="pwt-K4-rVx"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="collectionView" destination="vN4-N6-dvu" id="gN4-hS-1Pt"/>
                                 </connections>
@@ -206,13 +215,15 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="sgd-fb-vMI"/>
-                        <barButtonItem title="Share Data" id="0Nf-AZ-vmX">
+                        <barButtonItem title="SHARE DATA" style="done" id="0Nf-AZ-vmX">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="shareDataButtonPressed:" destination="9GA-e1-Jc9" id="waP-Nv-TXo"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="s1f-Ve-goM"/>
-                        <barButtonItem title="Tag Data" id="Sws-gz-4pd">
+                        <barButtonItem title="TAG DATA" style="done" id="Sws-gz-4pd">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="unlockDataButtonPressed:" destination="9GA-e1-Jc9" id="jmW-DS-E46"/>
                             </connections>
