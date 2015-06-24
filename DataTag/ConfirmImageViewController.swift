@@ -68,9 +68,46 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
         //newImage["mimeType"] = mimeType
         newImage["title"] = dataTitle
         newImage["poster"] = PFUser.currentUser()!
-        let filename = "\(dataTitle).png"
-        newImage["filename"] = filename
+        
         let data = UIImagePNGRepresentation(image)
+        if(data.length <= 10485760) {
+            //you can continue for upload.
+            println("png file is \(toMB(data.length)) MB and has \(toMB(10485760 - data.length)) MB left")
+            let filename = "\(dataTitle).png"
+            newImage["filename"] = filename
+            uploadData(data, filename: filename, newImage: newImage)
+        }else{
+            //file size exceeding, can't upload.
+            let filename = "\(dataTitle).jpeg"
+            newImage["filename"] = filename
+            println("png file is \(toMB(data.length - 10485760)) MB over the limit")
+//            let difference = Double(data.length - 10485760)
+//            let ratio = Double(difference / 10485760)
+            let jpgData = UIImageJPEGRepresentation(image, 1.0)
+            if jpgData.length <= 10485760 {
+                
+                uploadData(jpgData, filename: filename, newImage: newImage)
+                println("jpg file is \(toMB(jpgData.length)) MB and has \(toMB(10485760 - jpgData.length)) MB left")
+            } else {
+                println("jpg file is \(toMB(jpgData.length - 10485760)) MB over the limit")
+                let ratio = Double((data.length - 10485760) / 10485760)
+                println("ratio: \(ratio)")
+                let compression = CGFloat(ratio)
+                println("compression: \(compression)")
+                let newData = UIImageJPEGRepresentation(image, compression)
+                println("new data length is \(toMB(newData.length)) MB")
+                uploadData(newData, filename: filename, newImage: newImage)
+            }
+            
+        }
+        
+    }
+    
+    func toMB(bytes: Int) -> Double {
+        return Double(bytes) * pow(Double(10.0), Double(-6.0))
+    }
+    
+    func uploadData(data: NSData, filename: String, newImage: PFObject) {
         let parseFile = PFFile(name: filename, data: data)
         parseFile.saveInBackgroundWithBlock({
             (succeeded: Bool, error: NSError?) -> Void in
@@ -99,7 +136,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
                 //println(Float(percentDone)/100)
                 self.progressBar.progress = Float(percentDone)/100
         })
-        
+
     }
 
     func generateQRImage(stringQR:NSString, withSizeRate rate:CGFloat) {
