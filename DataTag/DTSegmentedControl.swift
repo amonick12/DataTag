@@ -13,7 +13,7 @@ import UIKit
     private var labels = [UILabel]()
     var thumbView = UIView()
     
-    var items: [String] = ["Item 1", "Item 2", "Item 3"] {
+    var items: [String] = ["Item 1", "Item 2"] {
         didSet {
             setupLabels()
         }
@@ -54,7 +54,7 @@ import UIKit
             setFont()
         }
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -91,7 +91,7 @@ import UIKit
         
         for index in 1...items.count {
             
-            let label = UILabel(frame: CGRectMake(0, 0, 70, 40))
+            let label = UILabel(frame: CGRectMake(0, 0, 120, 33))
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
             label.textAlignment = .Center
@@ -118,7 +118,7 @@ import UIKit
         displayNewSelectedIndex()
         
     }
-
+    
     override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
         
         let location = touch.locationInView(self)
@@ -153,7 +153,7 @@ import UIKit
             
             }, completion: nil)
     }
-
+    
     func addIndividualItemConstraints(items: [UIView], mainView: UIView, padding: CGFloat) {
         
         let constraints = mainView.constraints()
@@ -210,11 +210,10 @@ import UIKit
         
         thumbView.backgroundColor = thumbColor
     }
-
+    
     func setFont(){
         for item in labels {
             item.font = font
         }
     }
-
 }

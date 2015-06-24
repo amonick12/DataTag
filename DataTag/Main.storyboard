@@ -9,12 +9,12 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" hidesBarsOnSwipe="YES" id="nzl-zE-Xpf" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9XT-jx-G23">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="9XT-jx-G23">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="sHQ-Bn-6Va">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" id="sHQ-Bn-6Va">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -221,20 +221,14 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="HKf-6R-WLJ">
                         <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="hNO-tV-dEY">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <view key="titleView" contentMode="scaleToFill" id="x9E-4K-Xia" customClass="DTSegmentedControl" customModule="DataTag" customModuleProvider="target">
+                            <rect key="frame" x="180" y="6" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Shared"/>
-                                <segment title="Tagged"/>
-                            </segments>
-                            <connections>
-                                <action selector="controlChanged:" destination="9GA-e1-Jc9" eventType="valueChanged" id="PUj-QJ-J3A"/>
-                            </connections>
-                        </segmentedControl>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </navigationItem>
                     <connections>
-                        <outlet property="segmentedControl" destination="hNO-tV-dEY" id="d3t-EV-SLr"/>
+                        <outlet property="segmentControl" destination="x9E-4K-Xia" id="jEG-JI-5Vn"/>
                         <outlet property="shareButton" destination="0Nf-AZ-vmX" id="qKa-8a-eWA"/>
                         <segue destination="rEa-mh-a8O" kind="presentation" identifier="documentSegue" id="Ku2-Fb-goS"/>
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j6C-JJ-03u"/>

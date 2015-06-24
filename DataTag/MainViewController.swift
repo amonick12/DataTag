@@ -12,8 +12,10 @@ import Parse
 class MainViewController: UITableViewController {
 
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    //@IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    @IBOutlet var segmentControl: DTSegmentedControl!
+
     var sharedData: [AnyObject]?
     var taggedData: [AnyObject]?
     
@@ -28,6 +30,12 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        segmentControl.items = ["SHARED", "TAGGED"]
+        segmentControl.font = UIFont(name: "Avenir-Black", size: 12)
+        segmentControl.borderColor = UIColor(white: 1.0, alpha: 0.3)
+        segmentControl.selectedIndex = 0
+        segmentControl.addTarget(self, action: "segmentValueChanged:", forControlEvents: .ValueChanged)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,7 +50,11 @@ class MainViewController: UITableViewController {
             alert.show()
         }
 
-        
+        if PFUser.currentUser() != nil {
+            loadTaggedData()
+            loadSharedData()
+        }
+
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -55,21 +67,29 @@ class MainViewController: UITableViewController {
         }
     }
 
-    @IBAction func controlChanged(sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
+    func segmentValueChanged(sender: AnyObject?){
+        if segmentControl.selectedIndex == 0 {
             loadSharedData()
-        } else if sender.selectedSegmentIndex == 1 {
+        } else if segmentControl.selectedIndex == 1{
             loadTaggedData()
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        if PFUser.currentUser() != nil {
-            loadTaggedData()
-            loadSharedData()
-        }
-    }
+//    @IBAction func controlChanged(sender: UISegmentedControl) {
+//        if sender.selectedSegmentIndex == 0 {
+//            loadSharedData()
+//        } else if sender.selectedSegmentIndex == 1 {
+//            loadTaggedData()
+//        }
+//    }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//        if PFUser.currentUser() != nil {
+//            loadTaggedData()
+//            loadSharedData()
+//        }
+//    }
     
     func loadTaggedData() {
         var query = PFUser.currentUser()!.relationForKey("unlockedData").query()!
@@ -134,9 +154,9 @@ class MainViewController: UITableViewController {
         
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("DocumentCell", forIndexPath: indexPath) as! DocumentsTableViewCell
-            if segmentedControl.selectedSegmentIndex == 0 {
+            if segmentControl.selectedIndex == 0 {
                 cell.documents = self.sharedDocuments
-            } else if segmentedControl.selectedSegmentIndex == 1 {
+            } else if segmentControl.selectedIndex == 1 {
                 cell.documents = self.taggedDocuments
             }
             if cell.documents != nil {
@@ -149,9 +169,9 @@ class MainViewController: UITableViewController {
             
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! ImagesTableViewCell
-            if segmentedControl.selectedSegmentIndex == 0 {
+            if segmentControl.selectedIndex == 0 {
                 cell.images = self.sharedImages
-            } else if segmentedControl.selectedSegmentIndex == 1 {
+            } else if segmentControl.selectedIndex == 1 {
                 cell.images = self.taggedImages
             }
             if cell.images != nil {
