@@ -39,6 +39,9 @@
 		009676131B345513005C087A /* Getting Started.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 009676121B345513005C087A /* Getting Started.rtf */; };
 		009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009676151B34557A005C087A /* DocumentsTableViewCell.swift */; };
 		00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */; };
+		00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA11B3A374900539987 /* AddImageNavController.swift */; };
+		00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */; };
+		00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA51B3A3DC300539987 /* Reachability.swift */; };
 		00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +93,9 @@
 		009676121B345513005C087A /* Getting Started.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Getting Started.rtf"; sourceTree = "<group>"; };
 		009676151B34557A005C087A /* DocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewCell.swift; sourceTree = "<group>"; };
 		00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
+		00A50FA11B3A374900539987 /* AddImageNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageNavController.swift; sourceTree = "<group>"; };
+		00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmImageViewController.swift; sourceTree = "<group>"; };
+		00A50FA51B3A3DC300539987 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +176,7 @@
 				003FE3A81B31059300012D09 /* temp.m */,
 				003FE3A71B31059200012D09 /* DataTag-Bridging-Header.h */,
 				003FE3721B3103D800012D09 /* Info.plist */,
+				00A50FA51B3A3DC300539987 /* Reachability.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -218,6 +225,7 @@
 			children = (
 				003FE3931B31049C00012D09 /* AddDocumentNavController.swift */,
 				003FE39A1B31049C00012D09 /* ScanNavController.swift */,
+				00A50FA11B3A374900539987 /* AddImageNavController.swift */,
 			);
 			name = NavControllers;
 			sourceTree = "<group>";
@@ -228,6 +236,7 @@
 				003FE3941B31049C00012D09 /* AddDocumentViewController.swift */,
 				003FE3961B31049C00012D09 /* ConfirmDocumentViewController.swift */,
 				003FE3991B31049C00012D09 /* QRGeneratorViewController.swift */,
+				00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */,
 			);
 			name = AddData;
 			sourceTree = "<group>";
@@ -361,17 +370,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
+				00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,
 				003FE3A21B31049C00012D09 /* QRGeneratorViewController.swift in Sources */,
 				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,
 				00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
+				00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */,
 				003FE3A91B31059300012D09 /* temp.m in Sources */,
 				003FE3A11B31049C00012D09 /* MainViewController.swift in Sources */,
 				003FE39F1B31049C00012D09 /* ConfirmDocumentViewController.swift in Sources */,
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
 				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
+				00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */,
 				003FE3A41B31049C00012D09 /* ScanViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,6 +24,7 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
+        navigationController?.toolbarHidden = false
         navTitle.title = dataTitle
         imgQRCode.image = qrImage
     }

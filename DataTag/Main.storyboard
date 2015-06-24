@@ -181,6 +181,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="segmentedControl" destination="hNO-tV-dEY" id="d3t-EV-SLr"/>
+                        <outlet property="shareButton" destination="0Nf-AZ-vmX" id="qKa-8a-eWA"/>
                         <segue destination="rEa-mh-a8O" kind="presentation" identifier="documentSegue" id="Ku2-Fb-goS"/>
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j6C-JJ-03u"/>
                     </connections>
@@ -327,6 +328,99 @@
             </objects>
             <point key="canvasLocation" x="959" y="1774"/>
         </scene>
+        <!--Share Image-->
+        <scene sceneID="rOG-hT-eER">
+            <objects>
+                <viewController id="ZAb-yg-j49" customClass="ConfirmImageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aid-jj-h4U"/>
+                        <viewControllerLayoutGuide type="bottom" id="8cv-8Q-jwj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zhP-aW-6Cf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOL-vM-J2Y">
+                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Image Title Here" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LqM-7x-0nH">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="ZAb-yg-j49" id="PRe-Pk-yOh"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="LqM-7x-0nH" secondAttribute="bottom" id="5rh-FY-gJO"/>
+                                    <constraint firstItem="LqM-7x-0nH" firstAttribute="leading" secondItem="aOL-vM-J2Y" secondAttribute="leading" id="KQZ-pB-ak0"/>
+                                    <constraint firstAttribute="trailing" secondItem="LqM-7x-0nH" secondAttribute="trailing" id="SNq-SB-cJi"/>
+                                    <constraint firstItem="LqM-7x-0nH" firstAttribute="top" secondItem="aOL-vM-J2Y" secondAttribute="top" id="aWp-2U-Tec"/>
+                                    <constraint firstAttribute="height" constant="50" id="wql-bZ-GIH"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Id-nb-BbE">
+                                <rect key="frame" x="0.0" y="64" width="600" height="486"/>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KQm-sf-qs7">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aOL-vM-J2Y" firstAttribute="leading" secondItem="zhP-aW-6Cf" secondAttribute="leading" id="18Z-ME-k0t"/>
+                            <constraint firstAttribute="trailing" secondItem="KQm-sf-qs7" secondAttribute="trailing" id="9no-wH-yIN"/>
+                            <constraint firstItem="KQm-sf-qs7" firstAttribute="top" secondItem="aid-jj-h4U" secondAttribute="bottom" id="Hi9-K2-YM2"/>
+                            <constraint firstAttribute="trailing" secondItem="9Id-nb-BbE" secondAttribute="trailing" id="JZb-4C-lJG"/>
+                            <constraint firstAttribute="bottom" secondItem="aOL-vM-J2Y" secondAttribute="bottom" id="Xgi-dn-VnK"/>
+                            <constraint firstItem="KQm-sf-qs7" firstAttribute="leading" secondItem="zhP-aW-6Cf" secondAttribute="leading" id="nky-0m-Qvz"/>
+                            <constraint firstAttribute="trailing" secondItem="aOL-vM-J2Y" secondAttribute="trailing" id="nod-kf-Wcx"/>
+                            <constraint firstItem="9Id-nb-BbE" firstAttribute="leading" secondItem="zhP-aW-6Cf" secondAttribute="leading" id="ptm-1c-aHA"/>
+                            <constraint firstItem="aOL-vM-J2Y" firstAttribute="top" secondItem="9Id-nb-BbE" secondAttribute="bottom" id="uiJ-PI-sSJ"/>
+                            <constraint firstItem="9Id-nb-BbE" firstAttribute="top" secondItem="aid-jj-h4U" secondAttribute="bottom" id="wYI-ZJ-hw0"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Share Image" id="xN3-Ax-dpS">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="xWj-79-Xup">
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="ZAb-yg-j49" id="1hR-xO-imF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="9Id-nb-BbE" id="fYJ-mP-SBR"/>
+                        <outlet property="progressBar" destination="KQm-sf-qs7" id="AvR-rD-w2W"/>
+                        <outlet property="textField" destination="LqM-7x-0nH" id="W6K-Fe-gWP"/>
+                        <segue destination="K0C-bw-dWA" kind="show" identifier="qrGeneratorOfImage" id="9da-dY-dbE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FpP-Ir-jZz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="2454"/>
+        </scene>
+        <!--Add Image Nav Controller-->
+        <scene sceneID="pNp-xy-C7o">
+            <objects>
+                <navigationController storyboardIdentifier="AddImageNav" toolbarHidden="NO" id="tOk-wN-ams" customClass="AddImageNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8bD-i6-eJj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="hTI-ie-nxd">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="ZAb-yg-j49" kind="relationship" relationship="rootViewController" id="LJm-uW-UHD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KwZ-PY-rzU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="2454"/>
+        </scene>
         <!--Confirm Document View Controller-->
         <scene sceneID="EvS-Pm-l2Q">
             <objects>
@@ -385,7 +479,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOK-zo-Cnu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1626" y="1774"/>
+            <point key="canvasLocation" x="1620" y="1780"/>
         </scene>
         <!--Document-->
         <scene sceneID="zIk-lW-KeF">
@@ -508,4 +602,7 @@
             <point key="canvasLocation" x="2325" y="1061"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="9da-dY-dbE"/>
+    </inferredMetricsTieBreakers>
 </document>

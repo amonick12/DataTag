@@ -11,6 +11,7 @@ import Parse
 
 class MainViewController: UITableViewController {
 
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     var sharedData: [AnyObject]?
@@ -33,7 +34,14 @@ class MainViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        
+        if Reachability.isConnectedToNetwork() == true {
+            println("Internet connection OK")
+        } else {
+            println("Internet connection FAILED")
+            var alert = UIAlertView(title: "No Internet Connection", message: "Make sure your device is connected to the internet.", delegate: nil, cancelButtonTitle: "OK")
+            alert.show()
+        }
+
         
     }
     
@@ -138,7 +146,6 @@ class MainViewController: UITableViewController {
         return cell
     }
 
-
     @IBAction func shareDataButtonPressed(sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Share Data", message: "What type of data do you want to share?", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
@@ -150,6 +157,25 @@ class MainViewController: UITableViewController {
         
         let imageAction = UIAlertAction(title: "Image", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("Image button tapped")
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            
+            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("show photo library")
+                self.photoFromLibrary(sender)
+            })
+            alert.addAction(photoLibraryAction)
+            
+            let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("show camera")
+                self.shootPhoto(sender)
+            })
+            alert.addAction(cameraAction)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+            alert.addAction(cancelAction)
+
+            alert.popoverPresentationController?.barButtonItem = sender
+            self.presentViewController(alert, animated: true, completion: nil)
             
         })
         alertController.addAction(imageAction)
@@ -166,11 +192,11 @@ class MainViewController: UITableViewController {
         })
         alertController.addAction(urlAction)
         
-        let textAction = UIAlertAction(title: "Text", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
-            println("Text button tapped")
-            
-        })
-        alertController.addAction(textAction)
+//        let textAction = UIAlertAction(title: "Text", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
+//            println("Text button tapped")
+//            
+//        })
+//        alertController.addAction(textAction)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         alertController.addAction(cancelAction)
@@ -263,23 +289,61 @@ extension MainViewController: DocumentsDelegate {
     }
 }
 
+extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
+    func photoFromLibrary(sender: UIBarButtonItem) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.sourceType = .PhotoLibrary
+        picker.modalPresentationStyle = UIModalPresentationStyle.Popover
+        presentViewController(picker, animated: true, completion: nil)
+        picker.popoverPresentationController?.barButtonItem = sender
+    }
+    func shootPhoto(sender: UIBarButtonItem) {
+        if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.Camera
+            picker.cameraCaptureMode = .Photo
+            presentViewController(picker, animated: true, completion: nil)
+        } else {
+            noCamera()
+        }
+    }
+    func noCamera(){
+        let alertVC = UIAlertController(title: "No Camera", message: "Sorry, this device has no camera", preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style:.Default, handler: nil)
+        alertVC.addAction(okAction)
+        presentViewController(alertVC, animated: true, completion: nil)
+    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        dismissViewControllerAnimated(true, completion: nil)
+        var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("AddImageNav") as! AddImageNavController
+        let root = vc.visibleViewController as! ConfirmImageViewController
+        root.image = chosenImage
+        
+        vc.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+        popover.barButtonItem = self.shareButton
+        popover.delegate = self
+        presentViewController(vc, animated: true, completion:nil)
+        
+        
+    }
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 extension MainViewController: UIPopoverPresentationControllerDelegate {
-    
-//    func scanButtonPressed(sender: UIBarButtonItem) {
-//        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewControllerWithIdentifier("ScanNav") as! ScanNavController
-//        let root = vc.visibleViewController as! ScanViewController
-//        
-//        vc.modalPresentationStyle = UIModalPresentationStyle.Popover
-//        let popover: UIPopoverPresentationController = vc.popoverPresentationController!
-//        popover.barButtonItem = sender
-//        popover.delegate = self
-//        presentViewController(vc, animated: true, completion:nil)
-//    }
     
     func addDocumentButtonPressed(sender: UIBarButtonItem) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("AddDocumentNav") as!AddDocumentNavController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("AddDocumentNav") as! AddDocumentNavController
         let root = vc.visibleViewController as! AddDocumentViewController
 
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
@@ -292,4 +356,5 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
+
 }

@@ -37,9 +37,9 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     }
     
     func handleLongPress(sender: UILongPressGestureRecognizer) {
-        if sender.state != UIGestureRecognizerState.Ended {
-            return
-        }
+//        if sender.state != UIGestureRecognizerState.Ended {
+//            return
+//        }
         println("long press")
         let point: CGPoint = sender.locationInView(self.collectionView)
         let indexPath = self.collectionView.indexPathForItemAtPoint(point)
