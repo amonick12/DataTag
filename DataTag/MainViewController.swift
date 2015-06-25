@@ -11,6 +11,7 @@ import Parse
 
 class MainViewController: UITableViewController {
 
+    @IBOutlet weak var tagButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     //@IBOutlet weak var segmentedControl: UISegmentedControl!
     
@@ -60,6 +61,9 @@ class MainViewController: UITableViewController {
             loadTaggedData()
             loadSharedData()
         }
+
+        shareButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
+        tagButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
 
     }
     

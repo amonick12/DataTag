@@ -70,7 +70,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
         newImage["poster"] = PFUser.currentUser()!
         
         let data = UIImagePNGRepresentation(image)
-        if(data.length <= 10485760) {
+        if(data.length <= 10485760/2) {
             //you can continue for upload.
             println("png file is \(toMB(data.length)) MB and has \(toMB(10485760 - data.length)) MB left")
             let filename = "\(dataTitle).png"
