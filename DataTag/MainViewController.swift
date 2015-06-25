@@ -48,16 +48,6 @@ class MainViewController: UITableViewController {
         backgroundImageView.addSubview(blurEffectView)
         tableView.backgroundView = backgroundImageView
         
-        //tableView.backgroundView?.setTranslatesAutoresizingMaskIntoConstraints(true)
-        
-//        self.tableView.backgroundView?.addSubview(backgroundImageView)
-        //setTranslatesAutoresizingMaskIntoConstraints(false)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         if Reachability.isConnectedToNetwork() == true {
             println("Internet connection OK")
         } else {
@@ -157,18 +147,40 @@ class MainViewController: UITableViewController {
     
     // MARK: - Table view data source
     
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var sectionHeaderView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, 50))
+        sectionHeaderView.backgroundColor = UIColor.clearColor()
+        var headerLabel = UILabel(frame: CGRectMake(15, 15, sectionHeaderView.frame.width, 25))
+        headerLabel.backgroundColor = UIColor.clearColor()
+        headerLabel.font = UIFont(name: "Avenir", size: 15)
+        headerLabel.textColor = UIColor.whiteColor()
+        sectionHeaderView.addSubview(headerLabel)
+        switch section {
+        case 0:
+            headerLabel.text = "DOCUMENTS"
+            break
+        case 1:
+            headerLabel.text = "IMAGES"
+            break
+        default:
+            break
+        }
+        return sectionHeaderView
+        
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("DocumentCell", forIndexPath: indexPath) as! DocumentsTableViewCell
             if segmentControl.selectedIndex == 0 {
                 cell.documents = self.sharedDocuments
@@ -183,7 +195,7 @@ class MainViewController: UITableViewController {
             
             return cell
             
-        } else if indexPath.row == 1 {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! ImagesTableViewCell
             if segmentControl.selectedIndex == 0 {
                 cell.images = self.sharedImages

@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dropboxSession = DBSession(appKey: appKey, appSecret: appSecret, root: kDBRootAppFolder)
         DBSession.setSharedSession(dropboxSession)
         
-        application.setStatusBarStyle(UIStatusBarStyle.Default, animated: false)
+        application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
 
         return true
     }
