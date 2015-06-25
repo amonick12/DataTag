@@ -129,6 +129,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             //self.progressBar.hidden = true
             if error == nil {
                 cell.imageView.image = UIImage(data: data!)
+                cell.imageView.backgroundColor = UIColor.clearColor()
                 
             } else { println("Error loading image data") }
             }, progressBlock: {

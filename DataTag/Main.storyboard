@@ -673,6 +673,7 @@
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="navBar" destination="1ut-Af-sEY" id="aG0-4R-ubV"/>
                         <outlet property="navTitle" destination="bd2-hP-mno" id="9D4-jQ-S0f"/>
                         <outlet property="progressBar" destination="stZ-Zi-6Ql" id="fhy-sN-xLg"/>
                         <outlet property="webView" destination="MXc-z6-sAe" id="FWw-hX-4El"/>
@@ -795,6 +796,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="cK9-4k-O2a" id="dFL-dX-OPU"/>
+                        <outlet property="navBar" destination="mvd-j9-dgO" id="zKp-Le-UgH"/>
                         <outlet property="navTitle" destination="coc-Sb-c4m" id="zCw-nH-9GK"/>
                         <outlet property="progressBar" destination="qci-1t-Ps3" id="4p3-qj-IFc"/>
                     </connections>

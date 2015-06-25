@@ -11,6 +11,7 @@ import Parse
 
 class DocumentDetailViewController: UIViewController {
 
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var webView: UIWebView!
@@ -20,7 +21,19 @@ class DocumentDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
-        view.bringSubviewToFront(progressBar)
+        
+        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
+        backgroundImageView.addSubview(blurEffectView)
+        webView.backgroundColor = UIColor.darkGrayColor()
+        //webView.addSubview(backgroundImageView)
+//        view.bringSubviewToFront(navBar)
+//        view.bringSubviewToFront(webView)
+//        view.bringSubviewToFront(progressBar)
     
         if let document = dataObject as? PFObject {
             let filename = document["filename"] as! String

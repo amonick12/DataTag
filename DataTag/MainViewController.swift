@@ -14,7 +14,8 @@ class MainViewController: UITableViewController {
     @IBOutlet weak var tagButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     //@IBOutlet weak var segmentedControl: UISegmentedControl!
-    
+    var refresher: UIRefreshControl!
+
     @IBOutlet var segmentControl: DTSegmentedControl!
     var popTransition = PopTransitionAnimator()
 
@@ -38,17 +39,19 @@ class MainViewController: UITableViewController {
         segmentControl.selectedIndex = 0
         segmentControl.addTarget(self, action: "segmentValueChanged:", forControlEvents: .ValueChanged)
         
-        tableView.separatorColor = UIColor.clearColor()
         let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
-        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = backgroundImageView.bounds
         blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
         blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
-        
         backgroundImageView.addSubview(blurEffectView)
         tableView.backgroundView = backgroundImageView
+        
+        self.refresher = UIRefreshControl()
+        self.refresher.tintColor = UIColor.whiteColor()
+        self.refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refresher)
         
         if Reachability.isConnectedToNetwork() == true {
             println("Internet connection OK")
@@ -66,6 +69,12 @@ class MainViewController: UITableViewController {
         shareButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
         tagButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
 
+    }
+    
+    func refresh() {
+        loadTaggedData()
+        loadSharedData()
+        refresher.endRefreshing()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -193,6 +202,9 @@ class MainViewController: UITableViewController {
         return 1
     }
     
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -263,11 +275,11 @@ class MainViewController: UITableViewController {
         })
         alertController.addAction(imageAction)
         
-        let videoAction = UIAlertAction(title: "Video", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
-            println("Video button tapped")
-            
-        })
-        alertController.addAction(videoAction)
+//        let videoAction = UIAlertAction(title: "Video", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
+//            println("Video button tapped")
+//            
+//        })
+//        alertController.addAction(videoAction)
         
         let urlAction = UIAlertAction(title: "URL", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("URL button tapped")
@@ -383,6 +395,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         picker.allowsEditing = false
         picker.sourceType = .PhotoLibrary
         picker.modalPresentationStyle = UIModalPresentationStyle.Popover
+        picker.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+        picker.navigationBar.tintColor = UIColor.whiteColor()
         presentViewController(picker, animated: true, completion: nil)
         picker.popoverPresentationController?.barButtonItem = sender
     }

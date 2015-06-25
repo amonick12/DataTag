@@ -21,6 +21,17 @@ class DocumentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
+        backgroundImageView.addSubview(blurEffectView)
+        //view.addSubview(backgroundImageView)
+        
+        webView.backgroundColor = UIColor.darkGrayColor()
+        
         if let document = dataObject as? PFObject {
             let filename = document["filename"] as! String
             navTitle.title = filename

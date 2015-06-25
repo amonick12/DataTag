@@ -66,6 +66,7 @@ class ConfirmDocumentViewController: UIViewController {
             progressBar.hidden = false
             progressBar.progress = 0.0
             let newDocument = PFObject(className: "Data")
+            newDocument.objectId = NSUUID().UUIDString
             newDocument["type"] = "document"
             newDocument["mimeType"] = mimeType
             newDocument["filename"] = filename

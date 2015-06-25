@@ -119,6 +119,10 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
         }
     }
     
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("DocumentCollectionCell", forIndexPath: indexPath) as! DocumentCollectionViewCell
         let document = self.documents![indexPath.row] as! PFObject
@@ -129,7 +133,8 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             //self.progressBar.hidden = true
             if error == nil {
                 cell.webview.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
-                
+                cell.webview.backgroundColor = UIColor.clearColor()
+
             } else { println("Error loading document data") }
             }, progressBlock: {
                 (percentDone: Int32) -> Void in

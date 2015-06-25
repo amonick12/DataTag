@@ -20,6 +20,18 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
+        backgroundImageView.addSubview(blurEffectView)
+        view.addSubview(backgroundImageView)
+        
+        view.bringSubviewToFront(progressBar)
+        view.bringSubviewToFront(imageView)
+        
         if let image = dataObject as? PFObject {
             let title = image["title"] as! String
             navTitle.title = title
