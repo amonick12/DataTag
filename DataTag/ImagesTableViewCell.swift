@@ -52,6 +52,16 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             
             let alertController = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
+            let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("share \(title) with QR")
+            })
+            alertController.addAction(shareImage)
+            
+            let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("add \(title) to Photo Library")
+            })
+            alertController.addAction(addImage)
+            
             let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
                 println("remove button tapped")
                 

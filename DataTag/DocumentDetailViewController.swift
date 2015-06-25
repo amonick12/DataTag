@@ -53,6 +53,9 @@ class DocumentDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    @IBAction func shareButtonPressed(sender: AnyObject) {
+        println("share doc")
+    }
     /*
     // MARK: - Navigation
 

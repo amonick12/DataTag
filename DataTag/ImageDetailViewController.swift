@@ -49,6 +49,10 @@ class ImageDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func shareButtonPressed(sender: AnyObject) {
+        println("share image")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

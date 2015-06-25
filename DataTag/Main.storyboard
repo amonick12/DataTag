@@ -297,11 +297,14 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Share" id="bDi-A7-zZO">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="mCR-5x-ydr">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="K0C-bw-dWA" id="yEb-v1-ECX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
                         <outlet property="imgQRCode" destination="gDY-LA-x0V" id="8ir-dI-llR"/>
                         <outlet property="navTitle" destination="bDi-A7-zZO" id="RUT-DD-LVB"/>
@@ -377,12 +380,13 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Select Document" id="zF8-bO-Vhn">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="lA3-7b-Yfi">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="3nt-JK-Bum" id="efq-A1-kay"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="connectButton" destination="5Ir-ZJ-EEV" id="ZPA-wQ-Foa"/>
@@ -452,6 +456,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Share Image" id="xN3-Ax-dpS">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="xWj-79-Xup">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="closeButtonPressed:" destination="ZAb-yg-j49" id="1hR-xO-imF"/>
                             </connections>
@@ -472,7 +477,8 @@
         <scene sceneID="pNp-xy-C7o">
             <objects>
                 <navigationController storyboardIdentifier="AddImageNav" toolbarHidden="NO" id="tOk-wN-ams" customClass="AddImageNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8bD-i6-eJj">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8bD-i6-eJj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -487,7 +493,7 @@
             </objects>
             <point key="canvasLocation" x="325" y="2454"/>
         </scene>
-        <!--Confirm Document View Controller-->
+        <!--Title-->
         <scene sceneID="EvS-Pm-l2Q">
             <objects>
                 <viewController id="qyQ-PZ-oRv" customClass="ConfirmDocumentViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
@@ -531,10 +537,16 @@
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="syQ-Vt-EYd"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="J5l-je-N7R">
-                        <nil key="title"/>
+                    <navigationItem key="navigationItem" title="Title" id="J5l-je-N7R">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="MqS-Wx-i08">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="qyQ-PZ-oRv" id="OME-wl-ynm"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
                         <outlet property="navTitle" destination="J5l-je-N7R" id="EXl-Xc-IZU"/>
                         <outlet property="progressBar" destination="hMt-nR-bIX" id="mEy-is-hyg"/>
@@ -614,15 +626,16 @@
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="stZ-Zi-6Ql">
                                 <rect key="frame" x="0.0" y="44" width="600" height="2"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="iWs-Jq-iK1"/>
-                                </constraints>
                             </progressView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ut-Af-sEY">
+                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="1ut-Af-sEY">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2GF-aS-2VP"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="Document Title" id="bd2-hP-mno">
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="gbP-tF-S8F">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="closeButtonPressed:" destination="rEa-mh-a8O" id="EcE-gY-Vw4"/>
                                             </connections>
@@ -637,21 +650,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="stZ-Zi-6Ql" secondAttribute="trailing" id="3Ku-4q-Tqf"/>
-                            <constraint firstItem="MXc-z6-sAe" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="3ey-NE-1gF"/>
-                            <constraint firstItem="1ut-Af-sEY" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="GMH-Rg-azl"/>
-                            <constraint firstAttribute="trailing" secondItem="1ut-Af-sEY" secondAttribute="trailing" id="HoT-mu-gSf"/>
-                            <constraint firstItem="MXc-z6-sAe" firstAttribute="top" secondItem="Fbv-pd-YZ2" secondAttribute="top" constant="44" id="ZZh-wq-g2f"/>
-                            <constraint firstAttribute="bottom" secondItem="MXc-z6-sAe" secondAttribute="bottom" id="cr7-vH-UB6"/>
-                            <constraint firstAttribute="trailing" secondItem="MXc-z6-sAe" secondAttribute="trailing" id="dP6-QX-bPh"/>
-                            <constraint firstItem="1ut-Af-sEY" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" id="fHp-z7-T5s"/>
-                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" constant="44" id="kmz-np-Xdd"/>
-                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="utV-9K-ClT"/>
+                            <constraint firstAttribute="trailing" secondItem="stZ-Zi-6Ql" secondAttribute="trailing" id="1ad-C8-HQ7"/>
+                            <constraint firstAttribute="bottom" secondItem="MXc-z6-sAe" secondAttribute="bottom" id="5Vz-OZ-j6b"/>
+                            <constraint firstItem="1ut-Af-sEY" firstAttribute="top" secondItem="Fbv-pd-YZ2" secondAttribute="top" id="Be0-2q-dv6"/>
+                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="DzE-I7-Fa7"/>
+                            <constraint firstAttribute="trailing" secondItem="MXc-z6-sAe" secondAttribute="trailing" id="Eiz-4n-IOk"/>
+                            <constraint firstItem="stZ-Zi-6Ql" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" constant="44" id="Jzb-q8-X4K"/>
+                            <constraint firstItem="MXc-z6-sAe" firstAttribute="top" secondItem="zXF-PO-ZGS" secondAttribute="bottom" constant="44" id="Tcp-hH-gUw"/>
+                            <constraint firstAttribute="trailing" secondItem="1ut-Af-sEY" secondAttribute="trailing" id="n3H-7j-oGM"/>
+                            <constraint firstItem="1ut-Af-sEY" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="wqm-zp-THA"/>
+                            <constraint firstItem="MXc-z6-sAe" firstAttribute="leading" secondItem="Fbv-pd-YZ2" secondAttribute="leading" id="zQB-nV-IfI"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Document Title" id="xKp-hz-exC">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="WfG-tR-TEN">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="closeButtonPressed:" destination="rEa-mh-a8O" id="quY-9Z-pL6"/>
                             </connections>
@@ -734,15 +748,16 @@
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qci-1t-Ps3">
                                 <rect key="frame" x="0.0" y="44" width="600" height="2"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="a4q-W1-i7r"/>
-                                </constraints>
                             </progressView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvd-j9-dgO">
+                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="mvd-j9-dgO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LcC-bg-96d"/>
+                                </constraints>
                                 <items>
                                     <navigationItem title="Image Title" id="coc-Sb-c4m">
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="YXR-R0-YHj">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="LyX-M0-5Dt"/>
                                             </connections>
@@ -756,21 +771,22 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cK9-4k-O2a" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="0bO-Qm-Hso"/>
-                            <constraint firstItem="qci-1t-Ps3" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="3zI-jz-ewr"/>
-                            <constraint firstAttribute="trailing" secondItem="cK9-4k-O2a" secondAttribute="trailing" id="4fH-YK-5e7"/>
-                            <constraint firstItem="cK9-4k-O2a" firstAttribute="top" secondItem="mvd-j9-dgO" secondAttribute="bottom" id="LEq-bk-Awi"/>
-                            <constraint firstItem="4QI-D3-XLp" firstAttribute="top" secondItem="cK9-4k-O2a" secondAttribute="bottom" id="UCY-FW-RHH"/>
-                            <constraint firstItem="qci-1t-Ps3" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="iyv-Bl-AmK"/>
-                            <constraint firstItem="mvd-j9-dgO" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" id="jcU-Xo-q9R"/>
-                            <constraint firstItem="mvd-j9-dgO" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="mFb-HO-gBH"/>
-                            <constraint firstAttribute="trailing" secondItem="qci-1t-Ps3" secondAttribute="trailing" id="pH7-VZ-hWM"/>
-                            <constraint firstAttribute="trailing" secondItem="mvd-j9-dgO" secondAttribute="trailing" id="xco-9t-8vj"/>
+                            <constraint firstAttribute="trailing" secondItem="cK9-4k-O2a" secondAttribute="trailing" id="3Bu-YV-4sl"/>
+                            <constraint firstItem="cK9-4k-O2a" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="7V6-nd-FXs"/>
+                            <constraint firstItem="qci-1t-Ps3" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="Tw9-gO-yRa"/>
+                            <constraint firstItem="qci-1t-Ps3" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="WQn-o0-i8O"/>
+                            <constraint firstAttribute="trailing" secondItem="mvd-j9-dgO" secondAttribute="trailing" id="Wyb-cg-oBG"/>
+                            <constraint firstAttribute="trailing" secondItem="qci-1t-Ps3" secondAttribute="trailing" id="mgn-WL-rF0"/>
+                            <constraint firstItem="mvd-j9-dgO" firstAttribute="top" secondItem="J3P-kN-O8a" secondAttribute="top" id="qUe-6Q-2Bf"/>
+                            <constraint firstItem="cK9-4k-O2a" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="vAG-c8-Oem"/>
+                            <constraint firstAttribute="bottom" secondItem="cK9-4k-O2a" secondAttribute="bottom" id="x0i-36-Kyi"/>
+                            <constraint firstItem="mvd-j9-dgO" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="yZ4-wf-hkN"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Image Title" id="jJx-aR-djo">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="az3-63-kMu">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="cdk-sa-1DX"/>
                             </connections>
@@ -789,6 +805,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9da-dY-dbE"/>
+        <segue reference="QDP-VT-egh"/>
     </inferredMetricsTieBreakers>
 </document>

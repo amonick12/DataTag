@@ -16,6 +16,7 @@ class MainViewController: UITableViewController {
     //@IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBOutlet var segmentControl: DTSegmentedControl!
+    var popTransition = PopTransitionAnimator()
 
     var sharedData: [AnyObject]?
     var taggedData: [AnyObject]?
@@ -69,20 +70,31 @@ class MainViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "documentSegue" {
-            var destination = segue.destinationViewController as! DocumentDetailViewController
-            destination.dataObject = self.selectedObject
+            let toViewController = segue.destinationViewController as! DocumentDetailViewController
+            self.modalPresentationStyle = UIModalPresentationStyle.Custom
+            toViewController.transitioningDelegate = self.popTransition
+            toViewController.dataObject = self.selectedObject
+            
+            //var destination = segue.destinationViewController as! DocumentDetailViewController
+            //destination.dataObject = self.selectedObject
         } else if segue.identifier == "imageSegue" {
-            var destination = segue.destinationViewController as! ImageDetailViewController
-            destination.dataObject = self.selectedObject
+            let toViewController = segue.destinationViewController as! ImageDetailViewController
+            self.modalPresentationStyle = UIModalPresentationStyle.Custom
+            toViewController.transitioningDelegate = self.popTransition
+            toViewController.dataObject = self.selectedObject
+            
+//            var destination = segue.destinationViewController as! ImageDetailViewController
+//            destination.dataObject = self.selectedObject
         }
     }
 
-    func segmentValueChanged(sender: AnyObject?){
-        if segmentControl.selectedIndex == 0 {
-            loadSharedData()
-        } else if segmentControl.selectedIndex == 1{
-            loadTaggedData()
-        }
+    func segmentValueChanged(sender: AnyObject?) {
+        tableView.reloadData()
+//        if segmentControl.selectedIndex == 0 {
+//            loadSharedData()
+//        } else if segmentControl.selectedIndex == 1{
+//            loadTaggedData()
+//        }
     }
     
 //    @IBAction func controlChanged(sender: UISegmentedControl) {

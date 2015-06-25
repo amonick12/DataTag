@@ -52,6 +52,16 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             
             let alertController = UIAlertController(title: filename, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
+            let shareDocument = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("share \(filename) with QR")
+            })
+            alertController.addAction(shareDocument)
+
+            let addDocument = UIAlertAction(title: "Add To Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("add \(filename) to dropbox")
+            })
+            alertController.addAction(addDocument)
+            
             let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
                 println("remove button tapped")
                 
