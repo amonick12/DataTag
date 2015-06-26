@@ -656,6 +656,9 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Document Title" id="bd2-hP-mno">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="DY7-nW-Q9R">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="gbP-tF-S8F">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -779,6 +782,12 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Image Title" id="coc-Sb-c4m">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="ysa-ms-BB4">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="settingsButtonPressed:" destination="C2q-9z-LdB" id="UOE-fJ-AfJ"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="YXR-R0-YHj">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>

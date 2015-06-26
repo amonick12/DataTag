@@ -48,54 +48,64 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         if indexPath == nil {
             println("could not find index path")
         } else {
-            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
             
-            let selectedImage = self.images![indexPath!.row] as! PFObject
-            let title = selectedImage["title"] as! String
-            println(title)
-            
-            let alertController = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
-                println("share \(title) with QR")
-                self.delegate?.shareWithQRCode(selectedImage, cell: cell!)
-            })
-            alertController.addAction(shareImage)
-            
-            let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
-                println("add \(title) to Photo Library")
-            })
-            alertController.addAction(addImage)
-            
-            let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
-                println("remove button tapped")
-                
-                var relation = selectedImage.relationForKey("unlockedBy")
-                relation.removeObject(PFUser.currentUser()!)
-                selectedImage.saveInBackground()
-                relation = PFUser.currentUser()!.relationForKey("sharedData")
-                relation.removeObject(selectedImage)
-                relation = PFUser.currentUser()!.relationForKey("unlockedData")
-                relation.removeObject(selectedImage)
-                PFUser.currentUser()!.saveInBackground()
-                self.images?.removeAtIndex(indexPath!.row)
-                self.collectionView.reloadData()
-                
-            })
-            alertController.addAction(removeAction)
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert :UIAlertAction!) in
-                println("cancel button tapped")
-                
-            })
-            alertController.addAction(cancelAction)
-            
-            alertController.popoverPresentationController?.sourceView = cell
-            alertController.popoverPresentationController?.sourceRect = cell!.bounds
-            self.viewController!.presentViewController(alertController, animated: true, completion: nil)
-            
+            showDataOptions(indexPath!)
+        
         }
         
+    }
+    
+    func showDataOptions(indexPath: NSIndexPath) {
+        let cell = self.collectionView.cellForItemAtIndexPath(indexPath)
+
+        let selectedImage = self.images![indexPath.row] as! PFObject
+        let title = selectedImage["title"] as! String
+        println(title)
+        
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        
+        let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            println("share \(title) with QR")
+            self.delegate?.shareWithQRCode(selectedImage, cell: cell!)
+        })
+        alertController.addAction(shareImage)
+        
+        let addToDropbox = UIAlertAction(title: "Add to Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            println("add \(title) to Dropbox")
+        })
+        alertController.addAction(addToDropbox)
+        
+        let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            println("add \(title) to Photo Library")
+        })
+        alertController.addAction(addImage)
+        
+        let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
+            println("remove button tapped")
+            
+            var relation = selectedImage.relationForKey("unlockedBy")
+            relation.removeObject(PFUser.currentUser()!)
+            selectedImage.saveInBackground()
+            relation = PFUser.currentUser()!.relationForKey("sharedData")
+            relation.removeObject(selectedImage)
+            relation = PFUser.currentUser()!.relationForKey("unlockedData")
+            relation.removeObject(selectedImage)
+            PFUser.currentUser()!.saveInBackground()
+            self.images?.removeAtIndex(indexPath.row)
+            self.collectionView.reloadData()
+            
+        })
+        alertController.addAction(removeAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: {(alert :UIAlertAction!) in
+            println("cancel button tapped")
+            
+        })
+        alertController.addAction(cancelAction)
+        
+        alertController.popoverPresentationController?.sourceView = cell
+        alertController.popoverPresentationController?.sourceRect = cell!.bounds
+        self.viewController!.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func configureWithData() {

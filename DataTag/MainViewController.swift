@@ -310,6 +310,7 @@ class MainViewController: UITableViewController {
 }
 
 extension MainViewController: DocumentsDelegate, ImagesDelegate {
+    
     func documentObjectSelected(documentObject: AnyObject) {
         self.selectedObject = documentObject
         performSegueWithIdentifier("documentSegue", sender: nil)

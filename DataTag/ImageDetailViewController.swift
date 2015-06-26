@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
-
+    
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -18,6 +18,7 @@ class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     
     var dataObject: AnyObject?
+    var indexPath: NSIndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,11 @@ class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func settingsButtonPressed(sender: AnyObject) {
+         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,14 +88,5 @@ class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
