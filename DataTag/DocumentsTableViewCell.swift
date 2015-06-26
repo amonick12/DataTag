@@ -12,6 +12,7 @@ import Parse
 protocol DocumentsDelegate {
     func documentObjectSelected(documentObject: AnyObject)
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
+    func uploadToDropbox(dataObject: AnyObject)
 }
 
 class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
@@ -38,9 +39,6 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
     }
     
     func handleLongPress(sender: UILongPressGestureRecognizer) {
-//        if sender.state != UIGestureRecognizerState.Ended {
-//            return
-//        }
         println("long press")
         let point: CGPoint = sender.locationInView(self.collectionView)
         let indexPath = self.collectionView.indexPathForItemAtPoint(point)
@@ -63,6 +61,8 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
 
             let addDocument = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("add \(filename) to dropbox")
+                self.delegate?.uploadToDropbox(selectedDocument)
+                
             })
             alertController.addAction(addDocument)
             

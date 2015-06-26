@@ -283,12 +283,14 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="zKm-04-pJ8"/>
                         <barButtonItem title="Email" id="2N8-fg-Gmu">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="emailButtonPressed:" destination="K0C-bw-dWA" id="Xo8-Fs-2GE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="FW0-5H-0QU"/>
                         <barButtonItem title="Print" id="K2m-E4-3mz">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="printButtonPressed:" destination="K0C-bw-dWA" id="TXW-SQ-3Xj"/>
                             </connections>
@@ -305,6 +307,7 @@
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
                         <outlet property="imgQRCode" destination="gDY-LA-x0V" id="8ir-dI-llR"/>
                         <outlet property="navTitle" destination="bDi-A7-zZO" id="RUT-DD-LVB"/>
@@ -393,6 +396,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="zcf-NV-aaW"/>
                         <barButtonItem title="Connect to Dropbox" id="5Ir-ZJ-EEV">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="connectButtonPressed:" destination="3nt-JK-Bum" id="l1k-EZ-Yw8"/>
                             </connections>
@@ -408,7 +412,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
                         <outlet property="connectButton" destination="5Ir-ZJ-EEV" id="ZPA-wQ-Foa"/>
                         <outlet property="progressBar" destination="gAJ-u1-u2V" id="1Oz-ae-xSc"/>
@@ -444,7 +448,7 @@
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="LqM-7x-0nH" secondAttribute="bottom" id="5rh-FY-gJO"/>
                                     <constraint firstItem="LqM-7x-0nH" firstAttribute="leading" secondItem="aOL-vM-J2Y" secondAttribute="leading" id="KQZ-pB-ak0"/>
@@ -553,6 +557,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="JHp-bv-Goc"/>
                         <barButtonItem title="Share" id="3qa-Gz-QTM">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="shareButtonPressed:" destination="qyQ-PZ-oRv" id="IWQ-mO-9Bs"/>
                             </connections>
@@ -569,6 +574,7 @@
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
                         <outlet property="navTitle" destination="J5l-je-N7R" id="EXl-Xc-IZU"/>
                         <outlet property="progressBar" destination="hMt-nR-bIX" id="mEy-is-hyg"/>
@@ -917,6 +923,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QDP-VT-egh"/>
+        <segue reference="9da-dY-dbE"/>
     </inferredMetricsTieBreakers>
 </document>

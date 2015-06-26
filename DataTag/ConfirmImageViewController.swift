@@ -29,6 +29,8 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
         imageView.image = image
         view.bringSubviewToFront(progressBar)
         progressBar.hidden = true
+        textField.attributedPlaceholder = NSAttributedString(string:"Image Name Here",
+            attributes:[NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -13,11 +13,11 @@ class MainViewController: UITableViewController {
 
     @IBOutlet weak var tagButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    //@IBOutlet weak var segmentedControl: UISegmentedControl!
     var refresher: UIRefreshControl!
 
     @IBOutlet var segmentControl: DTSegmentedControl!
     var popTransition = PopTransitionAnimator()
+    var dbRestClient: DBRestClient!
 
     var sharedData: [AnyObject]?
     var taggedData: [AnyObject]?
@@ -71,6 +71,11 @@ class MainViewController: UITableViewController {
         shareButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
         tagButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Avenir", size: 17)!], forState: .Normal)
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDidLinkNotification:", name: "didLinkToDropboxAccountNotification", object: nil)
+        if DBSession.sharedSession().isLinked() {
+            initDropboxRestClient()
+        }
+        
     }
     
     func refresh() {
@@ -309,7 +314,54 @@ class MainViewController: UITableViewController {
 
 }
 
-extension MainViewController: DocumentsDelegate, ImagesDelegate {
+extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate {
+    
+    func uploadToDropbox(dataObject: AnyObject) {
+        if DBSession.sharedSession().isLinked() {
+            if let dataObject = dataObject as? PFObject {
+                let filename = dataObject["filename"] as! String
+                let fileData = dataObject["fileData"] as! PFFile
+                fileData.getDataInBackgroundWithBlock({ (data: NSData?, error: NSError?) -> Void in
+                    if error == nil && data != nil {
+                        
+                        let tempDirectory = NSTemporaryDirectory()
+                        let tempPath = tempDirectory.stringByAppendingPathComponent(filename)
+                        data!.writeToFile(tempPath, atomically: true)
+                        self.dbRestClient.uploadFile(filename, toPath: "/", withParentRev: nil, fromPath: tempPath)
+                    } else { println("Error getting file to upload to dropbox") }
+                })
+            }
+            
+        } else {
+            DBSession.sharedSession().linkFromController(self)
+        }
+    }
+    func initDropboxRestClient() {
+        dbRestClient = DBRestClient(session: DBSession.sharedSession())
+        dbRestClient.delegate = self
+    }
+    func handleDidLinkNotification(notification: NSNotification) {
+        initDropboxRestClient()
+    }
+    
+    // MARK: DBRestClientDelegate
+    
+    // Uploading Files
+    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
+        println("The file has been uploaded.")
+        let ac = UIAlertController(title: "Uploaded!", message: "The data has been uploaded to your Dropbox in the DataTag folder", preferredStyle: .Alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        presentViewController(ac, animated: true, completion: nil)
+    }
+    
+    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
+        println("File upload failed.")
+        println(error.description)
+        let ac = UIAlertController(title: "Upload Failed", message: nil, preferredStyle: .Alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        presentViewController(ac, animated: true, completion: nil)
+
+    }
     
     func documentObjectSelected(documentObject: AnyObject) {
         self.selectedObject = documentObject
@@ -382,6 +434,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         dismissViewControllerAnimated(true, completion: nil)
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        
         var chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -399,6 +453,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
 }
 
@@ -454,3 +509,4 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         return .LightContent
     }
 }
+

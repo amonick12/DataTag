@@ -12,6 +12,7 @@ import Parse
 protocol ImagesDelegate {
     func imageObjectSelected(imageObject: AnyObject)
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
+    func uploadToDropbox(dataObject: AnyObject)
 
 }
 
@@ -74,7 +75,9 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         
         let addToDropbox = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("add \(title) to Dropbox")
+            self.delegate?.uploadToDropbox(selectedImage)
         })
+        
         alertController.addAction(addToDropbox)
         
         let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
