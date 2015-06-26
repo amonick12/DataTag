@@ -11,6 +11,7 @@ import Parse
 
 protocol DocumentsDelegate {
     func documentObjectSelected(documentObject: AnyObject)
+    func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
 }
 
 class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
@@ -46,14 +47,17 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
         if indexPath == nil {
             println("could not find index path")
         } else {
-            let documentToDelete = self.documents![indexPath!.row] as! PFObject
-            let filename = documentToDelete["filename"] as! String
+            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
+
+            let selectedDocument = self.documents![indexPath!.row] as! PFObject
+            let filename = selectedDocument["filename"] as! String
             println(filename)
             
             let alertController = UIAlertController(title: filename, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
             let shareDocument = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("share \(filename) with QR")
+                self.delegate?.shareWithQRCode(selectedDocument, cell: cell!)
             })
             alertController.addAction(shareDocument)
 
@@ -65,13 +69,13 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
                 println("remove button tapped")
                 
-                var relation = documentToDelete.relationForKey("unlockedBy")
+                var relation = selectedDocument.relationForKey("unlockedBy")
                 relation.removeObject(PFUser.currentUser()!)
-                documentToDelete.saveInBackground()
+                selectedDocument.saveInBackground()
                 relation = PFUser.currentUser()!.relationForKey("sharedData")
-                relation.removeObject(documentToDelete)
+                relation.removeObject(selectedDocument)
                 relation = PFUser.currentUser()!.relationForKey("unlockedData")
-                relation.removeObject(documentToDelete)
+                relation.removeObject(selectedDocument)
                 PFUser.currentUser()!.saveInBackground()
                 self.documents?.removeAtIndex(indexPath!.row)
                 self.collectionView.reloadData()
@@ -85,8 +89,6 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             })
             alertController.addAction(cancelAction)
             
-            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
-
             alertController.popoverPresentationController?.sourceView = cell
             alertController.popoverPresentationController?.sourceRect = cell!.bounds
             self.viewController!.presentViewController(alertController, animated: true, completion: nil)

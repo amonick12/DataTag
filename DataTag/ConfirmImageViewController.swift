@@ -64,7 +64,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
         progressBar.hidden = false
         progressBar.progress = 0.0
         let newImage = PFObject(className: "Data")
-        newImage.objectId = NSUUID().UUIDString
+        //newImage.objectId = NSUUID().UUIDString
         newImage["type"] = "image"
         //newImage["mimeType"] = mimeType
         newImage["title"] = dataTitle

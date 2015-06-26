@@ -314,6 +314,27 @@
             </objects>
             <point key="canvasLocation" x="2303" y="1774"/>
         </scene>
+        <!--Nav View Controller-->
+        <scene sceneID="n6b-Eu-XCy">
+            <objects>
+                <navigationController storyboardIdentifier="QRNav" toolbarHidden="NO" id="Edb-xk-bdZ" customClass="QRNavViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="bWy-R0-5gJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="BJN-mA-bJm">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="Jph-hO-Ky7" kind="relationship" relationship="rootViewController" id="h46-yQ-Sm6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CpE-HA-Qkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-756" y="722"/>
+        </scene>
         <!--Add Document Nav Controller-->
         <scene sceneID="7zN-T7-3n6">
             <objects>
@@ -478,11 +499,12 @@
             <objects>
                 <navigationController storyboardIdentifier="AddImageNav" toolbarHidden="NO" id="tOk-wN-ams" customClass="AddImageNavController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="8bD-i6-eJj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="hTI-ie-nxd">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="hTI-ie-nxd">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -584,13 +606,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ptY-1D-raY" firstAttribute="top" secondItem="2PT-Dh-DP0" secondAttribute="top" constant="64" id="174-Uf-oU6"/>
                             <constraint firstItem="j1E-X0-xin" firstAttribute="top" secondItem="FMk-zw-Qnq" secondAttribute="bottom" id="8f8-S2-UOm"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="leading" secondItem="j1E-X0-xin" secondAttribute="leading" id="9XH-VE-UJC"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="bottom" secondItem="KXZ-xG-3FN" secondAttribute="top" id="APv-zU-LEa"/>
                             <constraint firstAttribute="trailing" secondItem="j1E-X0-xin" secondAttribute="trailing" id="Myz-Se-7dg"/>
-                            <constraint firstAttribute="trailing" secondItem="ptY-1D-raY" secondAttribute="trailing" id="ayR-or-V9Y"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="trailing" secondItem="j1E-X0-xin" secondAttribute="trailing" id="Nvx-jy-8Eh"/>
+                            <constraint firstItem="ptY-1D-raY" firstAttribute="top" secondItem="j1E-X0-xin" secondAttribute="top" id="VZY-ov-1dS"/>
                             <constraint firstItem="j1E-X0-xin" firstAttribute="leading" secondItem="2PT-Dh-DP0" secondAttribute="leading" id="bgx-wA-BUi"/>
-                            <constraint firstAttribute="bottom" secondItem="ptY-1D-raY" secondAttribute="bottom" id="lzc-KZ-X10"/>
-                            <constraint firstItem="ptY-1D-raY" firstAttribute="leading" secondItem="2PT-Dh-DP0" secondAttribute="leading" id="y4r-Jw-who"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -804,6 +826,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tEV-h4-m1g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2971" y="1061"/>
+        </scene>
+        <!--Share-->
+        <scene sceneID="psJ-4r-OGJ">
+            <objects>
+                <viewController id="Jph-hO-Ky7" customClass="QRGeneratorViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Mza-Te-g6t"/>
+                        <viewControllerLayoutGuide type="bottom" id="5kc-oF-JPc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vcj-ph-Qm0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mtc-3W-vup">
+                                <rect key="frame" x="200" y="200" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="JaQ-3U-EyC"/>
+                                    <constraint firstAttribute="height" constant="200" id="rw3-0C-BS4"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Mtc-3W-vup" secondAttribute="centerX" id="eOq-3E-eZG"/>
+                            <constraint firstAttribute="centerY" secondItem="Mtc-3W-vup" secondAttribute="centerY" id="jFN-Tv-HO3"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hoh-4G-XAU"/>
+                        <barButtonItem title="Email" id="n5b-xp-dNn">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="emailButtonPressed:" destination="Jph-hO-Ky7" id="4Zh-YS-Zr9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="53i-gC-6ca"/>
+                        <barButtonItem title="Print" id="QK8-Ah-rFg">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="printButtonPressed:" destination="Jph-hO-Ky7" id="Aml-Et-j0Z"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="QhQ-jd-O8J"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Share" id="pdc-cb-NNV">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="0Jx-yZ-Nde">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="Jph-hO-Ky7" id="5iT-z7-8gg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="imgQRCode" destination="Mtc-3W-vup" id="b0F-vb-qni"/>
+                        <outlet property="navTitle" destination="pdc-cb-NNV" id="rh0-H4-oWu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XMQ-0j-Dfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-756" y="1470"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -11,6 +11,8 @@ import Parse
 
 protocol ImagesDelegate {
     func imageObjectSelected(imageObject: AnyObject)
+    func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
+
 }
 
 class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
@@ -46,14 +48,17 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         if indexPath == nil {
             println("could not find index path")
         } else {
-            let imageToDelete = self.images![indexPath!.row] as! PFObject
-            let title = imageToDelete["title"] as! String
+            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
+            
+            let selectedImage = self.images![indexPath!.row] as! PFObject
+            let title = selectedImage["title"] as! String
             println(title)
             
             let alertController = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
             
             let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("share \(title) with QR")
+                self.delegate?.shareWithQRCode(selectedImage, cell: cell!)
             })
             alertController.addAction(shareImage)
             
@@ -65,13 +70,13 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
                 println("remove button tapped")
                 
-                var relation = imageToDelete.relationForKey("unlockedBy")
+                var relation = selectedImage.relationForKey("unlockedBy")
                 relation.removeObject(PFUser.currentUser()!)
-                imageToDelete.saveInBackground()
+                selectedImage.saveInBackground()
                 relation = PFUser.currentUser()!.relationForKey("sharedData")
-                relation.removeObject(imageToDelete)
+                relation.removeObject(selectedImage)
                 relation = PFUser.currentUser()!.relationForKey("unlockedData")
-                relation.removeObject(imageToDelete)
+                relation.removeObject(selectedImage)
                 PFUser.currentUser()!.saveInBackground()
                 self.images?.removeAtIndex(indexPath!.row)
                 self.collectionView.reloadData()
@@ -84,8 +89,6 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
                 
             })
             alertController.addAction(cancelAction)
-            
-            let cell = self.collectionView.cellForItemAtIndexPath(indexPath!)
             
             alertController.popoverPresentationController?.sourceView = cell
             alertController.popoverPresentationController?.sourceRect = cell!.bounds

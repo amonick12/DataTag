@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		003873D01B3D9088009D83EF /* QRNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003873CF1B3D9088009D83EF /* QRNavViewController.swift */; };
 		003FE37B1B3103D800012D09 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37A1B3103D800012D09 /* Images.xcassets */; };
 		003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37C1B3103D800012D09 /* LaunchScreen.xib */; };
 		003FE38A1B3103D800012D09 /* DataTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3891B3103D800012D09 /* DataTagTests.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		003873CF1B3D9088009D83EF /* QRNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRNavViewController.swift; sourceTree = "<group>"; };
 		003FE36E1B3103D800012D09 /* DataTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		003FE3721B3103D800012D09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		003FE37A1B3103D800012D09 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				003FE3931B31049C00012D09 /* AddDocumentNavController.swift */,
 				003FE39A1B31049C00012D09 /* ScanNavController.swift */,
 				00A50FA11B3A374900539987 /* AddImageNavController.swift */,
+				003873CF1B3D9088009D83EF /* QRNavViewController.swift */,
 			);
 			name = NavControllers;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				003873D01B3D9088009D83EF /* QRNavViewController.swift in Sources */,
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
 				00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,

@@ -29,7 +29,9 @@ class MainViewController: UITableViewController {
     var taggedImages: [AnyObject] = []
     
     var selectedObject: AnyObject?
-    
+    var selectedObjectTitle: String?
+    var qrImage: UIImage?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,36 +93,12 @@ class MainViewController: UITableViewController {
             self.modalPresentationStyle = UIModalPresentationStyle.Custom
             toViewController.transitioningDelegate = self.popTransition
             toViewController.dataObject = self.selectedObject
-            
-//            var destination = segue.destinationViewController as! ImageDetailViewController
-//            destination.dataObject = self.selectedObject
         }
     }
 
     func segmentValueChanged(sender: AnyObject?) {
         tableView.reloadData()
-//        if segmentControl.selectedIndex == 0 {
-//            loadSharedData()
-//        } else if segmentControl.selectedIndex == 1{
-//            loadTaggedData()
-//        }
     }
-    
-//    @IBAction func controlChanged(sender: UISegmentedControl) {
-//        if sender.selectedSegmentIndex == 0 {
-//            loadSharedData()
-//        } else if sender.selectedSegmentIndex == 1 {
-//            loadTaggedData()
-//        }
-//    }
-    
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        if PFUser.currentUser() != nil {
-//            loadTaggedData()
-//            loadSharedData()
-//        }
-//    }
     
     func loadTaggedData() {
         var query = PFUser.currentUser()!.relationForKey("unlockedData").query()!
@@ -329,52 +307,6 @@ class MainViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension MainViewController: DocumentsDelegate, ImagesDelegate {
@@ -382,9 +314,38 @@ extension MainViewController: DocumentsDelegate, ImagesDelegate {
         self.selectedObject = documentObject
         performSegueWithIdentifier("documentSegue", sender: nil)
     }
+    
     func imageObjectSelected(imageObject: AnyObject) {
         self.selectedObject = imageObject
         performSegueWithIdentifier("imageSegue", sender: nil)
+    }
+    
+    func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell) {
+        self.selectedObject = object
+        let object = object as! PFObject
+        makeQRCodeImage(object.objectId!)
+        showQRCode(cell)
+    }
+    
+    func makeQRCodeImage(stringQR: String) {
+        
+        var filter: CIFilter = CIFilter(name:"CIQRCodeGenerator")
+        filter.setDefaults()
+        var data: NSData = stringQR.dataUsingEncoding(NSUTF8StringEncoding)!
+        filter.setValue(data, forKey: "inputMessage")
+        var outputImg: CIImage = filter.outputImage
+        var context: CIContext = CIContext(options: nil)
+        var cgimg: CGImageRef = context.createCGImage(outputImg, fromRect: outputImg.extent())
+        var img: UIImage = UIImage(CGImage: cgimg, scale: 1.0, orientation: UIImageOrientation.Up)!
+        var width  = img.size.width * 10
+        var height = img.size.height * 10
+        UIGraphicsBeginImageContext(CGSizeMake(width, height))
+        var cgContxt:CGContextRef = UIGraphicsGetCurrentContext()
+        CGContextSetInterpolationQuality(cgContxt, kCGInterpolationNone)
+        img.drawInRect(CGRectMake(0, 0, width, height))
+        img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        qrImage = img
     }
 }
 
@@ -441,6 +402,36 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 extension MainViewController: UIPopoverPresentationControllerDelegate {
+    
+    func showQRCode(sender: UICollectionViewCell) {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("QRNav") as! QRNavViewController
+        let root = vc.visibleViewController as! QRGeneratorViewController
+        if let object = selectedObject as? PFObject {
+            let dataType = object["type"] as! String
+            //var dataTitle: String?
+            switch dataType {
+            case "document":
+                selectedObjectTitle = object["filename"] as? String
+                break
+            case "image":
+                selectedObjectTitle = object["title"] as? String
+                break
+            default:
+                break
+            }
+            root.qrImage = qrImage
+            root.dataTitle = selectedObjectTitle
+            
+            vc.modalPresentationStyle = UIModalPresentationStyle.Popover
+            let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+            //popover.barButtonItem = sender
+            popover.sourceView = sender
+            popover.sourceRect = sender.bounds
+            popover.delegate = self
+            presentViewController(vc, animated: true, completion:nil)
+        }
+    }
     
     func addDocumentButtonPressed(sender: UIBarButtonItem) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
