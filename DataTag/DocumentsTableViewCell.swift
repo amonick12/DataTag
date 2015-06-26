@@ -61,7 +61,7 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             })
             alertController.addAction(shareDocument)
 
-            let addDocument = UIAlertAction(title: "Add To Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            let addDocument = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("add \(filename) to dropbox")
             })
             alertController.addAction(addDocument)

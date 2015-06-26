@@ -22,6 +22,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     
     var images: [AnyObject]?
     @IBOutlet weak var collectionView:UICollectionView!
+    var selectedTitle: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,8 +57,9 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     }
     
     func showDataOptions(indexPath: NSIndexPath) {
-        let cell = self.collectionView.cellForItemAtIndexPath(indexPath)
-
+        let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! ImageCollectionViewCell
+        let image = cell.imageView.image
+        
         let selectedImage = self.images![indexPath.row] as! PFObject
         let title = selectedImage["title"] as! String
         println(title)
@@ -66,17 +68,20 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         
         let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("share \(title) with QR")
-            self.delegate?.shareWithQRCode(selectedImage, cell: cell!)
+            self.delegate?.shareWithQRCode(selectedImage, cell: cell as UICollectionViewCell)
         })
         alertController.addAction(shareImage)
         
-        let addToDropbox = UIAlertAction(title: "Add to Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+        let addToDropbox = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("add \(title) to Dropbox")
         })
         alertController.addAction(addToDropbox)
         
         let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("add \(title) to Photo Library")
+            self.selectedTitle = title
+            UIImageWriteToSavedPhotosAlbum(image, self, "image:didFinishSavingWithError:contextInfo:", nil)
+
         })
         alertController.addAction(addImage)
         
@@ -104,7 +109,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         alertController.addAction(cancelAction)
         
         alertController.popoverPresentationController?.sourceView = cell
-        alertController.popoverPresentationController?.sourceRect = cell!.bounds
+        alertController.popoverPresentationController?.sourceRect = cell.bounds
         self.viewController!.presentViewController(alertController, animated: true, completion: nil)
     }
     
@@ -155,6 +160,18 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         self.delegate?.imageObjectSelected(images![indexPath.row])
+    }
+    
+    func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo:UnsafePointer<Void>) {
+        if error == nil {
+            let ac = UIAlertController(title: "Saved!", message: "\(selectedTitle!) has been saved to your photos.", preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            viewController!.presentViewController(ac, animated: true, completion: nil)
+        } else {
+            let ac = UIAlertController(title: "Save error", message: error?.localizedDescription, preferredStyle: .Alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            viewController!.presentViewController(ac, animated: true, completion: nil)
+        }
     }
     
 }
