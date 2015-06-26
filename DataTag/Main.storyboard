@@ -788,21 +788,37 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cK9-4k-O2a">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agl-el-O74">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x9X-vQ-9iO">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="x9X-vQ-9iO" secondAttribute="bottom" id="EpC-1i-bt2"/>
+                                    <constraint firstAttribute="centerY" secondItem="x9X-vQ-9iO" secondAttribute="centerY" id="VwD-aW-hnd"/>
+                                    <constraint firstItem="x9X-vQ-9iO" firstAttribute="leading" secondItem="agl-el-O74" secondAttribute="leading" id="ffJ-4t-lN5"/>
+                                    <constraint firstAttribute="trailing" secondItem="x9X-vQ-9iO" secondAttribute="trailing" id="fge-fj-1qX"/>
+                                    <constraint firstAttribute="centerX" secondItem="x9X-vQ-9iO" secondAttribute="centerX" id="kGk-Hg-jv9"/>
+                                    <constraint firstItem="x9X-vQ-9iO" firstAttribute="top" secondItem="agl-el-O74" secondAttribute="top" id="yLo-pp-o6o"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="C2q-9z-LdB" id="oJT-H7-dwQ"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="cK9-4k-O2a" secondAttribute="trailing" id="3Bu-YV-4sl"/>
-                            <constraint firstItem="cK9-4k-O2a" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="7V6-nd-FXs"/>
+                            <constraint firstAttribute="trailing" secondItem="agl-el-O74" secondAttribute="trailing" id="CAT-oZ-iyH"/>
+                            <constraint firstItem="4QI-D3-XLp" firstAttribute="top" secondItem="agl-el-O74" secondAttribute="bottom" id="Q1J-Nq-wxO"/>
                             <constraint firstItem="qci-1t-Ps3" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="Tw9-gO-yRa"/>
+                            <constraint firstItem="agl-el-O74" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="WPR-Pn-5MK"/>
                             <constraint firstItem="qci-1t-Ps3" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="WQn-o0-i8O"/>
                             <constraint firstAttribute="trailing" secondItem="mvd-j9-dgO" secondAttribute="trailing" id="Wyb-cg-oBG"/>
+                            <constraint firstItem="agl-el-O74" firstAttribute="top" secondItem="mvd-j9-dgO" secondAttribute="bottom" id="edb-PI-ZyW"/>
                             <constraint firstAttribute="trailing" secondItem="qci-1t-Ps3" secondAttribute="trailing" id="mgn-WL-rF0"/>
                             <constraint firstItem="mvd-j9-dgO" firstAttribute="top" secondItem="J3P-kN-O8a" secondAttribute="top" id="qUe-6Q-2Bf"/>
-                            <constraint firstItem="cK9-4k-O2a" firstAttribute="top" secondItem="Ifi-mo-BHF" secondAttribute="bottom" constant="44" id="vAG-c8-Oem"/>
-                            <constraint firstAttribute="bottom" secondItem="cK9-4k-O2a" secondAttribute="bottom" id="x0i-36-Kyi"/>
                             <constraint firstItem="mvd-j9-dgO" firstAttribute="leading" secondItem="J3P-kN-O8a" secondAttribute="leading" id="yZ4-wf-hkN"/>
                         </constraints>
                     </view>
@@ -817,10 +833,11 @@
                     </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="imageView" destination="cK9-4k-O2a" id="dFL-dX-OPU"/>
+                        <outlet property="imageView" destination="x9X-vQ-9iO" id="4TY-RK-G9p"/>
                         <outlet property="navBar" destination="mvd-j9-dgO" id="zKp-Le-UgH"/>
                         <outlet property="navTitle" destination="coc-Sb-c4m" id="zCw-nH-9GK"/>
                         <outlet property="progressBar" destination="qci-1t-Ps3" id="4p3-qj-IFc"/>
+                        <outlet property="scrollView" destination="agl-el-O74" id="C3M-hr-DxN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tEV-h4-m1g" userLabel="First Responder" sceneMemberID="firstResponder"/>

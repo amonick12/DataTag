@@ -9,12 +9,13 @@
 import UIKit
 import Parse
 
-class ImageDetailViewController: UIViewController {
+class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var dataObject: AnyObject?
     
@@ -32,6 +33,7 @@ class ImageDetailViewController: UIViewController {
         backgroundImageView.addSubview(blurEffectView)
         view.addSubview(backgroundImageView)
         view.bringSubviewToFront(navBar)
+        view.bringSubviewToFront(scrollView)
         view.bringSubviewToFront(imageView)
         view.bringSubviewToFront(progressBar)
 
@@ -46,6 +48,7 @@ class ImageDetailViewController: UIViewController {
                 if error == nil {
                     self.imageView.image = UIImage(data: data!)
                     self.progressBar.hidden = true
+                    self.setupScrollView()
                     
                 } else { println("Error loading image data") }
                 }, progressBlock: {
@@ -56,13 +59,17 @@ class ImageDetailViewController: UIViewController {
         }
     }
 
+    func setupScrollView() {
+        let widthScale = scrollView.bounds.size.width / imageView.frame.size.width
+        let heightScale = scrollView.bounds.size.height / imageView.frame.size.height
+        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.setZoomScale(max(widthScale, heightScale), animated: true )
+        scrollView.maximumZoomScale = 5.0
+    }
+    
     @IBAction func closeButtonPressed(sender: AnyObject) {
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func shareButtonPressed(sender: AnyObject) {
-        println("share image")
     }
     
     override func didReceiveMemoryWarning() {
@@ -70,7 +77,11 @@ class ImageDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: ScrollView Delegate
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
     /*
     // MARK: - Navigation
 
