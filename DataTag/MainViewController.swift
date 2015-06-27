@@ -53,7 +53,7 @@ class MainViewController: UITableViewController {
         self.refresher = UIRefreshControl()
         self.refresher.tintColor = UIColor.whiteColor()
         self.refresher.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView.addSubview(refresher)
+        //self.tableView.addSubview(refresher)
         
         if Reachability.isConnectedToNetwork() == true {
             println("Internet connection OK")
@@ -90,14 +90,15 @@ class MainViewController: UITableViewController {
             self.modalPresentationStyle = UIModalPresentationStyle.Custom
             toViewController.transitioningDelegate = self.popTransition
             toViewController.dataObject = self.selectedObject
-            
-            //var destination = segue.destinationViewController as! DocumentDetailViewController
-            //destination.dataObject = self.selectedObject
         } else if segue.identifier == "imageSegue" {
             let toViewController = segue.destinationViewController as! ImageDetailViewController
             self.modalPresentationStyle = UIModalPresentationStyle.Custom
             toViewController.transitioningDelegate = self.popTransition
             toViewController.dataObject = self.selectedObject
+        } else if segue.identifier == "scanSegue" {
+            let destination = segue.destinationViewController as! UINavigationController
+            let root = destination.visibleViewController as! ScanViewController
+            root.delegate = self
         }
     }
 
@@ -107,6 +108,7 @@ class MainViewController: UITableViewController {
     
     func loadTaggedData() {
         var query = PFUser.currentUser()!.relationForKey("unlockedData").query()!
+        query.orderByAscending("updatedAt")
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if objects != nil {
                 self.taggedData = objects
@@ -131,6 +133,7 @@ class MainViewController: UITableViewController {
     
     func loadSharedData() {
         var query = PFUser.currentUser()!.relationForKey("sharedData").query()!
+        query.orderByAscending("updatedAt")
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if objects != nil {
                 self.sharedData = objects
@@ -200,10 +203,10 @@ class MainViewController: UITableViewController {
             }
             if cell.documents != nil {
                 cell.delegate = self
+                cell.segmentControlIndex = segmentControl.selectedIndex
                 cell.viewController = self
                 cell.configureWithData()
             }
-            
             return cell
             
         } else if indexPath.section == 1 {
@@ -215,10 +218,10 @@ class MainViewController: UITableViewController {
             }
             if cell.images != nil {
                 cell.delegate = self
+                cell.segmentControlIndex = segmentControl.selectedIndex
                 cell.viewController = self
                 cell.configureWithData()
             }
-            
             return cell
         }
         return UITableViewCell()
@@ -381,7 +384,6 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
     }
     
     func makeQRCodeImage(stringQR: String) {
-        
         var filter: CIFilter = CIFilter(name:"CIQRCodeGenerator")
         filter.setDefaults()
         var data: NSData = stringQR.dataUsingEncoding(NSUTF8StringEncoding)!
@@ -399,6 +401,32 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
         img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         qrImage = img
+    }
+    
+    func documentRemoved(index: Int, segmentControlIndex: Int) {
+        switch segmentControlIndex {
+        case 0:
+            sharedDocuments.removeAtIndex(index)
+            break
+        case 1:
+            taggedDocuments.removeAtIndex(index)
+            break
+        default:
+            break
+        }
+    }
+    
+    func imageRemoved(index: Int, segmentControlIndex: Int) {
+        switch segmentControlIndex {
+        case 0:
+            sharedImages.removeAtIndex(index)
+            break
+        case 1:
+            taggedImages.removeAtIndex(index)
+            break
+        default:
+            break
+        }
     }
 }
 
@@ -442,7 +470,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         let vc = storyboard.instantiateViewControllerWithIdentifier("AddImageNav") as! AddImageNavController
         let root = vc.visibleViewController as! ConfirmImageViewController
         root.image = chosenImage
-        
+        root.delegate = self
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
         popover.barButtonItem = self.shareButton
@@ -457,7 +485,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate {
+extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate {
     
     func showQRCode(sender: UICollectionViewCell) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -493,7 +521,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("AddDocumentNav") as! AddDocumentNavController
         let root = vc.visibleViewController as! AddDocumentViewController
-
+        root.delegate = self
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
         popover.barButtonItem = sender
@@ -505,6 +533,22 @@ extension MainViewController: UIPopoverPresentationControllerDelegate {
         return UIModalPresentationStyle.None
     }
 
+    func documentWasAdded() {
+        segmentControl.selectedIndex = 0
+        loadSharedData()
+    }
+    
+    func imageWasAdded() {
+        segmentControl.selectedIndex = 0
+        loadSharedData()
+    }
+    
+    func scanFoundData() {
+        segmentControl.selectedIndex = 1
+        loadTaggedData()
+    }
+
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }

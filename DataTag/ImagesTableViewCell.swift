@@ -13,14 +13,14 @@ protocol ImagesDelegate {
     func imageObjectSelected(imageObject: AnyObject)
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
     func uploadToDropbox(dataObject: AnyObject)
-
+    func imageRemoved(index: Int, segmentControlIndex: Int)
 }
 
 class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     
     var delegate: ImagesDelegate?
     var viewController: UIViewController?
-    
+    var segmentControlIndex: Int?
     var images: [AnyObject]?
     @IBOutlet weak var collectionView:UICollectionView!
     var selectedTitle: String?
@@ -73,7 +73,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         })
         alertController.addAction(shareImage)
         
-        let addToDropbox = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+        let addToDropbox = UIAlertAction(title: "Add to Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("add \(title) to Dropbox")
             self.delegate?.uploadToDropbox(selectedImage)
         })
@@ -100,6 +100,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             relation.removeObject(selectedImage)
             PFUser.currentUser()!.saveInBackground()
             self.images?.removeAtIndex(indexPath.row)
+            self.delegate?.imageRemoved(indexPath.row, segmentControlIndex: self.segmentControlIndex!)
             self.collectionView.reloadData()
             
         })

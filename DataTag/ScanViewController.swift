@@ -10,8 +10,13 @@ import UIKit
 import AVFoundation
 import Parse
 
+protocol ScanDelegate {
+    func scanFoundData()
+}
+
 class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
+    var delegate: ScanDelegate?
     @IBOutlet weak var scanView: UIView!
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -99,7 +104,11 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 usersRelation?.addObject(PFUser.currentUser()!)
                 let taggedRelation = PFUser.currentUser()!.relationForKey("unlockedData")
                 taggedRelation.addObject(data!)
-                PFUser.currentUser()?.saveInBackground()
+                PFUser.currentUser()?.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
+                    if error == nil {
+                        self.delegate?.scanFoundData()
+                    }
+                })
                 data?.saveInBackground()
                 if self.dataType == "document" {
                     self.performSegueWithIdentifier("showDocumentSegue", sender: nil)

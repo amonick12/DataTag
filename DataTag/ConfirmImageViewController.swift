@@ -10,8 +10,13 @@ import UIKit
 import Parse
 import CoreImage
 
+protocol ConfirmImageDelegate {
+    func imageWasAdded()
+}
 class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
 
+    var delegate: ConfirmImageDelegate?
+    
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
@@ -127,7 +132,11 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
                         
                         let sharedData = PFUser.currentUser()!.relationForKey("sharedData")
                         sharedData.addObject(newImage)
-                        PFUser.currentUser()!.saveInBackground()
+                        PFUser.currentUser()!.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
+                            if error == nil {
+                                self.delegate?.imageWasAdded()
+                            }
+                        })
                         
                     } else { println("Error saving new image") }
                 })

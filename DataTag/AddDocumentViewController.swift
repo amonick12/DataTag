@@ -8,8 +8,13 @@
 
 import UIKit
 
-class AddDocumentViewController: UITableViewController, DBRestClientDelegate {
+protocol AddDocumentDelegate {
+    func documentWasAdded()
+}
 
+class AddDocumentViewController: UITableViewController, DBRestClientDelegate, ConfirmDocumentDelegate {
+    
+    var delegate: AddDocumentDelegate?
     var dbRestClient: DBRestClient!
     var dropboxMetadata: DBMetadata!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -49,11 +54,16 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate {
         }
     }
     
+    func documentWasAdded() {
+        delegate?.documentWasAdded()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "confirmDocumentSegue" {
             if let destination = segue.destinationViewController as? ConfirmDocumentViewController {
                 destination.filename = selectedFileName!
                 destination.mimeType = selectedMimeType!
+                destination.delegate = self
                 //destination.delegate = self
                 //UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
             }

@@ -13,15 +13,16 @@ protocol DocumentsDelegate {
     func documentObjectSelected(documentObject: AnyObject)
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
     func uploadToDropbox(dataObject: AnyObject)
+    func documentRemoved(index: Int, segmentControlIndex: Int)
 }
 
 class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
 
     var delegate: DocumentsDelegate?
     var viewController: UIViewController?
-    
+    var segmentControlIndex: Int?
     var documents: [AnyObject]?
-    @IBOutlet weak var collectionView:UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -59,7 +60,7 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
             })
             alertController.addAction(shareDocument)
 
-            let addDocument = UIAlertAction(title: "Add to Your Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            let addDocument = UIAlertAction(title: "Add to Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("add \(filename) to dropbox")
                 self.delegate?.uploadToDropbox(selectedDocument)
                 
@@ -78,6 +79,7 @@ class DocumentsTableViewCell: UITableViewCell, UICollectionViewDelegate, UIColle
                 relation.removeObject(selectedDocument)
                 PFUser.currentUser()!.saveInBackground()
                 self.documents?.removeAtIndex(indexPath!.row)
+                self.delegate?.documentRemoved(indexPath!.row, segmentControlIndex: self.segmentControlIndex!)
                 self.collectionView.reloadData()
 
             })

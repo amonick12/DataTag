@@ -11,8 +11,13 @@ import WebKit
 import Parse
 import CoreImage
 
+protocol ConfirmDocumentDelegate {
+    func documentWasAdded()
+}
+
 class ConfirmDocumentViewController: UIViewController {
 
+    var delegate: ConfirmDocumentDelegate?
     var filename: String!
     var mimeType: String!
     var data: NSData?
@@ -88,7 +93,11 @@ class ConfirmDocumentViewController: UIViewController {
                             
                             let sharedData = PFUser.currentUser()!.relationForKey("sharedData")
                             sharedData.addObject(newDocument)
-                            PFUser.currentUser()!.saveInBackground()
+                            PFUser.currentUser()!.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
+                                if error == nil {
+                                    self.delegate?.documentWasAdded()
+                                }
+                            })
                             
                         } else { println("Error saving new document") }
                     })
