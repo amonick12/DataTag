@@ -99,6 +99,10 @@ class MainViewController: UITableViewController {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ScanViewController
             root.delegate = self
+        } else if segue.identifier == "addURLSegue" {
+            let destination = segue.destinationViewController as! UINavigationController
+            let root = destination.visibleViewController as! ConfirmURLViewController
+            
         }
     }
 
@@ -269,7 +273,7 @@ class MainViewController: UITableViewController {
         
         let urlAction = UIAlertAction(title: "URL", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("URL button tapped")
-            
+            self.performSegueWithIdentifier("addURLSegue", sender: sender)
         })
         alertController.addAction(urlAction)
         

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		003873D01B3D9088009D83EF /* QRNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003873CF1B3D9088009D83EF /* QRNavViewController.swift */; };
+		003873D31B403943009D83EF /* ConfirmURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003873D21B403943009D83EF /* ConfirmURLViewController.swift */; };
 		003FE37B1B3103D800012D09 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37A1B3103D800012D09 /* Images.xcassets */; };
 		003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37C1B3103D800012D09 /* LaunchScreen.xib */; };
 		003FE38A1B3103D800012D09 /* DataTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3891B3103D800012D09 /* DataTagTests.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		003873CF1B3D9088009D83EF /* QRNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRNavViewController.swift; sourceTree = "<group>"; };
+		003873D21B403943009D83EF /* ConfirmURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmURLViewController.swift; sourceTree = "<group>"; };
 		003FE36E1B3103D800012D09 /* DataTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		003FE3721B3103D800012D09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		003FE37A1B3103D800012D09 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				003FE3961B31049C00012D09 /* ConfirmDocumentViewController.swift */,
 				003FE3991B31049C00012D09 /* QRGeneratorViewController.swift */,
 				00A50FA31B3A37B600539987 /* ConfirmImageViewController.swift */,
+				003873D21B403943009D83EF /* ConfirmURLViewController.swift */,
 			);
 			name = AddData;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				003873D01B3D9088009D83EF /* QRNavViewController.swift in Sources */,
+				003873D31B403943009D83EF /* ConfirmURLViewController.swift in Sources */,
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
 				00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,
