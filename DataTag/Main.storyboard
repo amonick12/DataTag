@@ -596,6 +596,7 @@
                         <outlet property="barView" destination="Qyr-jK-yBi" id="gX0-7L-E5N"/>
                         <outlet property="forwardButton" destination="Tgc-az-4zW" id="z5n-uk-pou"/>
                         <outlet property="progressView" destination="Bw6-qg-bTU" id="gtM-ak-fTp"/>
+                        <outlet property="toolbar" destination="tPo-y4-eG5" id="1od-G1-IV2"/>
                         <outlet property="urlField" destination="ZBT-R3-B16" id="cT6-zP-fm9"/>
                     </connections>
                 </viewController>

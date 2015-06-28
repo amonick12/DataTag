@@ -17,20 +17,24 @@ protocol ConfirmURLDelegate {
 class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
 
     var delegate: ConfirmURLDelegate?
-    var webView: WKWebView
+    var webView: WKWebView!
     @IBOutlet weak var barView: UIView!
     @IBOutlet weak var urlField: UITextField!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     @IBOutlet weak var backButton: UIBarButtonItem!
     var qrImg: UIImage!
-
+    @IBOutlet weak var toolbar: UIToolbar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
 
-        view.insertSubview(webView, belowSubview: progressView)
+        //view.insertSubview(webView, belowSubview: progressView)
+        view.addSubview(webView)
+        view.bringSubviewToFront(progressView)
+        view.bringSubviewToFront(toolbar)
         
         webView.setTranslatesAutoresizingMaskIntoConstraints(false)
         let height = NSLayoutConstraint(item: webView, attribute: .Height, relatedBy: .Equal, toItem: view, attribute: .Height, multiplier: 1, constant: 0)
@@ -129,7 +133,6 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
     @IBAction func shareButtonPressed(sender: AnyObject) {
         //removeObservers()
         //UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
-        webView.scrollView.scrollsToTop = true
         let url = webView.URL!.relativeString!
         let title = webView.title!
         println("URL: \(url)")
@@ -228,6 +231,10 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
         presentViewController(vc, animated: true, completion:nil)
     }
 
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
+    }
+    
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         removeObservers()
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
@@ -235,9 +242,11 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
     }
     
     func removeObservers() {
-        webView.removeObserver(self, forKeyPath: "loading")
-        webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        webView.removeObserver(self, forKeyPath: "title")
+        if webView.observationInfo != nil {
+            webView.removeObserver(self, forKeyPath: "loading")
+            webView.removeObserver(self, forKeyPath: "estimatedProgress")
+            webView.removeObserver(self, forKeyPath: "title")
+        }
     }
     
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
