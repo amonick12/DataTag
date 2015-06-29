@@ -40,6 +40,8 @@
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
 		006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */; };
 		006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */; };
+		006A1FC81B418B4B000E6FA2 /* WebpageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */; };
+		006A1FCA1B419326000E6FA2 /* WebpageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC91B419326000E6FA2 /* WebpageDetailViewController.swift */; };
 		009676131B345513005C087A /* Getting Started.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 009676121B345513005C087A /* Getting Started.rtf */; };
 		009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009676151B34557A005C087A /* DocumentsTableViewCell.swift */; };
 		00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */; };
@@ -105,6 +107,8 @@
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpagesTableViewCell.swift; sourceTree = "<group>"; };
 		006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageCollectionViewCell.swift; sourceTree = "<group>"; };
+		006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageViewController.swift; sourceTree = "<group>"; };
+		006A1FC91B419326000E6FA2 /* WebpageDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageDetailViewController.swift; sourceTree = "<group>"; };
 		009676121B345513005C087A /* Getting Started.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Getting Started.rtf"; sourceTree = "<group>"; };
 		009676151B34557A005C087A /* DocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewCell.swift; sourceTree = "<group>"; };
 		00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +290,7 @@
 			children = (
 				00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */,
 				00F2ACC11B3B12A000C3B012 /* ImageDetailViewController.swift */,
+				006A1FC91B419326000E6FA2 /* WebpageDetailViewController.swift */,
 			);
 			name = DetailVC;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				003FE39B1B31049C00012D09 /* ScanViewController.swift */,
 				003FE3971B31049C00012D09 /* DocumentViewController.swift */,
 				00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */,
+				006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */,
 			);
 			name = TagData;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */,
 				00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */,
 				00F2ACC41B3B669200C3B012 /* DTSegmentedControl.swift in Sources */,
+				006A1FCA1B419326000E6FA2 /* WebpageDetailViewController.swift in Sources */,
 				006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
@@ -426,6 +433,7 @@
 				00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */,
 				00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */,
 				00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */,
+				006A1FC81B418B4B000E6FA2 /* WebpageViewController.swift in Sources */,
 				003FE3A41B31049C00012D09 /* ScanViewController.swift in Sources */,
 				00F2ACC21B3B12A000C3B012 /* ImageDetailViewController.swift in Sources */,
 				00A731831B3C401D0055E05F /* PopTransitionAnimator.swift in Sources */,

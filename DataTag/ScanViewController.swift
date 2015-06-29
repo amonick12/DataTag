@@ -116,6 +116,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
                 if self.dataType == "image" {
                     self.performSegueWithIdentifier("showImageSegue", sender: nil)
                 }
+                if self.dataType == "url" {
+                    self.performSegueWithIdentifier("showWebpageSegue", sender: nil)
+                }
             } else {
                 println(error)
             }
@@ -128,6 +131,9 @@ class ScanViewController: UIViewController, AVCaptureMetadataOutputObjectsDelega
             vc.dataObject = foundObject
         } else if segue.identifier == "showImageSegue" {
             let vc = segue.destinationViewController as! ImageViewController
+            vc.dataObject = foundObject
+        } else if segue.identifier == "showWebpageSegue" {
+            let vc = segue.destinationViewController as! WebpageViewController
             vc.dataObject = foundObject
         }
     }

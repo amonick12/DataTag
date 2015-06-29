@@ -80,6 +80,7 @@
                         <outlet property="qrCodeFrameView" destination="X0Z-G5-Dos" id="dyx-cU-pmK"/>
                         <segue destination="nZd-rS-8Oa" kind="show" identifier="showDocumentSegue" id="fiP-if-77G"/>
                         <segue destination="voe-dt-2QX" kind="show" identifier="showImageSegue" id="Yqk-di-gl7"/>
+                        <segue destination="A9O-5B-WbB" kind="show" identifier="showWebpageSegue" id="kfO-ah-VDa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRP-Mj-VCw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -307,6 +308,7 @@
                         <segue destination="rEa-mh-a8O" kind="presentation" identifier="documentSegue" id="Ku2-Fb-goS"/>
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j6C-JJ-03u"/>
                         <segue destination="3j3-GQ-lVK" kind="presentation" identifier="addURLSegue" id="vyy-rh-tcx"/>
+                        <segue destination="oPq-xR-LtL" kind="presentation" identifier="webpageSegue" id="PRl-oK-Te1"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -963,28 +965,6 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="qci-1t-Ps3">
                                 <rect key="frame" x="0.0" y="44" width="600" height="2"/>
                             </progressView>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="mvd-j9-dgO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="LcC-bg-96d"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Image Title" id="coc-Sb-c4m">
-                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="ysa-ms-BB4">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="settingsButtonPressed:" destination="C2q-9z-LdB" id="UOE-fJ-AfJ"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="YXR-R0-YHj">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="LyX-M0-5Dt"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="agl-el-O74">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <subviews>
@@ -1004,6 +984,28 @@
                                     <outlet property="delegate" destination="C2q-9z-LdB" id="oJT-H7-dwQ"/>
                                 </connections>
                             </scrollView>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="mvd-j9-dgO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="LcC-bg-96d"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Image Title" id="7LH-H1-a5I">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="9vV-Kx-B0u">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="settingsButtonPressed:" destination="C2q-9z-LdB" id="gRi-Sf-GSz"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="msh-4r-KFg">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="ciZ-dE-aJ9"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1020,19 +1022,12 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Image Title" id="jJx-aR-djo">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="az3-63-kMu">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="closeButtonPressed:" destination="C2q-9z-LdB" id="cdk-sa-1DX"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Image Title" id="jJx-aR-djo"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="x9X-vQ-9iO" id="4TY-RK-G9p"/>
                         <outlet property="navBar" destination="mvd-j9-dgO" id="zKp-Le-UgH"/>
-                        <outlet property="navTitle" destination="coc-Sb-c4m" id="zCw-nH-9GK"/>
+                        <outlet property="navTitle" destination="7LH-H1-a5I" id="WtS-f1-y97"/>
                         <outlet property="progressBar" destination="qci-1t-Ps3" id="4p3-qj-IFc"/>
                         <outlet property="scrollView" destination="agl-el-O74" id="C3M-hr-DxN"/>
                     </connections>
@@ -1102,6 +1097,123 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMQ-0j-Dfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="959" y="-310"/>
+        </scene>
+        <!--Webpage Title-->
+        <scene sceneID="H0a-E0-mEb">
+            <objects>
+                <viewController id="A9O-5B-WbB" customClass="WebpageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lWa-ds-EfS"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZCa-gH-cJw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dtq-AS-xu9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0yZ-j3-DWO">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="67I-0Y-MCP"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="0yZ-j3-DWO" secondAttribute="trailing" id="GSv-XI-qXl"/>
+                            <constraint firstItem="0yZ-j3-DWO" firstAttribute="top" secondItem="lWa-ds-EfS" secondAttribute="bottom" id="dRA-xX-YAC"/>
+                            <constraint firstItem="0yZ-j3-DWO" firstAttribute="leading" secondItem="Dtq-AS-xu9" secondAttribute="leading" id="fA7-7G-XxM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Webpage Title" id="33j-y1-SQD">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="RXK-ph-JpK">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="closeButtonPressed:" destination="A9O-5B-WbB" id="lVh-YN-ZMF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="navTitle" destination="33j-y1-SQD" id="Hq8-m4-TwK"/>
+                        <outlet property="progressBar" destination="0yZ-j3-DWO" id="31d-8l-PvT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uJD-dO-fMz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2971" y="386"/>
+        </scene>
+        <!--Webpage Detail-->
+        <scene sceneID="gDV-s6-Shr">
+            <objects>
+                <viewController title="Webpage Detail" id="oPq-xR-LtL" customClass="WebpageDetailViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jMV-LQ-fHV"/>
+                        <viewControllerLayoutGuide type="bottom" id="GeP-lH-xoT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5JY-1i-hzm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kwG-ZT-Kbc">
+                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                            </progressView>
+                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="m4u-nd-CUD">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="fir-KF-pSa"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Webpage Title" id="4mR-kH-Xm2">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="aLv-Ch-jm3">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="63L-6P-mtn">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="oPq-xR-LtL" id="6fH-IE-vF6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YW4-dB-JNp">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="m4u-nd-CUD" secondAttribute="trailing" id="1aq-gv-Pwa"/>
+                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="5T3-qZ-E4Y"/>
+                            <constraint firstItem="m4u-nd-CUD" firstAttribute="top" secondItem="5JY-1i-hzm" secondAttribute="top" id="HYY-87-EKt"/>
+                            <constraint firstItem="m4u-nd-CUD" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="U2f-WT-oaD"/>
+                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="top" secondItem="jMV-LQ-fHV" secondAttribute="bottom" constant="44" id="buj-iI-FLZ"/>
+                            <constraint firstAttribute="trailing" secondItem="YW4-dB-JNp" secondAttribute="trailing" id="g12-kB-X5v"/>
+                            <constraint firstAttribute="trailing" secondItem="kwG-ZT-Kbc" secondAttribute="trailing" id="k3c-5m-zVd"/>
+                            <constraint firstItem="YW4-dB-JNp" firstAttribute="top" secondItem="m4u-nd-CUD" secondAttribute="bottom" id="kxI-n0-2iL"/>
+                            <constraint firstItem="YW4-dB-JNp" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="mih-xn-qMw"/>
+                            <constraint firstItem="m4u-nd-CUD" firstAttribute="top" secondItem="jMV-LQ-fHV" secondAttribute="bottom" id="u20-qp-8Fh"/>
+                            <constraint firstItem="m4u-nd-CUD" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="wEo-74-VG2"/>
+                            <constraint firstAttribute="trailing" secondItem="m4u-nd-CUD" secondAttribute="trailing" id="wTp-iV-iEJ"/>
+                            <constraint firstItem="GeP-lH-xoT" firstAttribute="top" secondItem="YW4-dB-JNp" secondAttribute="bottom" id="wUx-27-Pls"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Document Title" id="aT1-ue-ume">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="ut5-OM-iAn">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="navBar" destination="m4u-nd-CUD" id="1GC-Ki-S6c"/>
+                        <outlet property="navTitle" destination="4mR-kH-Xm2" id="tvI-dR-FGI"/>
+                        <outlet property="progressView" destination="kwG-ZT-Kbc" id="vw0-hW-v2j"/>
+                        <outlet property="webView" destination="YW4-dB-JNp" id="pzA-vw-FZJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UtO-wX-LUm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3613" y="1061"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

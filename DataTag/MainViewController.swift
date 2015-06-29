@@ -97,6 +97,11 @@ class MainViewController: UITableViewController {
             self.modalPresentationStyle = UIModalPresentationStyle.Custom
             toViewController.transitioningDelegate = self.popTransition
             toViewController.dataObject = self.selectedObject
+        } else if segue.identifier == "webpageSegue" {
+            let toViewController = segue.destinationViewController as! WebpageDetailViewController
+            self.modalPresentationStyle = UIModalPresentationStyle.Custom
+            toViewController.transitioningDelegate = self.popTransition
+            toViewController.dataObject = self.selectedObject
         } else if segue.identifier == "scanSegue" {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ScanViewController
@@ -121,6 +126,7 @@ class MainViewController: UITableViewController {
                 println("Found \(self.taggedData!.count) tagged data")
                 self.taggedDocuments.removeAll(keepCapacity: false)
                 self.taggedImages.removeAll(keepCapacity: false)
+                self.taggedURLs.removeAll(keepCapacity: false)
                 
                 if let taggedData = objects as? [PFObject] {
                     for data in taggedData {
@@ -148,6 +154,7 @@ class MainViewController: UITableViewController {
                 println("Found \(self.sharedData!.count) shared data")
                 self.sharedDocuments.removeAll(keepCapacity: false)
                 self.sharedImages.removeAll(keepCapacity: false)
+                self.sharedURLs.removeAll(keepCapacity: false)
                 
                 if let sharedData = objects as? [PFObject] {
                     for data in sharedData {
@@ -407,7 +414,7 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
     
     func webpageObjectSelected(urlObject: AnyObject) {
         self.selectedObject = urlObject
-        //performSegueWithIdentifier("webpageSegue", sender: nil)
+        performSegueWithIdentifier("webpageSegue", sender: nil)
     }
 
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell) {
@@ -547,6 +554,9 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
                 selectedObjectTitle = object["filename"] as? String
                 break
             case "image":
+                selectedObjectTitle = object["title"] as? String
+                break
+            case "url":
                 selectedObjectTitle = object["title"] as? String
                 break
             default:

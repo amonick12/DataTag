@@ -74,7 +74,7 @@ class ImageDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func settingsButtonPressed(sender: AnyObject) {
-         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: UIStatusBarAnimation.Slide)
         dismissViewControllerAnimated(true, completion: nil)
     }
 
