@@ -9,12 +9,13 @@
 import UIKit
 import Parse
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+
     var dataObject: AnyObject?
 
     override func viewDidLoad() {
@@ -30,6 +31,7 @@ class ImageViewController: UIViewController {
         view.addSubview(backgroundImageView)
         
         view.bringSubviewToFront(progressBar)
+        view.bringSubviewToFront(scrollView)
         view.bringSubviewToFront(imageView)
         
         if let image = dataObject as? PFObject {
@@ -42,6 +44,7 @@ class ImageViewController: UIViewController {
                 self.progressBar.hidden = true
                 if error == nil {
                     self.imageView.image = UIImage(data: data!)
+                    self.setupScrollView()
                     
                 } else { println("Error loading image data") }
                 }, progressBlock: {
@@ -52,6 +55,20 @@ class ImageViewController: UIViewController {
         }
     }
 
+    func setupScrollView() {
+        let widthScale = scrollView.bounds.size.width / imageView.frame.size.width
+        let heightScale = scrollView.bounds.size.height / imageView.frame.size.height
+        scrollView.minimumZoomScale = min(widthScale, heightScale)
+        scrollView.setZoomScale(max(widthScale, heightScale), animated: true )
+        scrollView.maximumZoomScale = 5.0
+    }
+    
+    // MARK: ScrollView Delegate
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
     @IBAction func closeButtonPressed(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }

@@ -898,10 +898,10 @@
             </objects>
             <point key="canvasLocation" x="2325" y="1061"/>
         </scene>
-        <!--Document-->
+        <!--Scanned Image-->
         <scene sceneID="H1u-kq-Zkv">
             <objects>
-                <viewController title="Document" id="voe-dt-2QX" customClass="ImageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Scanned Image" id="voe-dt-2QX" customClass="ImageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8xp-Ye-sKf"/>
                         <viewControllerLayoutGuide type="bottom" id="W6T-zY-1mQ"/>
@@ -916,18 +916,34 @@
                                     <constraint firstAttribute="height" constant="2" id="1l4-EY-rbv"/>
                                 </constraints>
                             </progressView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v88-b5-tMQ">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-ws-QtE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rK9-Rq-725">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="rK9-Rq-725" secondAttribute="centerX" id="BUT-xK-aHh"/>
+                                    <constraint firstAttribute="centerY" secondItem="rK9-Rq-725" secondAttribute="centerY" id="DBb-fb-YF8"/>
+                                    <constraint firstItem="rK9-Rq-725" firstAttribute="leading" secondItem="f3L-ws-QtE" secondAttribute="leading" id="DCQ-cX-fSx"/>
+                                    <constraint firstAttribute="trailing" secondItem="rK9-Rq-725" secondAttribute="trailing" id="I3f-zG-ncO"/>
+                                    <constraint firstItem="rK9-Rq-725" firstAttribute="top" secondItem="f3L-ws-QtE" secondAttribute="top" id="df1-Yt-0Oj"/>
+                                    <constraint firstAttribute="bottom" secondItem="rK9-Rq-725" secondAttribute="bottom" id="z9M-RG-Cs2"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="voe-dt-2QX" id="EUv-jX-T73"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="v88-b5-tMQ" firstAttribute="trailing" secondItem="I56-4K-AQV" secondAttribute="trailing" id="47v-QO-jf9"/>
-                            <constraint firstItem="v88-b5-tMQ" firstAttribute="leading" secondItem="I56-4K-AQV" secondAttribute="leading" id="82r-zv-Daa"/>
+                            <constraint firstItem="f3L-ws-QtE" firstAttribute="leading" secondItem="cFF-XQ-9ar" secondAttribute="leading" id="CdA-3A-cSh"/>
                             <constraint firstItem="I56-4K-AQV" firstAttribute="top" secondItem="8xp-Ye-sKf" secondAttribute="bottom" id="MH3-nt-SJD"/>
-                            <constraint firstItem="v88-b5-tMQ" firstAttribute="top" secondItem="cFF-XQ-9ar" secondAttribute="top" id="Q5S-qZ-hLG"/>
+                            <constraint firstItem="W6T-zY-1mQ" firstAttribute="top" secondItem="f3L-ws-QtE" secondAttribute="bottom" id="O1E-fC-F7H"/>
+                            <constraint firstItem="f3L-ws-QtE" firstAttribute="top" secondItem="8xp-Ye-sKf" secondAttribute="bottom" constant="-64" id="ODY-Kj-pDq"/>
                             <constraint firstItem="I56-4K-AQV" firstAttribute="leading" secondItem="cFF-XQ-9ar" secondAttribute="leading" id="b4h-4n-ecI"/>
-                            <constraint firstItem="v88-b5-tMQ" firstAttribute="bottom" secondItem="W6T-zY-1mQ" secondAttribute="top" id="dhb-kO-cM8"/>
+                            <constraint firstAttribute="trailing" secondItem="f3L-ws-QtE" secondAttribute="trailing" id="m0q-sC-9yB"/>
                             <constraint firstAttribute="trailing" secondItem="I56-4K-AQV" secondAttribute="trailing" id="vQX-C8-eaf"/>
                         </constraints>
                     </view>
@@ -941,9 +957,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="imageView" destination="v88-b5-tMQ" id="uEt-el-9KJ"/>
+                        <outlet property="imageView" destination="rK9-Rq-725" id="2O1-9P-JoZ"/>
                         <outlet property="navTitle" destination="e5H-RQ-8fp" id="o9g-mR-AaZ"/>
                         <outlet property="progressBar" destination="I56-4K-AQV" id="86S-Yg-z5z"/>
+                        <outlet property="scrollView" destination="f3L-ws-QtE" id="GYa-bZ-PtB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JmW-8x-zEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1098,10 +1115,10 @@
             </objects>
             <point key="canvasLocation" x="959" y="-310"/>
         </scene>
-        <!--Webpage Title-->
+        <!--Scanned Webpage-->
         <scene sceneID="H0a-E0-mEb">
             <objects>
-                <viewController id="A9O-5B-WbB" customClass="WebpageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Scanned Webpage" id="A9O-5B-WbB" customClass="WebpageViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lWa-ds-EfS"/>
                         <viewControllerLayoutGuide type="bottom" id="ZCa-gH-cJw"/>
