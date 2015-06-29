@@ -14,6 +14,7 @@ import CoreImage
 protocol ConfirmURLDelegate {
     func URLAdded()
 }
+
 class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigationDelegate, UIGestureRecognizerDelegate, UIPopoverPresentationControllerDelegate {
 
     var delegate: ConfirmURLDelegate?
@@ -138,10 +139,14 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
         println("URL: \(url)")
         println("title: \(title)")
         self.urlField.text = title
-        //UIGraphicsBeginImageContext(CGSizeMake(view.frame.width, view.frame.height - 44.0))
-        UIGraphicsBeginImageContext(self.view.frame.size)
+        progressView.hidden = true
         //UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        UIGraphicsBeginImageContext(view.frame.size)
+        //UIGraphicsBeginImageContext(CGSizeMake(view.frame.width, view.frame.height))
+        UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, false, UIScreen.mainScreen().scale)
+        view.drawViewHierarchyInRect(CGRectMake(0, -52.0, view.frame.width, (view.frame.height + 105.0)), afterScreenUpdates: true)
+        //self.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+        //self.webView.layer.renderInContext(context)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
@@ -149,10 +154,9 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
         newURL["type"] = "url"
         newURL["url"] = url
         newURL["title"] = title
-        //newURL["fileData"] = screenshot
         newURL["poster"] = PFUser.currentUser()!
         let data = UIImagePNGRepresentation(screenshot)
-        let filename = title + ".png"
+        let filename = "screenshot.png"
         newURL["filename"] = filename
         newURL["mimeType"] = "image/png"
         uploadData(data, filename: filename, newURL: newURL, sender: sender)
@@ -167,10 +171,9 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
                 newURL["fileData"] = parseFile
                 newURL.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     if succeeded {
+                        self.delegate?.URLAdded()
                         self.progressView.hidden = true
                         let objectId = newURL.objectId!
-                        //self.dataObject = newDocument
-                        
                         println(objectId)
                         self.generateQRImage(objectId, withSizeRate: 10.0)
                         self.showQRCode(sender)

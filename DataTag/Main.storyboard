@@ -211,6 +211,62 @@
                                     <outlet property="collectionView" destination="vN4-N6-dvu" id="gN4-hS-1Pt"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WebpageCell" rowHeight="250" id="fJL-pZ-gX9" customClass="WebpagesTableViewCell" customModule="DataTag" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJL-pZ-gX9" id="J1h-x5-3lg">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kNt-qP-Qbv">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="rvs-Sf-gA3">
+                                                <size key="itemSize" width="150" height="199"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WebpageCollectionCell" id="HtL-Pc-LXK" customClass="WebpageCollectionViewCell" customModule="DataTag" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xi6-eh-F95">
+                                                                <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="Xi6-eh-F95" secondAttribute="trailing" id="76I-Jj-wug"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Xi6-eh-F95" secondAttribute="bottom" id="LHQ-5d-Jfb"/>
+                                                        <constraint firstItem="Xi6-eh-F95" firstAttribute="leading" secondItem="HtL-Pc-LXK" secondAttribute="leading" id="WOp-Kd-EA5"/>
+                                                        <constraint firstItem="Xi6-eh-F95" firstAttribute="top" secondItem="HtL-Pc-LXK" secondAttribute="top" id="gGE-lS-YbU"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="screenshotImageView" destination="Xi6-eh-F95" id="QeD-ao-6eO"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="kNt-qP-Qbv" secondAttribute="trailing" id="7Sj-Wa-yaD"/>
+                                        <constraint firstAttribute="bottom" secondItem="kNt-qP-Qbv" secondAttribute="bottom" id="KfN-jz-P59"/>
+                                        <constraint firstItem="kNt-qP-Qbv" firstAttribute="top" secondItem="J1h-x5-3lg" secondAttribute="top" id="cpI-2I-IKT"/>
+                                        <constraint firstItem="kNt-qP-Qbv" firstAttribute="leading" secondItem="J1h-x5-3lg" secondAttribute="leading" id="s79-Pn-PPZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="collectionView" destination="kNt-qP-Qbv" id="tDB-9x-QVn"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="9GA-e1-Jc9" id="DvP-d6-jIh"/>

@@ -24,10 +24,12 @@ class MainViewController: UITableViewController {
     
     var sharedDocuments: [AnyObject] = []
     var sharedImages: [AnyObject] = []
-    
+    var sharedURLs: [AnyObject] = []
+
     var taggedDocuments: [AnyObject] = []
     var taggedImages: [AnyObject] = []
-    
+    var taggedURLs: [AnyObject] = []
+
     var selectedObject: AnyObject?
     var selectedObjectTitle: String?
     var qrImage: UIImage?
@@ -102,7 +104,7 @@ class MainViewController: UITableViewController {
         } else if segue.identifier == "addURLSegue" {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ConfirmURLViewController
-            
+            root.delegate = self
         }
     }
 
@@ -127,6 +129,8 @@ class MainViewController: UITableViewController {
                             self.taggedDocuments.append(data as AnyObject)
                         } else if type == "image" {
                             self.taggedImages.append(data as AnyObject)
+                        } else if type == "url" {
+                            self.taggedURLs.append(data as AnyObject)
                         }
                     }
                 }
@@ -152,6 +156,8 @@ class MainViewController: UITableViewController {
                             self.sharedDocuments.append(data as AnyObject)
                         } else if type == "image" {
                             self.sharedImages.append(data as AnyObject)
+                        } else if type == "url" {
+                            self.sharedURLs.append(data as AnyObject)
                         }
                     }
                 }
@@ -177,6 +183,9 @@ class MainViewController: UITableViewController {
         case 1:
             headerLabel.text = "IMAGES"
             break
+        case 2:
+            headerLabel.text = "WEBPAGES"
+            break
         default:
             break
         }
@@ -185,7 +194,7 @@ class MainViewController: UITableViewController {
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -227,7 +236,23 @@ class MainViewController: UITableViewController {
                 cell.configureWithData()
             }
             return cell
+            
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("WebpageCell", forIndexPath: indexPath) as! WebpagesTableViewCell
+            if segmentControl.selectedIndex == 0 {
+                cell.webpages = self.sharedURLs
+            } else if segmentControl.selectedIndex == 1 {
+                cell.webpages = self.taggedURLs
+            }
+            if cell.webpages != nil {
+                cell.delegate = self
+                cell.segmentControlIndex = segmentControl.selectedIndex
+                cell.viewController = self
+                cell.configureWithData()
+            }
+            return cell
         }
+        
         return UITableViewCell()
     }
 
@@ -321,7 +346,7 @@ class MainViewController: UITableViewController {
 
 }
 
-extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate {
+extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate, WebpagesDelegate {
     
     func uploadToDropbox(dataObject: AnyObject) {
         if DBSession.sharedSession().isLinked() {
@@ -380,6 +405,11 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
         performSegueWithIdentifier("imageSegue", sender: nil)
     }
     
+    func webpageObjectSelected(urlObject: AnyObject) {
+        self.selectedObject = urlObject
+        //performSegueWithIdentifier("webpageSegue", sender: nil)
+    }
+
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell) {
         self.selectedObject = object
         let object = object as! PFObject
@@ -431,6 +461,20 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
         default:
             break
         }
+    }
+    
+    func webpageRemoved(index: Int, segmentControlIndex: Int) {
+        switch segmentControlIndex {
+        case 0:
+            sharedURLs.removeAtIndex(index)
+            break
+        case 1:
+            taggedURLs.removeAtIndex(index)
+            break
+        default:
+            break
+        }
+
     }
 }
 
@@ -489,7 +533,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate {
+extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate {
     
     func showQRCode(sender: UICollectionViewCell) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -543,6 +587,11 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
     }
     
     func imageWasAdded() {
+        segmentControl.selectedIndex = 0
+        loadSharedData()
+    }
+    
+    func URLAdded() {
         segmentControl.selectedIndex = 0
         loadSharedData()
     }

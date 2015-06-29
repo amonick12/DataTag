@@ -38,6 +38,8 @@
 		003FE3C61B3106C100012D09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BB1B3106C100012D09 /* Security.framework */; };
 		003FE3C71B3106C100012D09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BC1B3106C100012D09 /* StoreKit.framework */; };
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
+		006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */; };
+		006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */; };
 		009676131B345513005C087A /* Getting Started.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 009676121B345513005C087A /* Getting Started.rtf */; };
 		009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009676151B34557A005C087A /* DocumentsTableViewCell.swift */; };
 		00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */; };
@@ -101,6 +103,8 @@
 		003FE3BB1B3106C100012D09 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		003FE3BC1B3106C100012D09 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpagesTableViewCell.swift; sourceTree = "<group>"; };
+		006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageCollectionViewCell.swift; sourceTree = "<group>"; };
 		009676121B345513005C087A /* Getting Started.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Getting Started.rtf"; sourceTree = "<group>"; };
 		009676151B34557A005C087A /* DocumentsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewCell.swift; sourceTree = "<group>"; };
 		00A50F9E1B38F70100539987 /* DocumentDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDetailViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +275,8 @@
 				00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */,
 				00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */,
 				00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */,
+				006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */,
+				006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -401,12 +407,14 @@
 				003873D31B403943009D83EF /* ConfirmURLViewController.swift in Sources */,
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
 				00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */,
+				006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,
 				003FE3A21B31049C00012D09 /* QRGeneratorViewController.swift in Sources */,
 				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,
 				00A50F9F1B38F70100539987 /* DocumentDetailViewController.swift in Sources */,
 				00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */,
 				00F2ACC41B3B669200C3B012 /* DTSegmentedControl.swift in Sources */,
+				006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */,
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
 				00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */,
