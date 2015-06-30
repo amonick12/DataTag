@@ -234,7 +234,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xi6-eh-F95">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xi6-eh-F95">
                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="199"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             </imageView>
@@ -552,6 +552,7 @@
                         <outlet property="imageView" destination="9Id-nb-BbE" id="fYJ-mP-SBR"/>
                         <outlet property="progressBar" destination="KQm-sf-qs7" id="AvR-rD-w2W"/>
                         <outlet property="textField" destination="LqM-7x-0nH" id="W6K-Fe-gWP"/>
+                        <outlet property="textView" destination="aOL-vM-J2Y" id="GbH-Zn-fDg"/>
                         <segue destination="K0C-bw-dWA" kind="show" identifier="qrGeneratorOfImage" id="9da-dY-dbE"/>
                     </connections>
                 </viewController>
@@ -846,9 +847,6 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Document Title" id="bd2-hP-mno">
-                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="DY7-nW-Q9R">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="gbP-tF-S8F">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -1008,12 +1006,6 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Image Title" id="7LH-H1-a5I">
-                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="9vV-Kx-B0u">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="settingsButtonPressed:" destination="C2q-9z-LdB" id="gRi-Sf-GSz"/>
-                                            </connections>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="msh-4r-KFg">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -1170,9 +1162,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kwG-ZT-Kbc">
-                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
-                            </progressView>
                             <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="m4u-nd-CUD">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <constraints>
@@ -1180,9 +1169,6 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="Webpage Title" id="4mR-kH-Xm2">
-                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="organize" id="aLv-Ch-jm3">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="63L-6P-mtn">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -1195,17 +1181,23 @@
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YW4-dB-JNp">
                                 <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="oPq-xR-LtL" id="WDc-ER-jY2"/>
+                                </connections>
                             </webView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kwG-ZT-Kbc">
+                                <rect key="frame" x="0.0" y="44" width="600" height="2"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kwG-ZT-Kbc" secondAttribute="trailing" id="164-yj-die"/>
                             <constraint firstAttribute="trailing" secondItem="m4u-nd-CUD" secondAttribute="trailing" id="1aq-gv-Pwa"/>
-                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="5T3-qZ-E4Y"/>
                             <constraint firstItem="m4u-nd-CUD" firstAttribute="top" secondItem="5JY-1i-hzm" secondAttribute="top" id="HYY-87-EKt"/>
+                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="top" secondItem="m4u-nd-CUD" secondAttribute="bottom" id="R01-rH-EVd"/>
                             <constraint firstItem="m4u-nd-CUD" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="U2f-WT-oaD"/>
-                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="top" secondItem="jMV-LQ-fHV" secondAttribute="bottom" constant="44" id="buj-iI-FLZ"/>
+                            <constraint firstItem="kwG-ZT-Kbc" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="a8d-wD-vwu"/>
                             <constraint firstAttribute="trailing" secondItem="YW4-dB-JNp" secondAttribute="trailing" id="g12-kB-X5v"/>
-                            <constraint firstAttribute="trailing" secondItem="kwG-ZT-Kbc" secondAttribute="trailing" id="k3c-5m-zVd"/>
                             <constraint firstItem="YW4-dB-JNp" firstAttribute="top" secondItem="m4u-nd-CUD" secondAttribute="bottom" id="kxI-n0-2iL"/>
                             <constraint firstItem="YW4-dB-JNp" firstAttribute="leading" secondItem="5JY-1i-hzm" secondAttribute="leading" id="mih-xn-qMw"/>
                             <constraint firstItem="m4u-nd-CUD" firstAttribute="top" secondItem="jMV-LQ-fHV" secondAttribute="bottom" id="u20-qp-8Fh"/>
@@ -1234,6 +1226,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QDP-VT-egh"/>
+        <segue reference="9da-dY-dbE"/>
     </inferredMetricsTieBreakers>
 </document>

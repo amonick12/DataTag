@@ -20,6 +20,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var textView: UIView!
     
     var image: UIImage!
     
@@ -29,6 +30,18 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = backgroundImageView.bounds
+        blurEffectView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        blurEffectView.autoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin
+        backgroundImageView.addSubview(blurEffectView)
+        view.addSubview(backgroundImageView)
+        view.bringSubviewToFront(progressBar)
+        view.bringSubviewToFront(textView)
+        view.bringSubviewToFront(imageView)
         
         navigationController?.toolbarHidden = true
         imageView.image = image

@@ -119,7 +119,7 @@ class MainViewController: UITableViewController {
     
     func loadTaggedData() {
         var query = PFUser.currentUser()!.relationForKey("unlockedData").query()!
-        query.orderByAscending("updatedAt")
+        query.orderByDescending("updatedAt")
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if objects != nil {
                 self.taggedData = objects
@@ -147,7 +147,7 @@ class MainViewController: UITableViewController {
     
     func loadSharedData() {
         var query = PFUser.currentUser()!.relationForKey("sharedData").query()!
-        query.orderByAscending("updatedAt")
+        query.orderByDescending("updatedAt")
         query.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if objects != nil {
                 self.sharedData = objects
@@ -335,7 +335,9 @@ class MainViewController: UITableViewController {
         
         let mapAction = UIAlertAction(title: "Map", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("Map button tapped")
-            
+            let alert = UIAlertController(title: "Map Feature", message: "Tag Data through GeoPoint Location Coming Soon", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "DONE", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
         })
         alertController.addAction(mapAction)
         

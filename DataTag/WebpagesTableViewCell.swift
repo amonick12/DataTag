@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Foundation
 
 protocol WebpagesDelegate {
     func webpageObjectSelected(urlObject: AnyObject)
@@ -60,36 +61,42 @@ class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as! WebpageCollectionViewCell
         //let image = cell.imageView.image
         
-        let selectedImage = self.webpages![indexPath.row] as! PFObject
-        let title = selectedImage["title"] as! String
+        let selectedObject = self.webpages![indexPath.row] as! PFObject
+        let title = selectedObject["title"] as! String
+        let urlString = selectedObject["url"] as! String
         println(title)
         
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         let shareImage = UIAlertAction(title: "Share with QR Code", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("share \(title) with QR")
-            self.delegate?.shareWithQRCode(selectedImage, cell: cell as UICollectionViewCell)
+            self.delegate?.shareWithQRCode(selectedObject, cell: cell as UICollectionViewCell)
         })
         alertController.addAction(shareImage)
         
-//        let addImage = UIAlertAction(title: "Add to Photo Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
-//            println("add \(title) to Photo Library")
-//            self.selectedTitle = title
-//            UIImageWriteToSavedPhotosAlbum(image, self, "image:didFinishSavingWithError:contextInfo:", nil)
-//            
-//        })
-//        alertController.addAction(addImage)
+        let addBookmark = UIAlertAction(title: "Open with Safari", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            //println("add \(title) as Bookmark")
+            self.selectedTitle = title
+            let bookmarkCreationOption = NSURLBookmarkCreationOptions.MinimalBookmark
+            let url = NSURL(string: urlString)!
+            //let bookmarkData = url.bookmarkDataWithOptions(bookmarkCreationOption, includingResourceValuesForKeys: nil, relativeToURL: nil, error: nil)
+            if UIApplication.sharedApplication().canOpenURL(url) {
+                UIApplication.sharedApplication().openURL(url)
+            }
+            //NSURL.writeBookmarkData(bookmarkData, toURL: <#NSURL#>, options: <#NSURLBookmarkFileCreationOptions#>, error: <#NSErrorPointer#>)
+        })
+        alertController.addAction(addBookmark)
         
         let removeAction = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: {(alert :UIAlertAction!) in
             println("remove button tapped")
             
-            var relation = selectedImage.relationForKey("unlockedBy")
+            var relation = selectedObject.relationForKey("unlockedBy")
             relation.removeObject(PFUser.currentUser()!)
-            selectedImage.saveInBackground()
+            selectedObject.saveInBackground()
             relation = PFUser.currentUser()!.relationForKey("sharedData")
-            relation.removeObject(selectedImage)
+            relation.removeObject(selectedObject)
             relation = PFUser.currentUser()!.relationForKey("unlockedData")
-            relation.removeObject(selectedImage)
+            relation.removeObject(selectedObject)
             PFUser.currentUser()!.saveInBackground()
             self.webpages?.removeAtIndex(indexPath.row)
             self.delegate?.webpageRemoved(indexPath.row, segmentControlIndex: self.segmentControlIndex!)

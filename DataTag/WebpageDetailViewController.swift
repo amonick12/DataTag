@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import Parse
 
-class WebpageDetailViewController: UIViewController {
+class WebpageDetailViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var navTitle: UINavigationItem!
@@ -19,11 +19,14 @@ class WebpageDetailViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!
     //var webView: WKWebView!
     var dataObject: AnyObject?
+    
+    var theBool: Bool = false
+    var myTimer: NSTimer = NSTimer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
-        
+        webView.delegate = self
 //        let backgroundImageView = UIImageView(image: UIImage(named: "cloud.jpg"))
 //        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
 //        let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -42,7 +45,8 @@ class WebpageDetailViewController: UIViewController {
 //        view.addConstraints([height, width])
         //webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         //webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
-
+//        view.bringSubviewToFront(progressView)
+//        progressView.setProgress(1.0, animated: true)
         // Do any additional setup after loading the view.
         if let webpage = dataObject as? PFObject {
             let title = webpage["title"] as! String
@@ -94,6 +98,34 @@ class WebpageDetailViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    func webViewDidStartLoad(webView: UIWebView) {
+        println("webview started loading")
+        //progressView.hidden = false
+        //view.bringSubviewToFront(progressView)
+        self.progressView.progress = 0.0
+        self.theBool = false
+        self.myTimer = NSTimer.scheduledTimerWithTimeInterval(0.01667, target: self, selector: "timerCallback", userInfo: nil, repeats: true)    }
+    
+    func webViewDidFinishLoad(webView: UIWebView) {
+        println("webview finished loading")
+        self.theBool = true
+    }
+    
+    func timerCallback() {
+        if self.theBool {
+            if self.progressView.progress >= 1 {
+                self.progressView.hidden = true
+                self.myTimer.invalidate()
+            } else {
+                self.progressView.progress += 0.1
+            }
+        } else {
+            self.progressView.progress += 0.05
+            if self.progressView.progress >= 0.95 {
+                self.progressView.progress = 0.95
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

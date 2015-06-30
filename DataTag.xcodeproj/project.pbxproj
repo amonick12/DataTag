@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0025C1341B43334E002F459A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0025C1331B43334E002F459A /* StoreKit.framework */; };
+		0025C1361B433359002F459A /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0025C1351B433359002F459A /* GameKit.framework */; };
 		003873D01B3D9088009D83EF /* QRNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003873CF1B3D9088009D83EF /* QRNavViewController.swift */; };
 		003873D31B403943009D83EF /* ConfirmURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003873D21B403943009D83EF /* ConfirmURLViewController.swift */; };
 		003FE37B1B3103D800012D09 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37A1B3103D800012D09 /* Images.xcassets */; };
 		003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 003FE37C1B3103D800012D09 /* LaunchScreen.xib */; };
-		003FE38A1B3103D800012D09 /* DataTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3891B3103D800012D09 /* DataTagTests.swift */; };
 		003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3931B31049C00012D09 /* AddDocumentNavController.swift */; };
 		003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3941B31049C00012D09 /* AddDocumentViewController.swift */; };
 		003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003FE3951B31049C00012D09 /* AppDelegate.swift */; };
@@ -36,7 +37,6 @@
 		003FE3C41B3106C100012D09 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3B91B3106C100012D09 /* MobileCoreServices.framework */; };
 		003FE3C51B3106C100012D09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BA1B3106C100012D09 /* QuartzCore.framework */; };
 		003FE3C61B3106C100012D09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BB1B3106C100012D09 /* Security.framework */; };
-		003FE3C71B3106C100012D09 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BC1B3106C100012D09 /* StoreKit.framework */; };
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
 		006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */; };
 		006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */; };
@@ -58,24 +58,15 @@
 		00F2ACC61B3B70D500C3B012 /* cloud.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00F2ACC51B3B70D500C3B012 /* cloud.jpg */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		003FE3841B3103D800012D09 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 003FE3661B3103D800012D09 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 003FE36D1B3103D800012D09;
-			remoteInfo = DataTag;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		0025C1331B43334E002F459A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		0025C1351B433359002F459A /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		003873CF1B3D9088009D83EF /* QRNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRNavViewController.swift; sourceTree = "<group>"; };
 		003873D21B403943009D83EF /* ConfirmURLViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmURLViewController.swift; sourceTree = "<group>"; };
 		003FE36E1B3103D800012D09 /* DataTag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		003FE3721B3103D800012D09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		003FE37A1B3103D800012D09 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		003FE37D1B3103D800012D09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		003FE3831B3103D800012D09 /* DataTagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		003FE3881B3103D800012D09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		003FE3891B3103D800012D09 /* DataTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTagTests.swift; sourceTree = "<group>"; };
 		003FE3931B31049C00012D09 /* AddDocumentNavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDocumentNavController.swift; sourceTree = "<group>"; };
@@ -103,7 +94,6 @@
 		003FE3B91B3106C100012D09 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		003FE3BA1B3106C100012D09 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		003FE3BB1B3106C100012D09 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		003FE3BC1B3106C100012D09 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpagesTableViewCell.swift; sourceTree = "<group>"; };
 		006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -139,19 +129,13 @@
 				003FE3C41B3106C100012D09 /* MobileCoreServices.framework in Frameworks */,
 				003FE3C51B3106C100012D09 /* QuartzCore.framework in Frameworks */,
 				003FE3C61B3106C100012D09 /* Security.framework in Frameworks */,
-				003FE3C71B3106C100012D09 /* StoreKit.framework in Frameworks */,
 				003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */,
 				003FE3AC1B31061100012D09 /* DropboxSDK.framework in Frameworks */,
 				003FE3B11B31062000012D09 /* Parse.framework in Frameworks */,
+				0025C1341B43334E002F459A /* StoreKit.framework in Frameworks */,
 				003FE3B01B31062000012D09 /* Bolts.framework in Frameworks */,
 				003FE3B21B31062000012D09 /* ParseCrashReporting.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		003FE3801B3103D800012D09 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				0025C1361B433359002F459A /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				003FE36E1B3103D800012D09 /* DataTag.app */,
-				003FE3831B3103D800012D09 /* DataTagTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +213,8 @@
 		003FE3AA1B3105FB00012D09 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0025C1351B433359002F459A /* GameKit.framework */,
+				0025C1331B43334E002F459A /* StoreKit.framework */,
 				003FE3B31B3106C100012D09 /* AudioToolbox.framework */,
 				003FE3B41B3106C100012D09 /* CFNetwork.framework */,
 				003FE3B51B3106C100012D09 /* CoreGraphics.framework */,
@@ -239,7 +224,6 @@
 				003FE3B91B3106C100012D09 /* MobileCoreServices.framework */,
 				003FE3BA1B3106C100012D09 /* QuartzCore.framework */,
 				003FE3BB1B3106C100012D09 /* Security.framework */,
-				003FE3BC1B3106C100012D09 /* StoreKit.framework */,
 				003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */,
 				003FE3AD1B31062000012D09 /* Bolts.framework */,
 				003FE3AE1B31062000012D09 /* Parse.framework */,
@@ -326,24 +310,6 @@
 			productReference = 003FE36E1B3103D800012D09 /* DataTag.app */;
 			productType = "com.apple.product-type.application";
 		};
-		003FE3821B3103D800012D09 /* DataTagTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 003FE3901B3103D800012D09 /* Build configuration list for PBXNativeTarget "DataTagTests" */;
-			buildPhases = (
-				003FE37F1B3103D800012D09 /* Sources */,
-				003FE3801B3103D800012D09 /* Frameworks */,
-				003FE3811B3103D800012D09 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				003FE3851B3103D800012D09 /* PBXTargetDependency */,
-			);
-			name = DataTagTests;
-			productName = DataTagTests;
-			productReference = 003FE3831B3103D800012D09 /* DataTagTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -356,10 +322,14 @@
 					003FE36D1B3103D800012D09 = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = BAN868XZ6P;
-					};
-					003FE3821B3103D800012D09 = {
-						CreatedOnToolsVersion = 6.3.2;
-						TestTargetID = 003FE36D1B3103D800012D09;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -377,7 +347,6 @@
 			projectRoot = "";
 			targets = (
 				003FE36D1B3103D800012D09 /* DataTag */,
-				003FE3821B3103D800012D09 /* DataTagTests */,
 			);
 		};
 /* End PBXProject section */
@@ -392,13 +361,6 @@
 				003FE37E1B3103D800012D09 /* LaunchScreen.xib in Resources */,
 				009676131B345513005C087A /* Getting Started.rtf in Resources */,
 				003FE37B1B3103D800012D09 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		003FE3811B3103D800012D09 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,23 +402,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		003FE37F1B3103D800012D09 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				003FE38A1B3103D800012D09 /* DataTagTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		003FE3851B3103D800012D09 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 003FE36D1B3103D800012D09 /* DataTag */;
-			targetProxy = 003FE3841B3103D800012D09 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		003FE37C1B3103D800012D09 /* LaunchScreen.xib */ = {
@@ -487,7 +433,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Aaron Monick";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Aaron Monick";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -509,6 +456,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "d4d54004-419a-4a7a-9104-f68985abe70b";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -532,7 +480,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Aaron Monick";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -547,6 +496,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "d4d54004-419a-4a7a-9104-f68985abe70b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -559,6 +509,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -567,6 +518,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DataTag/DataTag-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -578,6 +530,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -586,41 +539,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "DataTag/DataTag-Bridging-Header.h";
-			};
-			name = Release;
-		};
-		003FE3911B3103D800012D09 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DataTagTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DataTag.app/DataTag";
-			};
-			name = Debug;
-		};
-		003FE3921B3103D800012D09 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = DataTagTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DataTag.app/DataTag";
 			};
 			name = Release;
 		};
@@ -641,15 +561,6 @@
 			buildConfigurations = (
 				003FE38E1B3103D800012D09 /* Debug */,
 				003FE38F1B3103D800012D09 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		003FE3901B3103D800012D09 /* Build configuration list for PBXNativeTarget "DataTagTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				003FE3911B3103D800012D09 /* Debug */,
-				003FE3921B3103D800012D09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
