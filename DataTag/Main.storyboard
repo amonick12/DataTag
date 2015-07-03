@@ -1045,6 +1045,64 @@
             </objects>
             <point key="canvasLocation" x="2971" y="1061"/>
         </scene>
+        <!--Root View Controller-->
+        <scene sceneID="bvt-Qw-lem">
+            <objects>
+                <tableViewController storyboardIdentifier="BeaconData" id="Z4y-Gi-AHw" customClass="BeaconDataTableViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="0Vk-Eg-kOn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="beaconDataCell" textLabel="1HA-YD-5Xp" detailTextLabel="t5W-cu-G9W" rowHeight="100" style="IBUITableViewCellStyleSubtitle" id="oGZ-Bz-OUI">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGZ-Bz-OUI" id="eq4-9r-eVc">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1HA-YD-5Xp">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t5W-cu-G9W">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Z4y-Gi-AHw" id="cu0-aV-7pQ"/>
+                            <outlet property="delegate" destination="Z4y-Gi-AHw" id="gri-Q9-AaY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="nh9-qf-Cpz"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eOW-D7-xRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959" y="-992"/>
+        </scene>
+        <!--BeaconNav-->
+        <scene sceneID="bU4-cT-1Zr">
+            <objects>
+                <navigationController storyboardIdentifier="BeaconNav" title="BeaconNav" id="SLO-0R-AmG" customClass="BeaconDataNavViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="p1H-Nu-Wul">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Z4y-Gi-AHw" kind="relationship" relationship="rootViewController" id="7xU-lk-cha"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WFw-iB-aiu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="325" y="-992"/>
+        </scene>
         <!--Share-->
         <scene sceneID="psJ-4r-OGJ">
             <objects>

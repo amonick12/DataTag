@@ -8,6 +8,9 @@
 
 import UIKit
 import Parse
+import QuartzCore
+import CoreLocation
+import CoreBluetooth
 
 class MainViewController: UITableViewController {
 
@@ -33,6 +36,12 @@ class MainViewController: UITableViewController {
     var selectedObject: AnyObject?
     var selectedObjectTitle: String?
     var qrImage: UIImage?
+    
+    let uuid = NSUUID(UUIDString: "DDE7137E-EE5F-4A48-A083-2E48F024F73A")
+    var beaconRegion: CLBeaconRegion!
+    var bluetoothPeripheralManager: CBPeripheralManager!
+    var isBroadcasting = false
+    var dataDictionary = NSDictionary()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +87,7 @@ class MainViewController: UITableViewController {
             initDropboxRestClient()
         }
         
+        bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
     }
     
     func refresh() {
@@ -341,6 +351,12 @@ class MainViewController: UITableViewController {
         })
         alertController.addAction(mapAction)
         
+        let beaconAction = UIAlertAction(title: "Nearby Beacons", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
+            println("beacon button tapped")
+            self.nearByBeaconDataButtonPressed(sender)
+        })
+        alertController.addAction(beaconAction)
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         alertController.addAction(cancelAction)
         
@@ -355,8 +371,83 @@ class MainViewController: UITableViewController {
 
 }
 
-extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate, WebpagesDelegate {
+extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate, WebpagesDelegate, CBPeripheralManagerDelegate {
     
+    func broadcastAsBeacon(dataObject: AnyObject) {
+        if isBroadcasting {
+            bluetoothPeripheralManager.stopAdvertising()
+        }
+        
+        if bluetoothPeripheralManager.state == CBPeripheralManagerState.PoweredOn {
+            
+            let max = UINT16_MAX.toIntMax()
+            let majorInt = Int(arc4random_uniform(UInt32(max))) + 1
+            let minorInt = Int(arc4random_uniform(UInt32(max))) + 1
+            if let data = dataObject as? PFObject {
+                data["major"] = String(majorInt)
+                data["minor"] = String(minorInt)
+                data.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
+                    
+                    let major: CLBeaconMajorValue = UInt16(majorInt)
+                    let minor: CLBeaconMinorValue = UInt16(minorInt)
+                    self.beaconRegion = CLBeaconRegion(proximityUUID: self.uuid, major: major, minor: minor, identifier: "datatag.com")
+                    self.dataDictionary = self.beaconRegion.peripheralDataWithMeasuredPower(nil)
+                    self.bluetoothPeripheralManager.startAdvertising(self.dataDictionary as [NSObject : AnyObject])
+                    println("broadcasting...")
+                    println("major: \(majorInt)")
+                    println("minor: \(minorInt)")
+                    self.isBroadcasting = true
+                })
+            }
+            
+        } else {
+            println("alert: turn on bluetooth")
+        }
+        //if !isBroadcasting {
+        
+//        } else {
+//            bluetoothPeripheralManager.stopAdvertising()
+//            
+////            btnAction.setTitle("Start", forState: UIControlState.Normal)
+////            lblStatus.text = "Stopped"
+////            txtMajor.enabled = true
+////            txtMinor.enabled = true
+//            isBroadcasting = false
+//        }
+
+        
+    }
+    
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
+        var statusMessage = ""
+        
+        switch peripheral.state {
+        case CBPeripheralManagerState.PoweredOn:
+            statusMessage = "Bluetooth Status: Turned On"
+            
+        case CBPeripheralManagerState.PoweredOff:
+            if isBroadcasting {
+                //switchBroadcastingState(self)
+                bluetoothPeripheralManager.stopAdvertising()
+            }
+            statusMessage = "Bluetooth Status: Turned Off"
+            
+        case CBPeripheralManagerState.Resetting:
+            statusMessage = "Bluetooth Status: Resetting"
+            
+        case CBPeripheralManagerState.Unauthorized:
+            statusMessage = "Bluetooth Status: Not Authorized"
+            
+        case CBPeripheralManagerState.Unsupported:
+            statusMessage = "Bluetooth Status: Not Supported"
+            
+        default:
+            statusMessage = "Bluetooth Status: Unknown"
+        }
+        println("Bluetooth status: \(statusMessage)")
+        //lblBTStatus.text = statusMessage
+    }
+
     func uploadToDropbox(dataObject: AnyObject) {
         if DBSession.sharedSession().isLinked() {
             if let dataObject = dataObject as? PFObject {
@@ -575,6 +666,19 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
             popover.delegate = self
             presentViewController(vc, animated: true, completion:nil)
         }
+    }
+    
+    func nearByBeaconDataButtonPressed(sender: UIBarButtonItem) {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("BeaconNav") as! BeaconDataNavViewController
+        let root = vc.visibleViewController as! BeaconDataTableViewController
+        //root.delegate = self
+        
+        vc.modalPresentationStyle = UIModalPresentationStyle.Popover
+        let popover: UIPopoverPresentationController = vc.popoverPresentationController!
+        popover.barButtonItem = sender
+        popover.delegate = self
+        presentViewController(vc, animated: true, completion:nil)
     }
     
     func addDocumentButtonPressed(sender: UIBarButtonItem) {

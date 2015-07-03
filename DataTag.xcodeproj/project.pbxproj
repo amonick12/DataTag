@@ -38,6 +38,8 @@
 		003FE3C51B3106C100012D09 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BA1B3106C100012D09 /* QuartzCore.framework */; };
 		003FE3C61B3106C100012D09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BB1B3106C100012D09 /* Security.framework */; };
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
+		00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */; };
+		00524D481B46EC0A0012699D /* BeaconDataNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */; };
 		006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */; };
 		006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */; };
 		006A1FC81B418B4B000E6FA2 /* WebpageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */; };
@@ -95,6 +97,8 @@
 		003FE3BA1B3106C100012D09 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		003FE3BB1B3106C100012D09 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataTableViewController.swift; sourceTree = "<group>"; };
+		00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataNavViewController.swift; sourceTree = "<group>"; };
 		006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpagesTableViewCell.swift; sourceTree = "<group>"; };
 		006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageCollectionViewCell.swift; sourceTree = "<group>"; };
 		006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageViewController.swift; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 				003FE39A1B31049C00012D09 /* ScanNavController.swift */,
 				00A50FA11B3A374900539987 /* AddImageNavController.swift */,
 				003873CF1B3D9088009D83EF /* QRNavViewController.swift */,
+				00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */,
 			);
 			name = NavControllers;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 				003FE3971B31049C00012D09 /* DocumentViewController.swift */,
 				00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */,
 				006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */,
+				00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */,
 			);
 			name = TagData;
 			sourceTree = "<group>";
@@ -387,10 +393,12 @@
 				003FE39E1B31049C00012D09 /* AppDelegate.swift in Sources */,
 				003FE39C1B31049C00012D09 /* AddDocumentNavController.swift in Sources */,
 				00A50FA21B3A374900539987 /* AddImageNavController.swift in Sources */,
+				00524D481B46EC0A0012699D /* BeaconDataNavViewController.swift in Sources */,
 				003FE3A91B31059300012D09 /* temp.m in Sources */,
 				003FE3A11B31049C00012D09 /* MainViewController.swift in Sources */,
 				003FE39F1B31049C00012D09 /* ConfirmDocumentViewController.swift in Sources */,
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
+				00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */,
 				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
 				00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */,
 				00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */,

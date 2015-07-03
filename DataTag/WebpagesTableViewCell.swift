@@ -15,6 +15,7 @@ protocol WebpagesDelegate {
     func shareWithQRCode(object: AnyObject, cell: UICollectionViewCell)
     //func uploadToDropbox(dataObject: AnyObject)
     func webpageRemoved(index: Int, segmentControlIndex: Int)
+    func broadcastAsBeacon(dataObject: AnyObject)
 }
 
 class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
@@ -73,6 +74,13 @@ class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
             self.delegate?.shareWithQRCode(selectedObject, cell: cell as UICollectionViewCell)
         })
         alertController.addAction(shareImage)
+        
+        let beaconAction = UIAlertAction(title: "Broadcast as Beacon", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+            println("broadcast \(title) as beacon")
+            //self.delegate?.shareWithQRCode(selectedDocument, cell: cell!)
+            self.delegate?.broadcastAsBeacon(selectedObject)
+        })
+        alertController.addAction(beaconAction)
         
         let addBookmark = UIAlertAction(title: "Open with Safari", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             //println("add \(title) as Bookmark")
