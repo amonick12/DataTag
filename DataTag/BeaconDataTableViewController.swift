@@ -10,35 +10,22 @@ import UIKit
 import Parse
 import CoreLocation
 
-class BeaconDataTableViewController: UITableViewController, CLLocationManagerDelegate {
+protocol BeaconDataTableViewControllerDelegate {
+    func nearbyDataAdded()
+}
+
+class BeaconDataTableViewController: UITableViewController, CLLocationManagerDelegate, NearbyTableViewCellDelegate {
 
 //    var locationManager: CLLocationManager?
 //    var lastProximity: CLProximity?
 //    var beaconRegion: CLBeaconRegion!
     //var beacons: [CLBeacon] = []
 
+    var delegate: BeaconDataTableViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-//        locationManager = CLLocationManager()
-//        if(locationManager!.respondsToSelector("requestAlwaysAuthorization")) {
-//            locationManager!.requestAlwaysAuthorization()
-//        }
-//        locationManager!.delegate = self
-        //locationManager!.pausesLocationUpdatesAutomatically = false
-        
-//        locationManager!.startMonitoringForRegion(beaconRegion)
-//        locationManager!.startRangingBeaconsInRegion(beaconRegion)
-//        locationManager!.startUpdatingLocation()
-
-        //println(beacons)
-        //tableView.reloadData()
         println("majors: \(majors)")
         println("minors: \(minors)")
     }
@@ -58,14 +45,10 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
         return majors.count
     }
 
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("beaconDataCell", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-        //let beacon = beacons[indexPath.row]
-//        let major = String(beacon.major.intValue)
-//        let minor = String(beacon.minor.intValue)
+        //let cell = tableView.dequeueReusableCellWithIdentifier("beaconDataCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("nearbyCell", forIndexPath: indexPath) as! NearbyTableViewCell
+        
         var major = majors[indexPath.row]
         var minor = minors[indexPath.row]
         var query = PFQuery(className: "Data")
@@ -74,7 +57,9 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
         query.getFirstObjectInBackgroundWithBlock { (dataObject, error) -> Void in
             if dataObject != nil {
                 if let data = dataObject {
-                    var dataType = data["type"] as? String
+                    var dataType = data["type"] as! String
+                    var file = data["fileData"] as! PFFile
+                    var mimeType = data["mimeType"] as? String
                     var name: String?
                     var type: String?
                     if dataType == "document" {
@@ -89,8 +74,63 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
                         name = data["title"] as? String
                         type = "Webpage"
                     }
-                    cell.textLabel?.text = name
-                    cell.detailTextLabel?.text = type
+//                    cell.textLabel?.text = name
+//                    cell.detailTextLabel?.text = type
+                    cell.data = dataObject
+                    cell.titleLabel.text = name
+                    cell.typeLabel.text = type
+                    cell.delegate = self
+                    cell.indexPath = indexPath
+                    cell.progressView.progress = 0.0
+                    file.getDataInBackgroundWithBlock ({
+                        (data: NSData?, error: NSError?) -> Void in
+                        cell.progressView.hidden = true
+                        if error == nil {
+//                            cell.webview.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+//                            cell.webview.backgroundColor = UIColor.clearColor()
+//                            cell.titleButton.setTitle(filename, forState: .Normal)
+//                            cell.delegate = self
+//                            cell.indexPath = indexPath
+                            switch dataType {
+                            case "document":
+                                var webView = UIWebView()
+                                cell.previewView.addSubview(webView)
+                                webView.frame = cell.previewView.bounds
+                                //webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                                webView.loadData(data!, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+                                webView.backgroundColor = UIColor.clearColor()
+                                cell.previewView.backgroundColor = UIColor.clearColor()
+                                break
+                            case "image":
+                                var imageView = UIImageView()
+                                cell.previewView.addSubview(imageView)
+                                imageView.frame = cell.previewView.bounds
+                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                                imageView.image = UIImage(data: data!)
+                                imageView.backgroundColor = UIColor.clearColor()
+                                imageView.contentMode = UIViewContentMode.ScaleAspectFit
+                                cell.previewView.backgroundColor = UIColor.clearColor()
+                                break
+                            case "url":
+                                var imageView = UIImageView()
+                                cell.previewView.addSubview(imageView)
+                                imageView.frame = cell.previewView.bounds
+                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                                imageView.image = UIImage(data: data!)
+                                imageView.backgroundColor = UIColor.clearColor()
+                                imageView.contentMode = UIViewContentMode.ScaleAspectFill
+                                cell.previewView.backgroundColor = UIColor.clearColor()
+                                break
+                            default:
+                                break
+                                
+                            }
+                        } else { println("Error loading document data") }
+                        }, progressBlock: {
+                            (percentDone: Int32) -> Void in
+                            cell.progressView.progress = Float(percentDone)/100
+                    })
+
                 }
                 
             } else {
@@ -102,6 +142,30 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
         return cell
     }
     
+    func addDataButtonPressed(indexPath: NSIndexPath) {
+        println("\(indexPath) was added")
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! NearbyTableViewCell
+        let data = cell.data as! PFObject
+        let usersRelation = data.relationForKey("unlockedBy")
+        usersRelation.addObject(PFUser.currentUser()!)
+        let taggedRelation = PFUser.currentUser()!.relationForKey("unlockedData")
+        taggedRelation.addObject(data)
+        PFUser.currentUser()?.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
+            if error == nil {
+                self.delegate?.nearbyDataAdded()
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        })
+        data.saveInBackground()
+    }
+
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func updateTable(sender: AnyObject) {
+        tableView.reloadData()
+    }
 
     /*
     // Override to support conditional editing of the table view.

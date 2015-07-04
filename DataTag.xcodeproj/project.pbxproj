@@ -40,6 +40,7 @@
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
 		00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */; };
 		00524D481B46EC0A0012699D /* BeaconDataNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */; };
+		00524D4A1B4831500012699D /* NearbyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D491B48314F0012699D /* NearbyTableViewCell.swift */; };
 		006A1FC41B40C71A000E6FA2 /* WebpagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */; };
 		006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */; };
 		006A1FC81B418B4B000E6FA2 /* WebpageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */; };
@@ -99,6 +100,7 @@
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataTableViewController.swift; sourceTree = "<group>"; };
 		00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataNavViewController.swift; sourceTree = "<group>"; };
+		00524D491B48314F0012699D /* NearbyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyTableViewCell.swift; sourceTree = "<group>"; };
 		006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpagesTableViewCell.swift; sourceTree = "<group>"; };
 		006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageCollectionViewCell.swift; sourceTree = "<group>"; };
 		006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebpageViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */,
 				006A1FC31B40C71A000E6FA2 /* WebpagesTableViewCell.swift */,
 				006A1FC51B40C732000E6FA2 /* WebpageCollectionViewCell.swift */,
+				00524D491B48314F0012699D /* NearbyTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
 				00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */,
 				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
+				00524D4A1B4831500012699D /* NearbyTableViewCell.swift in Sources */,
 				00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */,
 				00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */,
 				00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */,

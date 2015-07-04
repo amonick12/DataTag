@@ -633,7 +633,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate {
+extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate, BeaconDataTableViewControllerDelegate {
     
     func showQRCode(sender: UICollectionViewCell) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -672,7 +672,7 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("BeaconNav") as! BeaconDataNavViewController
         let root = vc.visibleViewController as! BeaconDataTableViewController
-        //root.delegate = self
+        root.delegate = self
         
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
@@ -717,6 +717,10 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
         loadTaggedData()
     }
 
+    func nearbyDataAdded() {
+        segmentControl.selectedIndex = 1
+        loadTaggedData()
+    }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent

@@ -255,13 +255,12 @@ extension AppDelegate: CLLocationManagerDelegate {
             manager.stopUpdatingLocation()
             
             NSLog("You exited the region")
-            sendLocalNotificationWithMessage("You exited the DataTag Region")
+            //sendLocalNotificationWithMessage("You exited the DataTag Region")
     }
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println(error)
     }
-    
     
     func locationManager(manager: CLLocationManager!, monitoringDidFailForRegion region: CLRegion!, withError error: NSError!) {
         println(error)
