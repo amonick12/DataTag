@@ -8,10 +8,19 @@
 
 import UIKit
 
+protocol WebpageCollectionViewCellDelegate {
+    func titleButtonPressed(indexPath: NSIndexPath)
+}
+
 class WebpageCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var labelView: UIView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var screenshotImageView: UIImageView!
+    var delegate: WebpageCollectionViewCellDelegate?
+    var indexPath: NSIndexPath?
     
+    @IBOutlet weak var screenshotImageView: UIImageView!
+    @IBOutlet weak var titleButton: UIButton!
+    
+    @IBAction func titleButtonPressed(sender: AnyObject) {
+        delegate?.titleButtonPressed(indexPath!)
+    }
 }

@@ -8,8 +8,19 @@
 
 import UIKit
 
+protocol ImageCollectionViewCellDelegate {
+    func titleButtonPressed(indexPath: NSIndexPath)
+}
+
 class ImageCollectionViewCell: UICollectionViewCell {
     
+    var delegate: ImageCollectionViewCellDelegate?
+    var indexPath: NSIndexPath?
+    
     @IBOutlet weak var imageView: UIImageView!
-   
+    @IBOutlet weak var titleButton: UIButton!
+    
+    @IBAction func titleButtonPressed(sender: AnyObject) {
+        delegate?.titleButtonPressed(indexPath!)
+    }
 }

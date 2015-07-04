@@ -17,7 +17,7 @@ protocol ImagesDelegate {
     func broadcastAsBeacon(dataObject: AnyObject)
 }
 
-class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, ImageCollectionViewCellDelegate {
     
     var delegate: ImagesDelegate?
     var viewController: UIViewController?
@@ -153,6 +153,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ImageCollectionCell", forIndexPath: indexPath) as! ImageCollectionViewCell
         let image = self.images![indexPath.row] as! PFObject
         //let mimeType = image["mimeType"] as! String
+        let title = image["title"] as! String
         let file = image["fileData"] as! PFFile
         file.getDataInBackgroundWithBlock ({
             (data: NSData?, error: NSError?) -> Void in
@@ -160,7 +161,9 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
             if error == nil {
                 cell.imageView.image = UIImage(data: data!)
                 cell.imageView.backgroundColor = UIColor.clearColor()
-                
+                cell.titleButton.setTitle(title, forState: .Normal)
+                cell.delegate = self
+                cell.indexPath = indexPath
             } else { println("Error loading image data") }
             }, progressBlock: {
                 (percentDone: Int32) -> Void in
@@ -186,4 +189,7 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         }
     }
     
+    func titleButtonPressed(indexPath: NSIndexPath) {
+        showDataOptions(indexPath)
+    }
 }

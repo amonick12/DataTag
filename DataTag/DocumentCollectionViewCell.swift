@@ -8,8 +8,20 @@
 
 import UIKit
 
+protocol DocumentCollectionViewCellDelegate {
+    func titleButtonPressed(indexPath: NSIndexPath)
+}
+
 class DocumentCollectionViewCell: UICollectionViewCell {
+    
+    var delegate: DocumentCollectionViewCellDelegate?
+    var indexPath: NSIndexPath?
     
     @IBOutlet weak var webview: UIWebView!
     
+    @IBOutlet weak var titleButton: UIButton!
+    
+    @IBAction func titleButtonPressed(sender: AnyObject) {
+        delegate?.titleButtonPressed(indexPath!)
+    }
 }

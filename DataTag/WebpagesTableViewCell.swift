@@ -18,7 +18,7 @@ protocol WebpagesDelegate {
     func broadcastAsBeacon(dataObject: AnyObject)
 }
 
-class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate {
+class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, WebpageCollectionViewCellDelegate {
 
     var delegate: WebpagesDelegate?
     var viewController: UIViewController?
@@ -163,7 +163,9 @@ class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
             if error == nil {
                 cell.screenshotImageView.image = UIImage(data: data!)
                 cell.screenshotImageView.backgroundColor = UIColor.clearColor()
-                
+                cell.indexPath = indexPath
+                cell.titleButton.setTitle(webpageTitle, forState: .Normal)
+                cell.delegate = self
             } else { println("Error loading image data") }
             }, progressBlock: {
                 (percentDone: Int32) -> Void in
@@ -177,5 +179,8 @@ class WebpagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollec
         self.delegate?.webpageObjectSelected(webpages![indexPath.row])
     }
 
+    func titleButtonPressed(indexPath: NSIndexPath) {
+        showDataOptions(indexPath)
+    }
 
 }

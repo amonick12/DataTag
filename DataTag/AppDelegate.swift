@@ -15,7 +15,7 @@ var majors: [String] = []
 var minors: [String] = []
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate/*, CBPeripheralManagerDelegate*/ {
 
     var window: UIWindow?
     var locationManager: CLLocationManager?
@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     var lastMajor: String?
     var lastMinor: String?
+    
+    //var bluetoothPeripheralManager: CBPeripheralManager!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
@@ -108,6 +110,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        
+       // bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+//        bluetoothPeripheralManager.stopAdvertising()
+
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -126,7 +132,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
