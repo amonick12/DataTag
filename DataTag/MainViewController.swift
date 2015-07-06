@@ -40,7 +40,7 @@ class MainViewController: UITableViewController {
     let uuid = NSUUID(UUIDString: "DDE7137E-EE5F-4A48-A083-2E48F024F73A")
     var beaconRegion: CLBeaconRegion!
     var bluetoothPeripheralManager: CBPeripheralManager!
-    var isBroadcasting = false
+    //var isBroadcasting = false
     var dataDictionary = NSDictionary()
 
     override func viewDidLoad() {
@@ -374,10 +374,10 @@ class MainViewController: UITableViewController {
 extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate, WebpagesDelegate, CBPeripheralManagerDelegate {
     
     func broadcastAsBeacon(dataObject: AnyObject) {
-        if isBroadcasting {
+        if bluetoothPeripheralManager.isAdvertising {
             bluetoothPeripheralManager.stopAdvertising()
         }
-        
+
         if bluetoothPeripheralManager.state == CBPeripheralManagerState.PoweredOn {
             
             let max = UINT16_MAX.toIntMax()
@@ -396,12 +396,16 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
                     println("broadcasting...")
                     println("major: \(majorInt)")
                     println("minor: \(minorInt)")
-                    self.isBroadcasting = true
+                    //self.isBroadcasting = true
                 })
             }
             
         } else {
             println("alert: turn on bluetooth")
+            let alert = UIAlertController(title: "Turn On Bluetooth", message: "Bluetooth is needed to broadcast as a beacon", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OKAY", style: .Default, handler: nil)
+            alert.addAction(action)
+            presentViewController(alert, animated: true, completion: nil)
         }
         //if !isBroadcasting {
         
@@ -426,7 +430,7 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
             statusMessage = "Bluetooth Status: Turned On"
             
         case CBPeripheralManagerState.PoweredOff:
-            if isBroadcasting {
+            if bluetoothPeripheralManager.isAdvertising {
                 //switchBroadcastingState(self)
                 bluetoothPeripheralManager.stopAdvertising()
             }

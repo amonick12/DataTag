@@ -30,6 +30,7 @@ class ConfirmDocumentViewController: UIViewController {
     var qrImg: UIImage!
     var objectId: String!
     var dataTitle: String!
+    var dataObject: AnyObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,8 @@ class ConfirmDocumentViewController: UIViewController {
             let destination = segue.destinationViewController as! QRGeneratorViewController
             destination.qrImage = self.qrImg!
             destination.dataTitle = filename
+            destination.dataObject = dataObject
+            destination.hideActionButton = false
         }
     }
 
@@ -85,6 +88,7 @@ class ConfirmDocumentViewController: UIViewController {
                         if succeeded {
                             self.progressBar.hidden = true
                             self.objectId = newDocument.objectId!
+                            self.dataObject = newDocument
                             //self.dataObject = newDocument
                             
                             //self.makeQRCodeImage()

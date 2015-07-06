@@ -421,6 +421,12 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="WTk-V9-McU"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Share" id="bDi-A7-zZO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="yy1-0i-at9">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="actionButtonPressed:" destination="K0C-bw-dWA" id="mWa-4E-eK4"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="mCR-5x-ydr">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -1298,6 +1304,12 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="QhQ-jd-O8J"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Share" id="pdc-cb-NNV">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="Hcb-Fc-xNW">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="actionButtonPressed:" destination="Jph-hO-Ky7" id="gP8-qd-2oL"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="0Jx-yZ-Nde">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -1308,6 +1320,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
+                        <outlet property="actionButton" destination="Hcb-Fc-xNW" id="jhy-Wi-JsQ"/>
                         <outlet property="imgQRCode" destination="Mtc-3W-vup" id="b0F-vb-qni"/>
                         <outlet property="navTitle" destination="pdc-cb-NNV" id="rh0-H4-oWu"/>
                     </connections>
@@ -1435,6 +1448,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="9da-dY-dbE"/>
+        <segue reference="QDP-VT-egh"/>
     </inferredMetricsTieBreakers>
 </document>

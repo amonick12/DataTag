@@ -27,6 +27,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
     var qrImg: UIImage!
     var objectId: String!
     var dataTitle: String!
+    var dataObject: AnyObject?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,8 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
             let destination = segue.destinationViewController as! QRGeneratorViewController
             destination.qrImage = self.qrImg
             destination.dataTitle = dataTitle
+            destination.dataObject = self.dataObject
+            destination.hideActionButton = false
         }
     }
     
@@ -91,7 +94,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
         newImage["poster"] = PFUser.currentUser()!
         
         let data = UIImagePNGRepresentation(image)
-        if(data.length <= 10485760/2) {
+        if(data.length <= 10485760) {
             //you can continue for upload.
             println("png file is \(toMB(data.length)) MB and has \(toMB(10485760 - data.length)) MB left")
             let filename = "\(dataTitle).png"
@@ -102,8 +105,6 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
             let filename = "\(dataTitle).jpeg"
             newImage["filename"] = filename
             println("png file is \(toMB(data.length - 10485760)) MB over the limit")
-//            let difference = Double(data.length - 10485760)
-//            let ratio = Double(difference / 10485760)
             let jpgData = UIImageJPEGRepresentation(image, 1.0)
             if jpgData.length <= 10485760 {
                 
@@ -111,10 +112,6 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
                 println("jpg file is \(toMB(jpgData.length)) MB and has \(toMB(10485760 - jpgData.length)) MB left")
             } else {
                 println("jpg file is \(toMB(jpgData.length - 10485760)) MB over the limit")
-//                let ratio = Double((jpgData.length - 10485760) / 10485760)
-//                println("ratio: \(ratio)")
-//                let compression = CGFloat(ratio)
-//                println("compression: \(compression)")
                 let newData = UIImageJPEGRepresentation(image, 0.5)
                 println("new data length is \(toMB(newData.length)) MB")
                 uploadData(newData, filename: filename, newImage: newImage)
@@ -138,7 +135,7 @@ class ConfirmImageViewController: UIViewController, UITextFieldDelegate {
                     if succeeded {
                         self.progressBar.hidden = true
                         self.objectId = newImage.objectId!
-                        //self.dataObject = newDocument
+                        self.dataObject = newImage
                         
                         println(self.objectId)
                         self.generateQRImage(self.objectId, withSizeRate: 10.0)

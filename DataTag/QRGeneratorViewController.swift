@@ -8,21 +8,31 @@
 
 import UIKit
 import MessageUI
+import QuartzCore
+import CoreLocation
+import CoreBluetooth
+import Parse
 
-class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDelegate, CBPeripheralManagerDelegate {
 
+    @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var navTitle: UINavigationItem!
     @IBOutlet weak var imgQRCode: UIImageView!
-    
-//    var qrcodeImage: CIImage!
-//    var objectId: String!
-//    var dataObject: AnyObject!
-
+    var dataObject: AnyObject?
     var qrImage: UIImage!
     var dataTitle: String!
+    var hideActionButton: Bool = true
+    let uuid = NSUUID(UUIDString: "DDE7137E-EE5F-4A48-A083-2E48F024F73A")
+    var beaconRegion: CLBeaconRegion!
+    var bluetoothPeripheralManager: CBPeripheralManager!
+    var dataDictionary = NSDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if hideActionButton {
+            actionButton.enabled = false
+            actionButton.tintColor = UIColor.clearColor()
+        }
         self.navigationItem.hidesBackButton = true
         navigationController?.toolbarHidden = false
         navTitle.title = dataTitle
@@ -95,6 +105,26 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+    @IBAction func actionButtonPressed(sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let beaconAction = UIAlertAction(title: "Broadcast as Beacon", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Broadcast as Beacon")
+            if self.dataObject != nil {
+                self.broadcastAsBeacon(self.dataObject!)
+            }
+        }
+        alert.addAction(beaconAction)
+        let mapAction = UIAlertAction(title: "Assign to Location", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Add geopoint")
+        }
+        alert.addAction(mapAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+            println("canceled")
+        }
+        alert.addAction(cancelAction)
+        alert.popoverPresentationController?.barButtonItem = sender as! UIBarButtonItem
+        presentViewController(alert, animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
@@ -104,5 +134,71 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
         // Pass the selected object to the new view controller.
     }
     */
+
+    func broadcastAsBeacon(dataObject: AnyObject) {
+        if bluetoothPeripheralManager.isAdvertising {
+            bluetoothPeripheralManager.stopAdvertising()
+        }
+        
+        if bluetoothPeripheralManager.state == CBPeripheralManagerState.PoweredOn {
+            
+            let max = UINT16_MAX.toIntMax()
+            let majorInt = Int(arc4random_uniform(UInt32(max))) + 1
+            let minorInt = Int(arc4random_uniform(UInt32(max))) + 1
+            if let data = dataObject as? PFObject {
+                data["major"] = String(majorInt)
+                data["minor"] = String(minorInt)
+                data.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
+                    
+                    let major: CLBeaconMajorValue = UInt16(majorInt)
+                    let minor: CLBeaconMinorValue = UInt16(minorInt)
+                    self.beaconRegion = CLBeaconRegion(proximityUUID: self.uuid, major: major, minor: minor, identifier: "datatag.com")
+                    self.dataDictionary = self.beaconRegion.peripheralDataWithMeasuredPower(nil)
+                    self.bluetoothPeripheralManager.startAdvertising(self.dataDictionary as [NSObject : AnyObject])
+                    println("broadcasting...")
+                    println("major: \(majorInt)")
+                    println("minor: \(minorInt)")
+                })
+            }
+            
+        } else {
+            println("alert: turn on bluetooth")
+            let alert = UIAlertController(title: "Turn On Bluetooth", message: "Bluetooth is needed to broadcast as a beacon", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "OKAY", style: .Default, handler: nil)
+            alert.addAction(action)
+            presentViewController(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
+        var statusMessage = ""
+        
+        switch peripheral.state {
+        case CBPeripheralManagerState.PoweredOn:
+            statusMessage = "Bluetooth Status: Turned On"
+            
+        case CBPeripheralManagerState.PoweredOff:
+            if bluetoothPeripheralManager.isAdvertising {
+                //switchBroadcastingState(self)
+                bluetoothPeripheralManager.stopAdvertising()
+            }
+            statusMessage = "Bluetooth Status: Turned Off"
+            
+        case CBPeripheralManagerState.Resetting:
+            statusMessage = "Bluetooth Status: Resetting"
+            
+        case CBPeripheralManagerState.Unauthorized:
+            statusMessage = "Bluetooth Status: Not Authorized"
+            
+        case CBPeripheralManagerState.Unsupported:
+            statusMessage = "Bluetooth Status: Not Supported"
+            
+        default:
+            statusMessage = "Bluetooth Status: Unknown"
+        }
+        println("Bluetooth status: \(statusMessage)")
+        //lblBTStatus.text = statusMessage
+    }
 
 }

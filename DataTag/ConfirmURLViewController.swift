@@ -25,6 +25,7 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     @IBOutlet weak var backButton: UIBarButtonItem!
     var qrImg: UIImage!
+    var dataObject: AnyObject?
     @IBOutlet weak var toolbar: UIToolbar!
     
     override func viewDidLoad() {
@@ -155,6 +156,15 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
         newURL["url"] = url
         newURL["title"] = title
         newURL["poster"] = PFUser.currentUser()!
+        newURL.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
+            if succeeded {
+                let objectId = newURL.objectId!
+                println(objectId)
+                self.generateQRImage(objectId, withSizeRate: 10.0)
+                self.showQRCode(sender)
+            }
+        })
+        //save screenshot after objectId is made
         let data = UIImagePNGRepresentation(screenshot)
         let filename = "screenshot.png"
         newURL["filename"] = filename
@@ -171,12 +181,10 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
                 newURL["fileData"] = parseFile
                 newURL.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     if succeeded {
+                        self.dataObject = newURL
                         self.delegate?.URLAdded()
                         self.progressView.hidden = true
-                        let objectId = newURL.objectId!
-                        println(objectId)
-                        self.generateQRImage(objectId, withSizeRate: 10.0)
-                        self.showQRCode(sender)
+                        
                         
                         let sharedData = PFUser.currentUser()!.relationForKey("sharedData")
                         sharedData.addObject(newURL)
@@ -225,6 +233,8 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
         let root = vc.visibleViewController as! QRGeneratorViewController
         root.qrImage = qrImg
         root.dataTitle = webView.title
+        root.dataObject = self.dataObject
+        root.hideActionButton = false
         
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
