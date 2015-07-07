@@ -281,7 +281,7 @@ class MainViewController: UITableViewController {
         
         let documentAction = UIAlertAction(title: "Document", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("Document button tapped")
-            self.addDocumentButtonPressed(sender)
+            self.addDocumentButtonPressed(sender, onlyImages: false)
         })
         alertController.addAction(documentAction)
         
@@ -292,6 +292,7 @@ class MainViewController: UITableViewController {
             let dropboxAction = UIAlertAction(title: "From Dropbox", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("open dropbox")
                 //self.photoFromLibrary(sender)
+                self.addDocumentButtonPressed(sender, onlyImages: true)
             })
             alert.addAction(dropboxAction)
             
@@ -698,11 +699,12 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
         presentViewController(vc, animated: true, completion:nil)
     }
     
-    func addDocumentButtonPressed(sender: UIBarButtonItem) {
+    func addDocumentButtonPressed(sender: UIBarButtonItem, onlyImages: Bool) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("AddDocumentNav") as! AddDocumentNavController
         let root = vc.visibleViewController as! AddDocumentViewController
         root.delegate = self
+        root.onlyImages = onlyImages
         vc.modalPresentationStyle = UIModalPresentationStyle.Popover
         let popover: UIPopoverPresentationController = vc.popoverPresentationController!
         popover.barButtonItem = sender

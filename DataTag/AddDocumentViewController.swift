@@ -10,9 +10,10 @@ import UIKit
 
 protocol AddDocumentDelegate {
     func documentWasAdded()
+    func imageWasAdded()
 }
 
-class AddDocumentViewController: UITableViewController, DBRestClientDelegate, ConfirmDocumentDelegate {
+class AddDocumentViewController: UITableViewController, DBRestClientDelegate, ConfirmDocumentDelegate, ConfirmImageDelegate {
     
     var delegate: AddDocumentDelegate?
     var dbRestClient: DBRestClient!
@@ -20,14 +21,22 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var connectButton: UIBarButtonItem!
     var refresher: UIRefreshControl!
+    @IBOutlet weak var navTitle: UINavigationItem!
     
     var selectedFileName: String?
     var selectedMimeType: String?
     
     var cellShown: [Bool]?
-
+    
+    var onlyImages: Bool = false
+    var imageContents: [AnyObject]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if onlyImages {
+            navTitle.title = "Select Image"
+        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDidLinkNotification:", name: "didLinkToDropboxAccountNotification", object: nil)
         
@@ -58,6 +67,10 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
         delegate?.documentWasAdded()
     }
     
+    func imageWasAdded() {
+        delegate?.imageWasAdded()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "confirmDocumentSegue" {
             if let destination = segue.destinationViewController as? ConfirmDocumentViewController {
@@ -66,6 +79,20 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
                 destination.delegate = self
                 //destination.delegate = self
                 //UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
+            }
+        } else if segue.identifier == "showImageSegue" {
+            let destination = segue.destinationViewController as! ConfirmImageViewController
+            
+            let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
+            let filePath = documentsDirectoryPath.stringByAppendingPathComponent(selectedFileName!)
+            
+            if let fileData = NSFileManager.defaultManager().contentsAtPath(filePath as String) {
+                let data = fileData
+                let image = UIImage(data: data)
+                destination.image = image
+                destination.delegate = self
+            } else {
+                println("Error loading file")
             }
         }
     }
@@ -105,12 +132,31 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
     func restClient(client: DBRestClient!, loadedMetadata metadata: DBMetadata!) {
         if metadata.contents.count == 0 {
             //upload getting started.rtf
-            let uploadFilename = "Getting Started.rtf"
-            let sourcePath = NSBundle.mainBundle().pathForResource("Getting Started", ofType: "rtf")
+            var uploadFilename: String?
+            var sourcePath: String?
+            if onlyImages {
+                let uploadFilename = "cloud.jpg"
+                let sourcePath = NSBundle.mainBundle().pathForResource("cloud", ofType: "jpg")
+            } else {
+                let uploadFilename = "Getting Started.rtf"
+                let sourcePath = NSBundle.mainBundle().pathForResource("Getting Started", ofType: "rtf")
+            }
+            
             let destinationPath = "/"
             
             self.showProgressBar()
             self.dbRestClient.uploadFile(uploadFilename, toPath: destinationPath, withParentRev: nil, fromPath: sourcePath)
+        }
+        if onlyImages {
+            imageContents = [AnyObject]()
+            for content in metadata.contents {
+                if let filename = content.filename {
+                    if filename!.hasSuffix("png") || filename!.hasSuffix("jpg") {
+                        println(filename)
+                        imageContents!.append(content)
+                    }
+                }
+            }
         }
         dropboxMetadata = metadata
         cellShown = [Bool](count: metadata.contents.count, repeatedValue: false)
@@ -128,8 +174,11 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
         progressBar.hidden = true
         selectedFileName = metadata.filename
         selectedMimeType = contentType
-        
-        performSegueWithIdentifier("confirmDocumentSegue", sender: nil)
+        if onlyImages {
+            performSegueWithIdentifier("showImageSegue", sender: nil)
+        } else {
+            performSegueWithIdentifier("confirmDocumentSegue", sender: nil)
+        }
     }
     
     func restClient(client: DBRestClient!, loadFileFailedWithError error: NSError!) {
@@ -160,6 +209,7 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
                 self.connectButton.title = "Connect to Dropbox"
                 self.dbRestClient = nil
                 self.dropboxMetadata = nil
+                self.imageContents = nil
                 self.tableView.reloadData()
             })
             alertController.addAction(okAction)
@@ -193,9 +243,32 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let metadata = dropboxMetadata {
-            return metadata.contents.count
+//        if onlyImages {
+//            if let metadata = dropboxMetadata {
+//                var count = 0
+//                for content in metadata.contents {
+//                    let filename = content.filename
+//                    if filename!!.hasSuffix(".png") || filename!!.hasSuffix(".jpg") {
+//                        count++
+//                    }
+//                }
+//                return count
+//            }
+//        } else {
+//            if let metadata = dropboxMetadata {
+//                return metadata.contents.count
+//            }
+//        }
+        if onlyImages {
+            if imageContents != nil {
+                return imageContents!.count
+            }
+        } else {
+            if let metadata = dropboxMetadata {
+                return metadata.contents.count
+            }
         }
+        
         return 0
     }
     
@@ -206,21 +279,34 @@ class AddDocumentViewController: UITableViewController, DBRestClientDelegate, Co
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("AddDocumentCell", forIndexPath: indexPath) as! UITableViewCell
         
-        let currentFile: DBMetadata = dropboxMetadata.contents[indexPath.row] as! DBMetadata
-        cell.textLabel?.text = currentFile.filename
+        if onlyImages {
+            if imageContents != nil {
+                let currentFile: DBMetadata = imageContents![indexPath.row] as! DBMetadata
+                cell.textLabel?.text = currentFile.filename
+            }
+            
+        } else {
+            let currentFile: DBMetadata = dropboxMetadata.contents[indexPath.row] as! DBMetadata
+            cell.textLabel?.text = currentFile.filename
+        }
         
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedFile: DBMetadata = dropboxMetadata.contents[indexPath.row] as! DBMetadata
+        var selectedFile: DBMetadata?
+        if onlyImages {
+            selectedFile = imageContents![indexPath.row] as? DBMetadata
+        } else {
+            selectedFile = dropboxMetadata.contents[indexPath.row] as? DBMetadata
+        }
         
         let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! NSString
-        let filePath = documentsDirectoryPath.stringByAppendingPathComponent(selectedFile.filename)
+        let filePath = documentsDirectoryPath.stringByAppendingPathComponent(selectedFile!.filename)
         
         showProgressBar()
         
-        dbRestClient.loadFile(selectedFile.path, intoPath: filePath as String)
+        dbRestClient.loadFile(selectedFile!.path, intoPath: filePath as String)
     }
     
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {

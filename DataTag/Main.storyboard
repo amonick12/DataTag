@@ -661,8 +661,10 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
                         <outlet property="connectButton" destination="5Ir-ZJ-EEV" id="ZPA-wQ-Foa"/>
+                        <outlet property="navTitle" destination="zF8-bO-Vhn" id="vqx-WJ-h9F"/>
                         <outlet property="progressBar" destination="gAJ-u1-u2V" id="1Oz-ae-xSc"/>
                         <segue destination="qyQ-PZ-oRv" kind="show" identifier="confirmDocumentSegue" id="Iba-Dh-wBi"/>
+                        <segue destination="ZAb-yg-j49" kind="show" identifier="showImageSegue" id="Fjw-XP-NEj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Yy-jH-m8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1564,6 +1566,7 @@
         <image name="CurrentLocation" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wzZ-GY-1b8"/>
+        <segue reference="Fjw-XP-NEj"/>
+        <segue reference="9da-dY-dbE"/>
     </inferredMetricsTieBreakers>
 </document>
