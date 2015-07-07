@@ -51,7 +51,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         query.findObjectsInBackgroundWithBlock { (dataObjects, error) -> Void in
             if error == nil {
                 if dataObjects != nil {
-                    println("\(dataObjects!.count) where found")
+                    println("\(dataObjects!.count) data objects where found")
                     self.dataObjects = dataObjects
                     self.createAnnotations()
                 }
@@ -87,15 +87,73 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 let geoPoint = object["geoPoint"] as? PFGeoPoint
                 let coordinate = CLLocationCoordinate2D(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
                 let radius = object["range"] as! Int
-                
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = title!
-                annotation.subtitle = type!
-                mapView?.addOverlay(MKCircle(centerCoordinate: coordinate, radius: CLLocationDistance(radius)))
-                mapView.addAnnotation(annotation)
-                
+                let dataAnnotation = DataAnnotation(coordinate: coordinate, title: title!, subtitle: type!, radius: radius, data: object)
+                mapView.addAnnotation(dataAnnotation)
             }
+        }
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        let identifier = "dataID"
+        if annotation is DataAnnotation {
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView?.canShowCallout = true
+                var addButton = UIButton.buttonWithType(.Custom) as! UIButton
+                addButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+                addButton.setImage(UIImage(named: "plus")!, forState: .Normal)
+                annotationView?.rightCalloutAccessoryView = addButton
+            } else {
+                annotationView?.annotation = annotation
+            }
+            return annotationView
+        }
+        return nil
+    }
+
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!) {
+        var dataAnnotation = view.annotation as! DataAnnotation
+        let title = dataAnnotation.title
+        println("\(title) was selected")
+        if let data = dataAnnotation.data as? PFObject {
+            let dataCoordinate = dataAnnotation.coordinate
+            let radius = dataAnnotation.radius
+            let userCoordinate = locationManager.location
+            let distance = userCoordinate.distanceFromLocation(CLLocation(latitude: dataCoordinate.latitude, longitude: dataCoordinate.longitude))
+            if distance.distanceTo(Double(radius)) >= 0 {
+                println("\(title) is within range")
+
+                let usersRelation = data.relationForKey("unlockedBy")
+                usersRelation.addObject(PFUser.currentUser()!)
+                let taggedRelation = PFUser.currentUser()!.relationForKey("unlockedData")
+                taggedRelation.addObject(data)
+                PFUser.currentUser()?.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in
+                    if error == nil {
+                        self.delegate?.taggedDataFromMap()
+                        self.closeButtonPressed(self)
+                    }
+                })
+                data.saveInBackground()
+
+            } else {
+                println("\(title) is not within range")
+            }
+        }
+        
+    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        if view.annotation is DataAnnotation {
+            let radius = CLLocationDistance((view.annotation as! DataAnnotation).radius)
+            mapView?.addOverlay(MKCircle(centerCoordinate: view.annotation.coordinate, radius: radius))
+        }
+    }
+    
+    func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!) {
+        if view.annotation is DataAnnotation {
+            let overlay = mapView.overlays.first as! MKOverlay
+            mapView.removeOverlay(overlay)
         }
     }
     
