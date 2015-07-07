@@ -185,7 +185,6 @@ class ConfirmURLViewController: UIViewController, UITextFieldDelegate, WKNavigat
                         self.delegate?.URLAdded()
                         self.progressView.hidden = true
                         
-                        
                         let sharedData = PFUser.currentUser()!.relationForKey("sharedData")
                         sharedData.addObject(newURL)
                         PFUser.currentUser()!.saveInBackgroundWithBlock({ (succeeded: Bool, error: NSError?) -> Void in

@@ -13,7 +13,7 @@ import CoreLocation
 import CoreBluetooth
 import Parse
 
-class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDelegate, CBPeripheralManagerDelegate {
+class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDelegate, CBPeripheralManagerDelegate, AddLocationViewControllerDelegate {
 
     @IBOutlet weak var actionButton: UIBarButtonItem!
     @IBOutlet weak var navTitle: UINavigationItem!
@@ -37,6 +37,8 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
         navigationController?.toolbarHidden = false
         navTitle.title = dataTitle
         imgQRCode.image = qrImage
+        bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+
     }
     
 //    override func viewWillAppear(animated: Bool) {
@@ -51,6 +53,27 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
         // Dispose of any resources that can be recreated.
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "addLocationSegue" {
+            let destination = segue.destinationViewController as! AddLocationViewController
+            destination.delegate = self
+        }
+    }
+    
+    // MARK: AddLocationViewControllerDelegate
+    func locationAdded(location: CLLocationCoordinate2D, radius: Int) {
+        println("lat: \(location.latitude)")
+        println("long: \(location.longitude)")
+        println("range \(radius)")
+        let point = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
+        if let data = dataObject as? PFObject {
+            data["geoPoint"] = point
+            data["range"] = radius
+            data.saveInBackground()
+        }
+        
+    }
+    
     @IBAction func emailButtonPressed(sender: AnyObject) {
         println("email button pressed")
         let data = UIImagePNGRepresentation(imgQRCode.image)
@@ -114,8 +137,9 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
             }
         }
         alert.addAction(beaconAction)
-        let mapAction = UIAlertAction(title: "Assign to Location", style: .Default) { (action: UIAlertAction!) -> Void in
+        let mapAction = UIAlertAction(title: "Pin to Location", style: .Default) { (action: UIAlertAction!) -> Void in
             println("Add geopoint")
+            self.performSegueWithIdentifier("addLocationSegue", sender: sender)
         }
         alert.addAction(mapAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in

@@ -286,6 +286,12 @@ class MainViewController: UITableViewController {
             println("Image button tapped")
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
             
+            let dropboxAction = UIAlertAction(title: "From Dropbox", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("open dropbox")
+                //self.photoFromLibrary(sender)
+            })
+            alert.addAction(dropboxAction)
+            
             let photoLibraryAction = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.Default, handler: { (alert: UIAlertAction!) -> Void in
                 println("show photo library")
                 self.photoFromLibrary(sender)
@@ -661,7 +667,10 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
             }
             root.qrImage = qrImage
             root.dataTitle = selectedObjectTitle
-            
+            root.dataObject = selectedObject
+            if segmentControl.selectedIndex == 0 {
+                root.hideActionButton = false
+            }
             vc.modalPresentationStyle = UIModalPresentationStyle.Popover
             let popover: UIPopoverPresentationController = vc.popoverPresentationController!
             //popover.barButtonItem = sender

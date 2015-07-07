@@ -4,6 +4,8 @@
 <dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Need permission to spot iBeacons.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Need permission for your current location.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
