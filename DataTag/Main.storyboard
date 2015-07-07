@@ -111,7 +111,7 @@
                                                 <size key="itemSize" width="150" height="220"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
+                                                <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DocumentCollectionCell" id="xUd-th-3Kp" customClass="DocumentCollectionViewCell" customModule="DataTag" customModuleProvider="target">
@@ -186,7 +186,7 @@
                                                 <size key="itemSize" width="200" height="220"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
+                                                <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCollectionCell" id="jzK-xm-vWb" customClass="ImageCollectionViewCell" customModule="DataTag" customModuleProvider="target">
@@ -259,7 +259,7 @@
                                                 <size key="itemSize" width="150" height="220"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="20" minY="25" maxX="20" maxY="25"/>
+                                                <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                             </collectionViewFlowLayout>
                                             <cells>
                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WebpageCollectionCell" id="HtL-Pc-LXK" customClass="WebpageCollectionViewCell" customModule="DataTag" customModuleProvider="target">
@@ -441,6 +441,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                     <connections>
+                        <outlet property="actionButton" destination="yy1-0i-at9" id="IwT-YI-Ty8"/>
                         <outlet property="imgQRCode" destination="gDY-LA-x0V" id="8ir-dI-llR"/>
                         <outlet property="navTitle" destination="bDi-A7-zZO" id="RUT-DD-LVB"/>
                         <segue destination="3hn-ed-hAL" kind="presentation" identifier="addLocationSegue" id="kCM-Mt-Dke"/>
@@ -819,7 +820,7 @@
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZBT-R3-B16">
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="33"/>
-                                    <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>

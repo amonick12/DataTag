@@ -104,6 +104,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
                 addButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
                 addButton.setImage(UIImage(named: "plus")!, forState: .Normal)
                 annotationView?.rightCalloutAccessoryView = addButton
+                
             } else {
                 annotationView?.annotation = annotation
             }
