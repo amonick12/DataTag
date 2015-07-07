@@ -460,7 +460,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" barStyle="black" placeholder="Search Locations" translatesAutoresizingMaskIntoConstraints="NO" id="RFz-OL-86G">
+                            <searchBar contentMode="redraw" barStyle="black" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="RFz-OL-86G">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -507,7 +507,7 @@
                                 </constraints>
                             </imageView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5000" minValue="100" maxValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="Se9-jq-7y5">
-                                <rect key="frame" x="410" y="285" width="300" height="31"/>
+                                <rect key="frame" x="420" y="285" width="300" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="296" id="UuC-bK-4Z9"/>
                                     <constraint firstAttribute="height" constant="30" id="Yxl-aL-nkN"/>
@@ -538,7 +538,7 @@
                             <constraint firstAttribute="trailing" secondItem="pLe-hC-ZJz" secondAttribute="trailing" id="nCq-Hj-8ab"/>
                             <constraint firstAttribute="trailing" secondItem="RFz-OL-86G" secondAttribute="trailing" id="oY0-kh-hf5"/>
                             <constraint firstItem="pLe-hC-ZJz" firstAttribute="top" secondItem="RFz-OL-86G" secondAttribute="bottom" id="opr-Ap-Nlo"/>
-                            <constraint firstItem="Se9-jq-7y5" firstAttribute="leading" secondItem="pLe-hC-ZJz" secondAttribute="trailing" constant="-188" id="t5L-6C-81g"/>
+                            <constraint firstItem="Se9-jq-7y5" firstAttribute="leading" secondItem="pLe-hC-ZJz" secondAttribute="trailing" constant="-178" id="t5L-6C-81g"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -580,7 +580,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CpE-HA-Qkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="325" y="-310"/>
+            <point key="canvasLocation" x="3021" y="1780"/>
         </scene>
         <!--Add Document Nav Controller-->
         <scene sceneID="7zN-T7-3n6">
@@ -1447,7 +1447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XMQ-0j-Dfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="959" y="-310"/>
+            <point key="canvasLocation" x="3021" y="2454"/>
         </scene>
         <!--Scanned Webpage-->
         <scene sceneID="H0a-E0-mEb">

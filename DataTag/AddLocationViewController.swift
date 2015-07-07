@@ -48,7 +48,7 @@ class AddLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     }
     
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
-        let radius = CLLocationDistance(Int(slider.value))
+        let radius = CLLocationDistance(Int(slider.value/10)*10)
         if let overlay = mapView.overlays.first as? MKOverlay {
             mapView.removeOverlay(overlay)
         }
@@ -61,8 +61,8 @@ class AddLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     }
     
     @IBAction func sliderValueChanged(sender: AnyObject) {
-        println("slider value: \(Int(slider.value))")
-        let radius = CLLocationDistance(Int(slider.value))
+        println("slider value: \(Int(slider.value/10)*10)")
+        let radius = CLLocationDistance(Int(slider.value/10)*10)
         if let overlay = mapView.overlays.first as? MKOverlay {
             mapView.removeOverlay(overlay)
         }

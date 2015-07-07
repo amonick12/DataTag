@@ -137,7 +137,7 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
             }
         }
         alert.addAction(beaconAction)
-        let mapAction = UIAlertAction(title: "Pin to Location", style: .Default) { (action: UIAlertAction!) -> Void in
+        let mapAction = UIAlertAction(title: "Pin to a Location", style: .Default) { (action: UIAlertAction!) -> Void in
             println("Add geopoint")
             self.performSegueWithIdentifier("addLocationSegue", sender: sender)
         }
