@@ -41,12 +41,14 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
 
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
 //        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
 //            self.preferredContentSize = CGSizeMake(self.view.bounds.width / 2, self.view.bounds.height / 2)
 //        }
-//    }
+        self.preferredContentSize = CGSizeMake(300.0, 300.0)
+        self.reloadInputViews()
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

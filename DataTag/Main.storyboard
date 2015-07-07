@@ -372,6 +372,7 @@
                         <segue destination="Coe-ni-Yfh" kind="presentation" identifier="scanSegue" id="j6C-JJ-03u"/>
                         <segue destination="3j3-GQ-lVK" kind="presentation" identifier="addURLSegue" id="vyy-rh-tcx"/>
                         <segue destination="oPq-xR-LtL" kind="presentation" identifier="webpageSegue" id="PRl-oK-Te1"/>
+                        <segue destination="EEt-Ag-bUa" kind="presentation" identifier="showMapSegue" id="RLD-Te-PDJ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -435,6 +436,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
@@ -559,7 +561,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="2305" y="2452"/>
+            <point key="canvasLocation" x="2303" y="2470"/>
         </scene>
         <!--Nav View Controller-->
         <scene sceneID="n6b-Eu-XCy">
@@ -575,12 +577,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="Jph-hO-Ky7" kind="relationship" relationship="rootViewController" id="h46-yQ-Sm6"/>
+                        <segue destination="K0C-bw-dWA" kind="relationship" relationship="rootViewController" id="wzZ-GY-1b8"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CpE-HA-Qkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3021" y="1780"/>
+            <point key="canvasLocation" x="2971" y="1774"/>
         </scene>
         <!--Add Document Nav Controller-->
         <scene sceneID="7zN-T7-3n6">
@@ -1379,75 +1381,65 @@
             </objects>
             <point key="canvasLocation" x="325" y="-992"/>
         </scene>
-        <!--Share-->
-        <scene sceneID="psJ-4r-OGJ">
+        <!--Map View Controller-->
+        <scene sceneID="oXz-aG-uRz">
             <objects>
-                <viewController id="Jph-hO-Ky7" customClass="QRGeneratorViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="EEt-Ag-bUa" customClass="MapViewController" customModule="DataTag" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mza-Te-g6t"/>
-                        <viewControllerLayoutGuide type="bottom" id="5kc-oF-JPc"/>
+                        <viewControllerLayoutGuide type="top" id="leb-xA-T3A"/>
+                        <viewControllerLayoutGuide type="bottom" id="C9x-Zw-q3A"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="vcj-ph-Qm0">
+                    <view key="view" contentMode="scaleToFill" id="On4-aI-iRU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mtc-3W-vup">
-                                <rect key="frame" x="200" y="200" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="JaQ-3U-EyC"/>
-                                    <constraint firstAttribute="height" constant="200" id="rw3-0C-BS4"/>
-                                </constraints>
-                            </imageView>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="09x-Cu-fa8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Loading..." id="UyA-VM-swW">
+                                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="refresh" id="i8V-Fb-2Jd">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="update:" destination="EEt-Ag-bUa" id="TSX-3q-emx"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Item" style="done" systemItem="stop" id="Xgb-rn-Gre">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="EEt-Ag-bUa" id="1cj-qK-J0H"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AzV-cw-a23">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                                <connections>
+                                    <outlet property="delegate" destination="EEt-Ag-bUa" id="4WI-J2-vSA"/>
+                                </connections>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="Mtc-3W-vup" secondAttribute="centerX" id="eOq-3E-eZG"/>
-                            <constraint firstAttribute="centerY" secondItem="Mtc-3W-vup" secondAttribute="centerY" id="jFN-Tv-HO3"/>
+                            <constraint firstAttribute="trailing" secondItem="AzV-cw-a23" secondAttribute="trailing" id="DCl-j1-tqV"/>
+                            <constraint firstItem="AzV-cw-a23" firstAttribute="leading" secondItem="On4-aI-iRU" secondAttribute="leading" id="DWE-ym-rV7"/>
+                            <constraint firstAttribute="trailing" secondItem="09x-Cu-fa8" secondAttribute="trailing" id="a1b-Dc-7w9"/>
+                            <constraint firstItem="C9x-Zw-q3A" firstAttribute="top" secondItem="AzV-cw-a23" secondAttribute="bottom" id="fPS-Wi-ADi"/>
+                            <constraint firstItem="09x-Cu-fa8" firstAttribute="top" secondItem="leb-xA-T3A" secondAttribute="bottom" id="nXB-Yq-ynv"/>
+                            <constraint firstItem="09x-Cu-fa8" firstAttribute="leading" secondItem="On4-aI-iRU" secondAttribute="leading" id="our-2m-d9F"/>
+                            <constraint firstItem="AzV-cw-a23" firstAttribute="top" secondItem="09x-Cu-fa8" secondAttribute="bottom" id="u99-OD-NpQ"/>
                         </constraints>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hoh-4G-XAU"/>
-                        <barButtonItem title="Email" id="n5b-xp-dNn">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="emailButtonPressed:" destination="Jph-hO-Ky7" id="4Zh-YS-Zr9"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="53i-gC-6ca"/>
-                        <barButtonItem title="Print" id="QK8-Ah-rFg">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="printButtonPressed:" destination="Jph-hO-Ky7" id="Aml-Et-j0Z"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="QhQ-jd-O8J"/>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Share" id="pdc-cb-NNV">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="Hcb-Fc-xNW">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="actionButtonPressed:" destination="Jph-hO-Ky7" id="gP8-qd-2oL"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="0Jx-yZ-Nde">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="Jph-hO-Ky7" id="5iT-z7-8gg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <connections>
-                        <outlet property="actionButton" destination="Hcb-Fc-xNW" id="jhy-Wi-JsQ"/>
-                        <outlet property="imgQRCode" destination="Mtc-3W-vup" id="b0F-vb-qni"/>
-                        <outlet property="navTitle" destination="pdc-cb-NNV" id="rh0-H4-oWu"/>
-                        <segue destination="3hn-ed-hAL" kind="presentation" identifier="addLocationSegue" id="7nx-KD-Aee"/>
+                        <outlet property="mapView" destination="AzV-cw-a23" id="5zW-7t-awa"/>
+                        <outlet property="navBar" destination="09x-Cu-fa8" id="uK4-x3-Wlu"/>
+                        <outlet property="navTitle" destination="UyA-VM-swW" id="VGs-9D-yNp"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XMQ-0j-Dfn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5MY-Vi-8gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3021" y="2454"/>
+            <point key="canvasLocation" x="321" y="-290"/>
         </scene>
         <!--Scanned Webpage-->
         <scene sceneID="H0a-E0-mEb">
@@ -1572,7 +1564,6 @@
         <image name="CurrentLocation" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7nx-KD-Aee"/>
-        <segue reference="QDP-VT-egh"/>
+        <segue reference="wzZ-GY-1b8"/>
     </inferredMetricsTieBreakers>
 </document>

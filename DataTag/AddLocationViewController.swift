@@ -26,14 +26,47 @@ class AddLocationViewController: UIViewController, CLLocationManagerDelegate, MK
         UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: UIStatusBarAnimation.Slide)
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
         mapView?.addOverlay(MKCircle(centerCoordinate: mapView.centerCoordinate, radius: CLLocationDistance(slider.value)))
 
-        zoomToUserLocationInMapView()
     }
 
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         mapView.showsUserLocation = (status == CLAuthorizationStatus.AuthorizedWhenInUse || status == CLAuthorizationStatus.AuthorizedAlways)
         zoomToUserLocationInMapView()
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var locValue : CLLocationCoordinate2D = manager.location.coordinate
+        println("Long: \(locValue.longitude)\nLat: \(locValue.latitude)")
+        locationManager.stopUpdatingLocation()
+        zoomToUserLocationInMapView()
+        getLocationName(manager.location)
+        
+    }
+    
+    func getLocationName(location: CLLocation) {
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+            //println(location)
+            
+            if error != nil {
+                println("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            
+            if placemarks.count > 0 {
+                let pm = placemarks[0] as! CLPlacemark
+                let locationName = pm.locality
+                println(locationName)
+                //self.locationName?.text = locationName
+                
+            }
+            else {
+                println("Problem with the data received from geocoder")
+            }
+        })
+        
     }
     
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {

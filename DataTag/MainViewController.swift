@@ -116,6 +116,9 @@ class MainViewController: UITableViewController {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ScanViewController
             root.delegate = self
+        } else if segue.identifier == "showMapSegue" {
+            let destination = segue.destinationViewController as! MapViewController
+            destination.delegate = self
         } else if segue.identifier == "addURLSegue" {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ConfirmURLViewController
@@ -351,9 +354,10 @@ class MainViewController: UITableViewController {
         
         let mapAction = UIAlertAction(title: "Map", style: UIAlertActionStyle.Default, handler: {(alert :UIAlertAction!) in
             println("Map button tapped")
-            let alert = UIAlertController(title: "Map Feature", message: "Tag Data through GeoPoint Location Coming Soon", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "DONE", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.performSegueWithIdentifier("showMapSegue", sender: sender)
+//            let alert = UIAlertController(title: "Map Feature", message: "Tag Data through GeoPoint Location Coming Soon", preferredStyle: .Alert)
+//            alert.addAction(UIAlertAction(title: "DONE", style: .Default, handler: nil))
+//            self.presentViewController(alert, animated: true, completion: nil)
         })
         alertController.addAction(mapAction)
         
@@ -643,7 +647,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate, BeaconDataTableViewControllerDelegate {
+extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate, BeaconDataTableViewControllerDelegate, MapViewControllerDelegate {
     
     func showQRCode(sender: UICollectionViewCell) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -734,6 +738,12 @@ extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocume
         segmentControl.selectedIndex = 1
         loadTaggedData()
     }
+    
+    func taggedDataFromMap() {
+        segmentControl.selectedIndex = 1
+        loadTaggedData()
+    }
+
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent

@@ -39,6 +39,7 @@
 		003FE3C61B3106C100012D09 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BB1B3106C100012D09 /* Security.framework */; };
 		003FE3C81B3106C100012D09 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */; };
 		004F05761B4B44070049C68D /* AddLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004F05751B4B44070049C68D /* AddLocationViewController.swift */; };
+		004F05781B4C01F90049C68D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004F05771B4C01F90049C68D /* MapViewController.swift */; };
 		00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */; };
 		00524D481B46EC0A0012699D /* BeaconDataNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */; };
 		00524D4A1B4831500012699D /* NearbyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00524D491B48314F0012699D /* NearbyTableViewCell.swift */; };
@@ -100,6 +101,7 @@
 		003FE3BB1B3106C100012D09 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		003FE3BD1B3106C100012D09 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		004F05751B4B44070049C68D /* AddLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewController.swift; sourceTree = "<group>"; };
+		004F05771B4C01F90049C68D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataTableViewController.swift; sourceTree = "<group>"; };
 		00524D471B46EC0A0012699D /* BeaconDataNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconDataNavViewController.swift; sourceTree = "<group>"; };
 		00524D491B48314F0012699D /* NearbyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyTableViewCell.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */,
 				006A1FC71B418B4B000E6FA2 /* WebpageViewController.swift */,
 				00524D451B46EBF10012699D /* BeaconDataTableViewController.swift */,
+				004F05771B4C01F90049C68D /* MapViewController.swift */,
 			);
 			name = TagData;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				003FE39F1B31049C00012D09 /* ConfirmDocumentViewController.swift in Sources */,
 				003FE39D1B31049C00012D09 /* AddDocumentViewController.swift in Sources */,
 				00524D461B46EBF10012699D /* BeaconDataTableViewController.swift in Sources */,
+				004F05781B4C01F90049C68D /* MapViewController.swift in Sources */,
 				00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */,
 				00524D4A1B4831500012699D /* NearbyTableViewCell.swift in Sources */,
 				00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */,
