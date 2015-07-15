@@ -22,14 +22,43 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
     //var beacons: [CLBeacon] = []
 
     var delegate: BeaconDataTableViewControllerDelegate?
+    var dataObjects: [AnyObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("majors: \(majors)")
-        println("minors: \(minors)")
+        
+//        println("\(Beacon)")
+//        println("minors: \(minors)")
+        println("\(beaconData.count) beacons found")
+        getDataFromBeacons()
     }
 
+    func getDataFromBeacons() {
+        dataObjects.removeAll(keepCapacity: false)
+        for beacon in beaconData {
+            let uuid = beacon.UUID
+            let major = beacon.major
+            let minor = beacon.minor
+            var query = PFQuery(className: "Data")
+            query.whereKey("major", equalTo: major)
+            query.whereKey("minor", equalTo: minor)
+            query.whereKey("proximityUUID", equalTo: uuid)
+            query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
+                if error == nil {
+                    println("Found \(objects?.count) objects for \(uuid): \(major)-\(minor)")
+                    let objects = objects as! [PFObject]
+                    for object in objects {
+                        self.dataObjects.append(object)
+                        self.tableView.reloadData()
+                    }
+                } else {
+                    println("Error querying object from beacon")
+                }
+            })
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -42,105 +71,188 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return majors.count
+        println("Found \(dataObjects.count) objects from beacons")
+        return dataObjects.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("beaconDataCell", forIndexPath: indexPath) as! UITableViewCell
         let cell = tableView.dequeueReusableCellWithIdentifier("nearbyCell", forIndexPath: indexPath) as! NearbyTableViewCell
         
-        var major = majors[indexPath.row]
-        var minor = minors[indexPath.row]
-        var query = PFQuery(className: "Data")
-        query.whereKey("major", equalTo: major)
-        query.whereKey("minor", equalTo: minor)
-        query.getFirstObjectInBackgroundWithBlock { (dataObject, error) -> Void in
-            if dataObject != nil {
-                if let data = dataObject {
-                    var dataType = data["type"] as! String
-                    var file = data["fileData"] as! PFFile
-                    var mimeType = data["mimeType"] as? String
-                    var name: String?
-                    var type: String?
-                    if dataType == "document" {
-                        name = data["filename"] as? String
-                        type = "Document"
-                    }
-                    if dataType == "image" {
-                        name = data["title"] as? String
-                        type = "Image"
-                    }
-                    if dataType == "url" {
-                        name = data["title"] as? String
-                        type = "Webpage"
-                    }
-//                    cell.textLabel?.text = name
-//                    cell.detailTextLabel?.text = type
-                    cell.data = dataObject
-                    cell.titleLabel.text = name
-                    cell.typeLabel.text = type
-                    cell.delegate = self
-                    cell.indexPath = indexPath
-                    cell.progressView.progress = 0.0
-                    file.getDataInBackgroundWithBlock ({
-                        (data: NSData?, error: NSError?) -> Void in
-                        cell.progressView.hidden = true
-                        if error == nil {
-//                            cell.webview.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
-//                            cell.webview.backgroundColor = UIColor.clearColor()
-//                            cell.titleButton.setTitle(filename, forState: .Normal)
-//                            cell.delegate = self
-//                            cell.indexPath = indexPath
-                            switch dataType {
-                            case "document":
-                                var webView = UIWebView()
-                                cell.previewView.addSubview(webView)
-                                webView.frame = cell.previewView.bounds
-                                //webView.setTranslatesAutoresizingMaskIntoConstraints(false)
-                                webView.loadData(data!, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
-                                webView.backgroundColor = UIColor.clearColor()
-                                cell.previewView.backgroundColor = UIColor.clearColor()
-                                break
-                            case "image":
-                                var imageView = UIImageView()
-                                cell.previewView.addSubview(imageView)
-                                imageView.frame = cell.previewView.bounds
-                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-                                imageView.image = UIImage(data: data!)
-                                imageView.backgroundColor = UIColor.clearColor()
-                                imageView.contentMode = UIViewContentMode.ScaleAspectFit
-                                cell.previewView.backgroundColor = UIColor.clearColor()
-                                break
-                            case "url":
-                                var imageView = UIImageView()
-                                cell.previewView.addSubview(imageView)
-                                imageView.frame = cell.previewView.bounds
-                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-                                imageView.image = UIImage(data: data!)
-                                imageView.backgroundColor = UIColor.clearColor()
-                                imageView.contentMode = UIViewContentMode.ScaleAspectFill
-                                cell.previewView.backgroundColor = UIColor.clearColor()
-                                break
-                            default:
-                                break
-                                
-                            }
-                        } else { println("Error loading document data") }
-                        }, progressBlock: {
-                            (percentDone: Int32) -> Void in
-                            cell.progressView.progress = Float(percentDone)/100
-                    })
-
-                }
-                
-            } else {
-                println("error retrieving data from beacon values")
-            }
+        let data = dataObjects[indexPath.row] as! PFObject
+        var dataType = data["type"] as! String
+        var file = data["fileData"] as! PFFile
+        var mimeType = data["mimeType"] as? String
+        var name: String?
+        var type: String?
+        if dataType == "document" {
+            name = data["filename"] as? String
+            type = "Document"
         }
-        
+        if dataType == "image" {
+            name = data["title"] as? String
+            type = "Image"
+        }
+        if dataType == "url" {
+            name = data["title"] as? String
+            type = "Webpage"
+        }
 
+        cell.data = data
+        cell.titleLabel.text = name
+        cell.typeLabel.text = type
+        cell.delegate = self
+        cell.indexPath = indexPath
+        cell.progressView.progress = 0.0
+        file.getDataInBackgroundWithBlock ({
+            (data: NSData?, error: NSError?) -> Void in
+            cell.progressView.hidden = true
+            if error == nil {
+                switch dataType {
+                case "document":
+                    var webView = UIWebView()
+                    cell.previewView.addSubview(webView)
+                    webView.frame = cell.previewView.bounds
+                    //webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                    webView.loadData(data!, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+                    webView.backgroundColor = UIColor.clearColor()
+                    cell.previewView.backgroundColor = UIColor.clearColor()
+                    break
+                case "image":
+                    var imageView = UIImageView()
+                    cell.previewView.addSubview(imageView)
+                    imageView.frame = cell.previewView.bounds
+                    //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                    imageView.image = UIImage(data: data!)
+                    imageView.backgroundColor = UIColor.clearColor()
+                    imageView.contentMode = UIViewContentMode.ScaleAspectFit
+                    cell.previewView.backgroundColor = UIColor.clearColor()
+                    break
+                case "url":
+                    var imageView = UIImageView()
+                    cell.previewView.addSubview(imageView)
+                    imageView.frame = cell.previewView.bounds
+                    //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+                    imageView.image = UIImage(data: data!)
+                    imageView.backgroundColor = UIColor.clearColor()
+                    imageView.contentMode = UIViewContentMode.ScaleAspectFill
+                    cell.previewView.backgroundColor = UIColor.clearColor()
+                    break
+                default:
+                    break
+                    
+                }
+            } else { println("Error loading document data") }
+            }, progressBlock: {
+                (percentDone: Int32) -> Void in
+                cell.progressView.progress = Float(percentDone)/100
+        })
+        
         return cell
     }
+
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        //let cell = tableView.dequeueReusableCellWithIdentifier("beaconDataCell", forIndexPath: indexPath) as! UITableViewCell
+//        let cell = tableView.dequeueReusableCellWithIdentifier("nearbyCell", forIndexPath: indexPath) as! NearbyTableViewCell
+//        
+////        var major = majors[indexPath.row]
+////        var minor = minors[indexPath.row]
+////        var uuid = uuids[indexPath.row]
+//        
+//        let uuid = beaconData[indexPath.row].UUID
+//        let major = beaconData[indexPath.row].major
+//        let minor = beaconData[indexPath.row].minor
+//        
+//        var query = PFQuery(className: "Data")
+//        query.whereKey("major", equalTo: major)
+//        query.whereKey("minor", equalTo: minor)
+//        query.whereKey("proximityUUID", equalTo: uuid)
+//        query.getFirstObjectInBackgroundWithBlock { (dataObject, error) -> Void in
+//            if dataObject != nil {
+//                if let data = dataObject {
+//                    var dataType = data["type"] as! String
+//                    var file = data["fileData"] as! PFFile
+//                    var mimeType = data["mimeType"] as? String
+//                    var name: String?
+//                    var type: String?
+//                    if dataType == "document" {
+//                        name = data["filename"] as? String
+//                        type = "Document"
+//                    }
+//                    if dataType == "image" {
+//                        name = data["title"] as? String
+//                        type = "Image"
+//                    }
+//                    if dataType == "url" {
+//                        name = data["title"] as? String
+//                        type = "Webpage"
+//                    }
+////                    cell.textLabel?.text = name
+////                    cell.detailTextLabel?.text = type
+//                    cell.data = dataObject
+//                    cell.titleLabel.text = name
+//                    cell.typeLabel.text = type
+//                    cell.delegate = self
+//                    cell.indexPath = indexPath
+//                    cell.progressView.progress = 0.0
+//                    file.getDataInBackgroundWithBlock ({
+//                        (data: NSData?, error: NSError?) -> Void in
+//                        cell.progressView.hidden = true
+//                        if error == nil {
+////                            cell.webview.loadData(data, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+////                            cell.webview.backgroundColor = UIColor.clearColor()
+////                            cell.titleButton.setTitle(filename, forState: .Normal)
+////                            cell.delegate = self
+////                            cell.indexPath = indexPath
+//                            switch dataType {
+//                            case "document":
+//                                var webView = UIWebView()
+//                                cell.previewView.addSubview(webView)
+//                                webView.frame = cell.previewView.bounds
+//                                //webView.setTranslatesAutoresizingMaskIntoConstraints(false)
+//                                webView.loadData(data!, MIMEType: mimeType, textEncodingName: "UTF-8", baseURL: nil)
+//                                webView.backgroundColor = UIColor.clearColor()
+//                                cell.previewView.backgroundColor = UIColor.clearColor()
+//                                break
+//                            case "image":
+//                                var imageView = UIImageView()
+//                                cell.previewView.addSubview(imageView)
+//                                imageView.frame = cell.previewView.bounds
+//                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+//                                imageView.image = UIImage(data: data!)
+//                                imageView.backgroundColor = UIColor.clearColor()
+//                                imageView.contentMode = UIViewContentMode.ScaleAspectFit
+//                                cell.previewView.backgroundColor = UIColor.clearColor()
+//                                break
+//                            case "url":
+//                                var imageView = UIImageView()
+//                                cell.previewView.addSubview(imageView)
+//                                imageView.frame = cell.previewView.bounds
+//                                //imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+//                                imageView.image = UIImage(data: data!)
+//                                imageView.backgroundColor = UIColor.clearColor()
+//                                imageView.contentMode = UIViewContentMode.ScaleAspectFill
+//                                cell.previewView.backgroundColor = UIColor.clearColor()
+//                                break
+//                            default:
+//                                break
+//                                
+//                            }
+//                        } else { println("Error loading document data") }
+//                        }, progressBlock: {
+//                            (percentDone: Int32) -> Void in
+//                            cell.progressView.progress = Float(percentDone)/100
+//                    })
+//
+//                }
+//                
+//            } else {
+//                println("error retrieving data from beacon values")
+//            }
+//        }
+//        
+//
+//        return cell
+//    }
     
     func addDataButtonPressed(indexPath: NSIndexPath) {
         println("\(indexPath) was added")
@@ -164,7 +276,8 @@ class BeaconDataTableViewController: UITableViewController, CLLocationManagerDel
     }
     
     @IBAction func updateTable(sender: AnyObject) {
-        tableView.reloadData()
+        //tableView.reloadData()
+        getDataFromBeacons()
     }
 
     /*

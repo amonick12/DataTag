@@ -56,6 +56,7 @@
 		00A50FA61B3A3DC300539987 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A50FA51B3A3DC300539987 /* Reachability.swift */; };
 		00A731831B3C401D0055E05F /* PopTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A731821B3C401D0055E05F /* PopTransitionAnimator.swift */; };
 		00AE847A1B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */; };
+		00EF36A31B55C6DB006FB5D9 /* BeaconData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EF36A21B55C6DB006FB5D9 /* BeaconData.swift */; };
 		00F2ACBC1B3B0C7D00C3B012 /* ImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */; };
 		00F2ACBE1B3B0C9200C3B012 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */; };
 		00F2ACC01B3B102500C3B012 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */; };
@@ -119,6 +120,7 @@
 		00A50FA51B3A3DC300539987 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		00A731821B3C401D0055E05F /* PopTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopTransitionAnimator.swift; sourceTree = "<group>"; };
 		00AE84791B35B1FD00B5B9B6 /* DocumentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentCollectionViewCell.swift; sourceTree = "<group>"; };
+		00EF36A21B55C6DB006FB5D9 /* BeaconData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconData.swift; sourceTree = "<group>"; };
 		00F2ACBB1B3B0C7D00C3B012 /* ImagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesTableViewCell.swift; sourceTree = "<group>"; };
 		00F2ACBD1B3B0C9200C3B012 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		00F2ACBF1B3B102500C3B012 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				00A50FA51B3A3DC300539987 /* Reachability.swift */,
 				00F2ACC31B3B669200C3B012 /* DTSegmentedControl.swift */,
 				00A731821B3C401D0055E05F /* PopTransitionAnimator.swift */,
+				00EF36A21B55C6DB006FB5D9 /* BeaconData.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				003FE3A31B31049C00012D09 /* ScanNavController.swift in Sources */,
 				00A50FA41B3A37B600539987 /* ConfirmImageViewController.swift in Sources */,
 				006A1FC61B40C732000E6FA2 /* WebpageCollectionViewCell.swift in Sources */,
+				00EF36A31B55C6DB006FB5D9 /* BeaconData.swift in Sources */,
 				003FE3A01B31049C00012D09 /* DocumentViewController.swift in Sources */,
 				003FE3A21B31049C00012D09 /* QRGeneratorViewController.swift in Sources */,
 				009676161B34557A005C087A /* DocumentsTableViewCell.swift in Sources */,

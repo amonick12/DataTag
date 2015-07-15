@@ -13,6 +13,8 @@ import CoreLocation
 
 var majors: [String] = []
 var minors: [String] = []
+var uuids: [String] = []
+var beaconData: [BeaconData] = [BeaconData]()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate/*, CBPeripheralManagerDelegate*/ {
@@ -20,10 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var window: UIWindow?
     var locationManager: CLLocationManager?
     var lastProximity: CLProximity?
-    var beaconRegion: CLBeaconRegion!
-    
+    var beaconRegions: [CLBeaconRegion]?
+    var uuids = ["ACAC0102-03AA-47C8-9437-43030201ACAC", "DDE7137E-EE5F-4A48-A083-2E48F024F73A"]
+    var beaconIdentifiers = ["datatag", "locly"]
     var lastMajor: String?
     var lastMinor: String?
+    var lastUUID: String?
     
     //var bluetoothPeripheralManager: CBPeripheralManager!
 
@@ -55,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             PFUser.currentUser()?.saveInBackground()
         }
         
-        
         let appKey = "cqs8bc801ha7lc0"
         let appSecret = "8ic9ew13gps6pvg"
         
@@ -63,14 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         DBSession.setSharedSession(dropboxSession)
         
         application.setStatusBarStyle(UIStatusBarStyle.LightContent, animated: false)
-
-        let uuidString = "DDE7137E-EE5F-4A48-A083-2E48F024F73A"
-        let beaconIdentifier = "datatag.com"
-        let beaconUUID: NSUUID = NSUUID(UUIDString: uuidString)!
-        beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
-            identifier: beaconIdentifier)
-        beaconRegion.notifyOnEntry = true
-        beaconRegion.notifyOnExit = true
         
         locationManager = CLLocationManager()
         if(locationManager!.respondsToSelector("requestAlwaysAuthorization")) {
@@ -79,8 +74,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         locationManager!.delegate = self
         //locationManager!.pausesLocationUpdatesAutomatically = false
         
-        locationManager!.startMonitoringForRegion(beaconRegion)
-        locationManager!.startRangingBeaconsInRegion(beaconRegion)
+        //let uuidString = "DDE7137E-EE5F-4A48-A083-2E48F024F73A"
+        var index = 0
+        for uuid in uuids {
+            let beaconUUID: NSUUID = NSUUID(UUIDString: uuid)!
+            let beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID, identifier: beaconIdentifiers[index])
+//            beaconRegion = CLBeaconRegion(proximityUUID: beaconUUID,
+//                identifier: beaconIdentifier)
+            beaconRegion.notifyOnEntry = true
+            //beaconRegion.notifyOnExit = true
+            beaconRegions?.append(beaconRegion)
+            
+            locationManager!.startMonitoringForRegion(beaconRegion)
+            locationManager!.startRangingBeaconsInRegion(beaconRegion)
+            index++
+        }
+        
         locationManager!.startUpdatingLocation()
         
         if(application.respondsToSelector("registerUserNotificationSettings:")) {
@@ -146,7 +155,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager!,
         didRangeBeacons beacons: [AnyObject]!,
         inRegion region: CLBeaconRegion!) {
-            NSLog("didRangeBeacons");
+            NSLog("didRangeBeacons")
             var message:String = ""
             
             //beacons = beacons
@@ -162,82 +171,63 @@ extension AppDelegate: CLLocationManagerDelegate {
                 for beacon in foundBeacons as! [CLBeacon] {
                     let major = String(beacon.major.intValue)
                     let minor = String(beacon.minor.intValue)
+                    let uuid = String(beacon.proximityUUID.UUIDString)
+                    let beacon = BeaconData(UUID: uuid, major: major, minor: minor)
                     
-                    if major != lastMajor && minor != lastMinor {
-                        majors.append(major)
-                        minors.append(minor)
-                        lastMajor = major
-                        lastMinor = minor
+                    if !contains(beaconData, beacon) {
+                        beaconData.append(beacon)
                     }
                     
+//                    if major != lastMajor && minor != lastMinor && uuid != lastUUID {
+//                        majors.append(major)
+//                        minors.append(minor)
+//                        uuids.append(uuid)
+//                        //var beaconData = BeaconData(UUID: uuid, major: major, minor: minor)
+//                        //beacons.append(beaconData)
+//                        lastMajor = major
+//                        lastMinor = minor
+//                        lastUUID = uuid
+//                    }
                     
-                    let proximity = beacon.proximity
-                    var proximityMessage: String!
-                    switch proximity {
-                    case CLProximity.Immediate:
-                        proximityMessage = "Very close"
-                        
-                    case CLProximity.Near:
-                        proximityMessage = "Near"
-                        
-                    case CLProximity.Far:
-                        proximityMessage = "Far"
-                        
-                    default:
-                        proximityMessage = "Where's the beacon?"
-                    }
+//                    let proximity = beacon.proximity
+//                    var proximityMessage: String!
+//                    switch proximity {
+//                    case CLProximity.Immediate:
+//                        proximityMessage = "Very close"
+//                        
+//                    case CLProximity.Near:
+//                        proximityMessage = "Near"
+//                        
+//                    case CLProximity.Far:
+//                        proximityMessage = "Far"
+//                        
+//                    default:
+//                        proximityMessage = "Where's the beacon?"
+//                    }
 
-                    message += "\(major)-\(minor) is \(proximityMessage)\n"
+//                    message += "\(uuid): \(major)-\(minor) is \(proximityMessage)\n"
+                    message += "\(uuid): \(major)-\(minor)\n"
+
                 }
                 println(message)
                 //sendLocalNotificationWithMessage(message)
             }
-//            if(beacons.count > 0) {
-//                let nearestBeacon:CLBeacon = beacons[0] as! CLBeacon
-//                
-//                var major = nearestBeacon.major.intValue
-//                var minor = nearestBeacon.minor.intValue
-//                
-//                println("major: \(major)")
-//                println("minor: \(minor)")
-//                
-//                if(nearestBeacon.proximity == lastProximity ||
-//                    nearestBeacon.proximity == CLProximity.Unknown) {
-//                        return;
-//                }
-//                lastProximity = nearestBeacon.proximity;
-//
-//                switch nearestBeacon.proximity {
-//                case CLProximity.Far:
-//                    message = "You are far away from the beacon"
-//                case CLProximity.Near:
-//                    message = "You are near the beacon"
-//                case CLProximity.Immediate:
-//                    message = "You are in the immediate proximity of the beacon"
-//                case CLProximity.Unknown:
-//                    return
-//                }
-//            } else {
-//                message = "No beacons are nearby"
-//            }
-//            
-//            NSLog("%@", message)
-//            
-//            sendLocalNotificationWithMessage(message)
     }
     
     func locationManager(manager: CLLocationManager!, didStartMonitoringForRegion region: CLRegion!) {
         locationManager!.requestStateForRegion(region)
     }
     
-    func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
-        if state == CLRegionState.Inside {
-            locationManager!.startRangingBeaconsInRegion(beaconRegion)
-        }
-        else {
-            locationManager!.stopRangingBeaconsInRegion(beaconRegion)
-        }
-    }
+//    func locationManager(manager: CLLocationManager!, didDetermineState state: CLRegionState, forRegion region: CLRegion!) {
+//        if state == CLRegionState.Inside {
+////            locationManager!.startRangingBeaconsInRegion(beaconRegion)
+//            locationManager!.startRangingBeaconsInRegion(region)
+//
+//        }
+////        else {
+////            locationManager!.stopRangingBeaconsInRegion(beaconRegion)
+////        }
+//    }
     
     func locationManager(manager: CLLocationManager!,
         didEnterRegion region: CLRegion!) {

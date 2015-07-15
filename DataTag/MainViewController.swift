@@ -397,6 +397,7 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
             if let data = dataObject as? PFObject {
                 data["major"] = String(majorInt)
                 data["minor"] = String(minorInt)
+                data["proximityUUID"] = uuid!.UUIDString
                 data.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     
                     let major: CLBeaconMajorValue = UInt16(majorInt)

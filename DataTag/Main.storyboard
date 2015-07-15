@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nzl-zE-Xpf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nzl-zE-Xpf">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -463,45 +463,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" barStyle="black" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="RFz-OL-86G">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="3hn-ed-hAL" id="eJT-5G-Men"/>
-                                </connections>
-                            </searchBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLe-hC-ZJz">
                                 <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                                 <connections>
                                     <outlet property="delegate" destination="3hn-ed-hAL" id="MzX-Wt-ROe"/>
                                 </connections>
                             </mapView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="oIA-4u-P9u">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem image="CurrentLocation" id="XC3-IU-lpQ">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="currentLocation:" destination="3hn-ed-hAL" id="Jeb-si-Rav"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Nmn-ZC-pDX"/>
-                                    <barButtonItem title="Close" id="Zfg-TT-cX5">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="closeButtonPressed:" destination="3hn-ed-hAL" id="XIe-fA-dYm"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="uYY-El-DoL"/>
-                                    <barButtonItem title="Confirm" id="ykF-rS-2eH">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="confirmButtonPressed:" destination="3hn-ed-hAL" id="rpE-2B-jgl"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kJj-Vd-LtM"/>
-                                </items>
-                            </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPin" translatesAutoresizingMaskIntoConstraints="NO" id="6gi-Dh-Nxy">
                                 <rect key="frame" x="263" y="262" width="75" height="75"/>
                                 <constraints>
@@ -524,23 +491,54 @@
                                     <action selector="sliderValueChanged:" destination="3hn-ed-hAL" eventType="valueChanged" id="rdZ-FT-ZPx"/>
                                 </connections>
                             </slider>
+                            <navigationBar contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="36a-5j-XHE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Set Location" id="BxR-JM-qCU">
+                                        <barButtonItem key="leftBarButtonItem" image="CurrentLocation" id="XC3-IU-lpQ">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="currentLocation:" destination="3hn-ed-hAL" id="Jeb-si-Rav"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="stop" id="Zfg-TT-cX5">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="closeButtonPressed:" destination="3hn-ed-hAL" id="XIe-fA-dYm"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="oIA-4u-P9u">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="uYY-El-DoL"/>
+                                    <barButtonItem title="Confirm" id="ykF-rS-2eH">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="confirmButtonPressed:" destination="3hn-ed-hAL" id="rpE-2B-jgl"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kJj-Vd-LtM"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="36a-5j-XHE" firstAttribute="leading" secondItem="Tzb-Tz-6zz" secondAttribute="leading" id="0wM-en-9T2"/>
                             <constraint firstItem="wu8-vf-5mq" firstAttribute="top" secondItem="pLe-hC-ZJz" secondAttribute="bottom" constant="44" id="FU2-Vs-SnG"/>
                             <constraint firstAttribute="centerY" secondItem="6gi-Dh-Nxy" secondAttribute="centerY" id="Gyi-Bg-dIZ"/>
-                            <constraint firstItem="pLe-hC-ZJz" firstAttribute="top" secondItem="RFz-OL-86G" secondAttribute="bottom" id="HZu-YE-qeM"/>
-                            <constraint firstItem="RFz-OL-86G" firstAttribute="leading" secondItem="Tzb-Tz-6zz" secondAttribute="leading" id="MDx-I9-Eph"/>
+                            <constraint firstAttribute="trailing" secondItem="36a-5j-XHE" secondAttribute="trailing" id="Kbo-m2-hut"/>
                             <constraint firstItem="wu8-vf-5mq" firstAttribute="top" secondItem="oIA-4u-P9u" secondAttribute="bottom" id="SFd-bH-zVq"/>
                             <constraint firstAttribute="trailing" secondItem="oIA-4u-P9u" secondAttribute="trailing" id="UkF-PU-SYF"/>
+                            <constraint firstItem="pLe-hC-ZJz" firstAttribute="top" secondItem="36a-5j-XHE" secondAttribute="bottom" id="eap-je-FW0"/>
                             <constraint firstItem="pLe-hC-ZJz" firstAttribute="leading" secondItem="Tzb-Tz-6zz" secondAttribute="leading" id="hes-dW-P90"/>
-                            <constraint firstItem="RFz-OL-86G" firstAttribute="top" secondItem="VxK-xG-eWv" secondAttribute="bottom" id="iJ6-bU-EMf"/>
                             <constraint firstItem="oIA-4u-P9u" firstAttribute="leading" secondItem="Tzb-Tz-6zz" secondAttribute="leading" id="mHk-TH-3pp"/>
                             <constraint firstAttribute="centerX" secondItem="6gi-Dh-Nxy" secondAttribute="centerX" id="mK9-8b-HNZ"/>
                             <constraint firstAttribute="centerY" secondItem="Se9-jq-7y5" secondAttribute="centerY" id="myr-PZ-J6J"/>
                             <constraint firstAttribute="trailing" secondItem="pLe-hC-ZJz" secondAttribute="trailing" id="nCq-Hj-8ab"/>
-                            <constraint firstAttribute="trailing" secondItem="RFz-OL-86G" secondAttribute="trailing" id="oY0-kh-hf5"/>
-                            <constraint firstItem="pLe-hC-ZJz" firstAttribute="top" secondItem="RFz-OL-86G" secondAttribute="bottom" id="opr-Ap-Nlo"/>
+                            <constraint firstItem="36a-5j-XHE" firstAttribute="top" secondItem="VxK-xG-eWv" secondAttribute="bottom" id="pjd-I9-CuW"/>
                             <constraint firstItem="Se9-jq-7y5" firstAttribute="leading" secondItem="pLe-hC-ZJz" secondAttribute="trailing" constant="-178" id="t5L-6C-81g"/>
                         </constraints>
                     </view>
@@ -555,7 +553,6 @@
                 <searchDisplayController id="Ymv-Gk-DeS">
                     <connections>
                         <outlet property="delegate" destination="3hn-ed-hAL" id="l3Y-e8-fcI"/>
-                        <outlet property="searchBar" destination="RFz-OL-86G" id="HUF-KV-LKb"/>
                         <outlet property="searchContentsController" destination="3hn-ed-hAL" id="mYw-si-ueK"/>
                         <outlet property="searchResultsDataSource" destination="3hn-ed-hAL" id="Ez7-BQ-LQ4"/>
                         <outlet property="searchResultsDelegate" destination="3hn-ed-hAL" id="890-17-J8V"/>
@@ -706,10 +703,10 @@
                                     <constraint firstAttribute="height" constant="50" id="wql-bZ-GIH"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Id-nb-BbE">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Id-nb-BbE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="486"/>
                             </imageView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KQm-sf-qs7">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KQm-sf-qs7">
                                 <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                             </progressView>
                         </subviews>

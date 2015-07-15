@@ -23,6 +23,7 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
     var dataTitle: String!
     var hideActionButton: Bool = true
     let uuid = NSUUID(UUIDString: "DDE7137E-EE5F-4A48-A083-2E48F024F73A")
+    
     var beaconRegion: CLBeaconRegion!
     var bluetoothPeripheralManager: CBPeripheralManager!
     var dataDictionary = NSDictionary()
@@ -139,6 +140,16 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
             }
         }
         alert.addAction(beaconAction)
+        
+        let assignBeaconAction = UIAlertAction(title: "Assign to Beacon", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Assign to Beacon")
+            if self.dataObject != nil {
+                //self.broadcastAsBeacon(self.dataObject!)
+                self.selectBeacon(self.dataObject!, sender: sender)
+            }
+        }
+        alert.addAction(assignBeaconAction)
+
         let mapAction = UIAlertAction(title: "Pin to a Location", style: .Default) { (action: UIAlertAction!) -> Void in
             println("Add geopoint")
             self.performSegueWithIdentifier("addLocationSegue", sender: sender)
@@ -161,6 +172,31 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
     }
     */
 
+    func selectBeacon(dataObject: AnyObject, sender: AnyObject) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        for data in beaconData {
+            if data.UUID != "DDE7137E-EE5F-4A48-A083-2E48F024F73A" {
+                let major = data.major
+                let minor = data.minor
+                let action = UIAlertAction(title: "\(major)-\(minor)", style: .Default, handler: { (action) -> Void in
+                    if let object = dataObject as? PFObject {
+                        object["major"] = major
+                        object["minor"] = minor
+                        object["proximityUUID"] = data.UUID
+                        object.saveInBackground()
+                    }
+                })
+                alert.addAction(action)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+            println("canceled")
+        }
+        alert.addAction(cancelAction)
+        alert.popoverPresentationController?.barButtonItem = sender as! UIBarButtonItem
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func broadcastAsBeacon(dataObject: AnyObject) {
         if bluetoothPeripheralManager.isAdvertising {
             bluetoothPeripheralManager.stopAdvertising()
@@ -174,6 +210,7 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
             if let data = dataObject as? PFObject {
                 data["major"] = String(majorInt)
                 data["minor"] = String(minorInt)
+                data["proximityUUID"] = uuid!.UUIDString
                 data.saveInBackgroundWithBlock({ (succeeded, error) -> Void in
                     
                     let major: CLBeaconMajorValue = UInt16(majorInt)
