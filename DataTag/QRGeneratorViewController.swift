@@ -150,7 +150,7 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
         }
         alert.addAction(assignBeaconAction)
 
-        let mapAction = UIAlertAction(title: "Pin to a Location", style: .Default) { (action: UIAlertAction!) -> Void in
+        let mapAction = UIAlertAction(title: "Assign to GeoPoint", style: .Default) { (action: UIAlertAction!) -> Void in
             println("Add geopoint")
             self.performSegueWithIdentifier("addLocationSegue", sender: sender)
         }
@@ -173,15 +173,13 @@ class QRGeneratorViewController: UIViewController, MFMailComposeViewControllerDe
     */
 
     func selectBeacon(dataObject: AnyObject, sender: AnyObject) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let alert = UIAlertController(title: "Nearby Beacons", message: nil, preferredStyle: .ActionSheet)
         for data in beaconData {
             if data.UUID != "DDE7137E-EE5F-4A48-A083-2E48F024F73A" {
-                let major = data.major
-                let minor = data.minor
-                let action = UIAlertAction(title: "\(major)-\(minor)", style: .Default, handler: { (action) -> Void in
+                let action = UIAlertAction(title: "\(data.major)-\(data.minor)", style: .Default, handler: { (action) -> Void in
                     if let object = dataObject as? PFObject {
-                        object["major"] = major
-                        object["minor"] = minor
+                        object["major"] = data.major
+                        object["minor"] = data.minor
                         object["proximityUUID"] = data.UUID
                         object.saveInBackground()
                     }

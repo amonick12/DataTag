@@ -15,6 +15,7 @@ protocol ImagesDelegate {
     func uploadToDropbox(dataObject: AnyObject)
     func imageRemoved(index: Int, segmentControlIndex: Int)
     func broadcastAsBeacon(dataObject: AnyObject)
+    func shareWithLocation(object: AnyObject, cell: UICollectionViewCell)
 }
 
 class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UIGestureRecognizerDelegate, ImageCollectionViewCellDelegate {
@@ -74,12 +75,20 @@ class ImagesTableViewCell: UITableViewCell, UICollectionViewDelegate, UICollecti
         })
         alertController.addAction(shareImage)
         
-        let beaconAction = UIAlertAction(title: "Broadcast as Beacon", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
-            println("broadcast \(title) as beacon")
-            //self.delegate?.shareWithQRCode(selectedDocument, cell: cell!)
-            self.delegate?.broadcastAsBeacon(selectedImage)
-        })
-        alertController.addAction(beaconAction)
+        if segmentControlIndex == 0 {
+            let locationAction = UIAlertAction(title: "Share with Location", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                self.delegate?.shareWithLocation(selectedImage, cell: cell)
+            })
+            alertController.addAction(locationAction)
+        } else {
+            let beaconAction = UIAlertAction(title: "Broadcast as Beacon", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                println("broadcast \(title) as beacon")
+                //self.delegate?.shareWithQRCode(selectedDocument, cell: cell!)
+                self.delegate?.broadcastAsBeacon(selectedImage)
+            })
+            alertController.addAction(beaconAction)
+
+        }
         
         let addToDropbox = UIAlertAction(title: "Add to Dropbox", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
             println("add \(title) to Dropbox")

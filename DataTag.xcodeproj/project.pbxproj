@@ -337,6 +337,7 @@
 		003FE3661B3103D800012D09 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = DataTag;
 				TargetAttributes = {

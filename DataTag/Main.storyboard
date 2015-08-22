@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nzl-zE-Xpf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nzl-zE-Xpf">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -373,6 +373,7 @@
                         <segue destination="3j3-GQ-lVK" kind="presentation" identifier="addURLSegue" id="vyy-rh-tcx"/>
                         <segue destination="oPq-xR-LtL" kind="presentation" identifier="webpageSegue" id="PRl-oK-Te1"/>
                         <segue destination="EEt-Ag-bUa" kind="presentation" identifier="showMapSegue" id="RLD-Te-PDJ"/>
+                        <segue destination="3hn-ed-hAL" kind="presentation" identifier="addLocationSegue" id="wbG-eT-IHP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="okm-BK-ifM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1566,5 +1567,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Fjw-XP-NEj"/>
         <segue reference="9da-dY-dbE"/>
+        <segue reference="wbG-eT-IHP"/>
     </inferredMetricsTieBreakers>
 </document>

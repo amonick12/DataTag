@@ -123,6 +123,9 @@ class MainViewController: UITableViewController {
             let destination = segue.destinationViewController as! UINavigationController
             let root = destination.visibleViewController as! ConfirmURLViewController
             root.delegate = self
+        } else if segue.identifier == "addLocationSegue" {
+            let destination = segue.destinationViewController as! AddLocationViewController
+            destination.delegate = self
         }
     }
 
@@ -384,6 +387,65 @@ class MainViewController: UITableViewController {
 
 extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDelegate, WebpagesDelegate, CBPeripheralManagerDelegate {
     
+    func shareWithLocation(object: AnyObject, cell: UICollectionViewCell) {
+        self.selectedObject = object
+        
+        println("Share with Location Pressed")
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let beaconAction = UIAlertAction(title: "Broadcast as Beacon", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Broadcast as Beacon")
+            self.broadcastAsBeacon(object)
+        }
+        alert.addAction(beaconAction)
+        
+        let assignBeaconAction = UIAlertAction(title: "Assign to Beacon", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Assign to Beacon")
+            self.selectBeacon(object, sender: cell)
+        }
+        alert.addAction(assignBeaconAction)
+        
+        let mapAction = UIAlertAction(title: "Assign to GeoPoint", style: .Default) { (action: UIAlertAction!) -> Void in
+            println("Add geopoint")
+            self.performSegueWithIdentifier("addLocationSegue", sender: cell)
+        }
+        alert.addAction(mapAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+            println("canceled")
+        }
+        alert.addAction(cancelAction)
+        //alert.popoverPresentationController?.barButtonItem = sender as! UIBarButtonItem
+        alert.popoverPresentationController?.sourceView = cell
+        alert.popoverPresentationController?.sourceRect = cell.bounds
+        
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
+    func selectBeacon(dataObject: AnyObject, sender: AnyObject) {
+        let alert = UIAlertController(title: "Nearby Beacons", message: nil, preferredStyle: .ActionSheet)
+        for data in beaconData {
+            if data.UUID != "DDE7137E-EE5F-4A48-A083-2E48F024F73A" {
+                let action = UIAlertAction(title: "\(data.major)-\(data.minor)", style: .Default, handler: { (action) -> Void in
+                    if let object = dataObject as? PFObject {
+                        object["major"] = data.major
+                        object["minor"] = data.minor
+                        object["proximityUUID"] = data.UUID
+                        object.saveInBackground()
+                    }
+                })
+                alert.addAction(action)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action: UIAlertAction!) -> Void in
+            println("canceled")
+        }
+        alert.addAction(cancelAction)
+        alert.popoverPresentationController?.sourceView = sender as! UICollectionViewCell
+        alert.popoverPresentationController?.sourceRect = (sender as! UICollectionViewCell).bounds
+        presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func broadcastAsBeacon(dataObject: AnyObject) {
         if bluetoothPeripheralManager.isAdvertising {
             bluetoothPeripheralManager.stopAdvertising()
@@ -392,8 +454,8 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
         if bluetoothPeripheralManager.state == CBPeripheralManagerState.PoweredOn {
             
             let max = UINT16_MAX.toIntMax()
-            let majorInt = Int(arc4random_uniform(UInt32(max))) + 1
-            let minorInt = Int(arc4random_uniform(UInt32(max))) + 1
+            let majorInt = Int(arc4random_uniform(UInt32(max)))
+            let minorInt = Int(arc4random_uniform(UInt32(max)))
             if let data = dataObject as? PFObject {
                 data["major"] = String(majorInt)
                 data["minor"] = String(minorInt)
@@ -408,7 +470,6 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
                     println("broadcasting...")
                     println("major: \(majorInt)")
                     println("minor: \(minorInt)")
-                    //self.isBroadcasting = true
                 })
             }
             
@@ -419,19 +480,6 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
             alert.addAction(action)
             presentViewController(alert, animated: true, completion: nil)
         }
-        //if !isBroadcasting {
-        
-//        } else {
-//            bluetoothPeripheralManager.stopAdvertising()
-//            
-////            btnAction.setTitle("Start", forState: UIControlState.Normal)
-////            lblStatus.text = "Stopped"
-////            txtMajor.enabled = true
-////            txtMinor.enabled = true
-//            isBroadcasting = false
-//        }
-
-        
     }
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
@@ -443,7 +491,6 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
             
         case CBPeripheralManagerState.PoweredOff:
             if bluetoothPeripheralManager.isAdvertising {
-                //switchBroadcastingState(self)
                 bluetoothPeripheralManager.stopAdvertising()
             }
             statusMessage = "Bluetooth Status: Turned Off"
@@ -461,7 +508,6 @@ extension MainViewController: DBRestClientDelegate, DocumentsDelegate, ImagesDel
             statusMessage = "Bluetooth Status: Unknown"
         }
         println("Bluetooth status: \(statusMessage)")
-        //lblBTStatus.text = statusMessage
     }
 
     func uploadToDropbox(dataObject: AnyObject) {
@@ -649,8 +695,20 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
 }
 
-extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate, BeaconDataTableViewControllerDelegate, MapViewControllerDelegate {
+extension MainViewController: UIPopoverPresentationControllerDelegate, AddDocumentDelegate, ConfirmImageDelegate, ScanDelegate, ConfirmURLDelegate, BeaconDataTableViewControllerDelegate, MapViewControllerDelegate, AddLocationViewControllerDelegate {
     
+    func locationAdded(location: CLLocationCoordinate2D, radius: Int) {
+        println("lat: \(location.latitude)")
+        println("long: \(location.longitude)")
+        println("range \(radius)")
+        let point = PFGeoPoint(latitude: location.latitude, longitude: location.longitude)
+        if let data = selectedObject as? PFObject {
+            data["geoPoint"] = point
+            data["range"] = radius
+            data.saveInBackground()
+        }
+    }
+
     func showQRCode(sender: UICollectionViewCell) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("QRNav") as! QRNavViewController
